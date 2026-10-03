@@ -72,7 +72,7 @@ def run_recorded(argv: list[str], directory: Path, *, cwd: Path = ROOT) -> int:
                 env={**os.environ, "PYTHONUNBUFFERED": "1"},
             )
             assert process.stdout is not None
-            for chunk in iter(lambda: process.stdout.read(4096), b""):
+            for chunk in iter(lambda: process.stdout.read1(4096), b""):
                 log.write(chunk)
                 sys.stdout.buffer.write(chunk)
                 sys.stdout.buffer.flush()

@@ -1,7 +1,7 @@
 # coding=utf-8
 """MinExplain 实例表示与统一接口（纯函数，零 IO）。
 
-记号严格照 theorems_draft.tex Definition 1.1--1.3：
+记号严格照 开发稿（公开说明见 docs/MINEXPLAIN.md） Definition 1.1--1.3：
   V = {0,...,n-1}    违反集（用整数索引）
   R = {0,...,m-1}    知识/异常表征集（候选），先验代价 w_r >= 0
   d(v,r) in [0, +inf]  匹配距离，类型不匹配记 +inf
@@ -148,7 +148,7 @@ def cheapest_assignment(inst: MinExplainInstance, E: Sequence[int]) -> Tuple[Lis
     """给定已开设表征集 E，为每个 v 选 E∩L(v) 中距离最小的表征（min_a Cost(E,a) 口径）。
 
     返回 (assignment, cost)。若某 v 无法被 E 覆盖，assignment[v]=None 且 cost=+inf。
-    这是 theorems_draft.tex T4(ii) 中 Cost(F)=min_a Cost(F,a) 的实现。
+    这是 开发稿（公开说明见 docs/MINEXPLAIN.md） T4(ii) 中 Cost(F)=min_a Cost(F,a) 的实现。
     """
     E_set = set(E)
     assignment: List[Optional[int]] = [None] * inst.n

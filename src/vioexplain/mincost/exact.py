@@ -1,7 +1,7 @@
 # coding=utf-8
 """小实例精确求解：ILP（pulp/CBC 后端，OR-Tools 可选）+ 暴力枚举（对拍）。纯函数，零 IO。
 
-theorems_draft.tex §T3 的 (P)：
+开发稿（公开说明见 docs/MINEXPLAIN.md） §T3 的 (P)：
   min Σ_r w_r x_r + Σ_v Σ_{r∈L(v)} d(v,r) y_{vr}
   s.t. Σ_{r∈L(v)} y_{vr} >= 1        ∀v
        y_{vr} <= x_r                 ∀v, r∈L(v)

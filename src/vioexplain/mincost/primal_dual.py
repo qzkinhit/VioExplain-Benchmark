@@ -1,7 +1,7 @@
 # coding=utf-8
 """T3 一遍 primal-dual（local-ratio）算法，O(N)，代价 <= f·OPT。
 
-theorems_draft.tex §T3（Theorem T3 + Lemma pd-invariants）。
+开发稿（公开说明见 docs/MINEXPLAIN.md） §T3（Theorem T3 + Lemma pd-invariants）。
 Bar-Yehuda--Even 局部比率法向带指派代价的推广。维护残余权 w~_r（初始化 w_r）。
 按任意固定顺序遍历每个 v：
   1. t_v = min_{r∈L(v)} (w~_r + d(v,r))，取到最小的 r*_v；

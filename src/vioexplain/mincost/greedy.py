@@ -1,8 +1,9 @@
 # coding=utf-8
 """T2 密度贪心（懒惰堆实现），T7(c) 复杂度。
 
-theorems_draft.tex Definition 2.2（density greedy）+ Lemma 2.1（prefix optimality）
-+ Lemma unimodal（prefix density 单峰，二分找最小）+ Theorem T7c（懒惰堆 O(N(log m+logΔ)+n log n)）。
+公开说明见 docs/MINEXPLAIN.md。固定候选的最优子集是距离排序前缀，
+前缀密度单峰。当前实现会重扫候选支持，不能按近线性堆操作估算：
+构图后时间为 O(m+n+N log(Δ+1)+(N+n)(Δ+log(m+1)))。
 
 每轮在所有 (r, S)（S ⊆ cover(r)∩alive）中选密度
     rho(r,S) = (w_r + Σ_{v∈S} d(v,r)) / |S|

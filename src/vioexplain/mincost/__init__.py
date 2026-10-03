@@ -1,7 +1,7 @@
 # coding=utf-8
 """MinExplain 最小代价覆盖（带指派代价）的升级算法与精确求解。
 
-事实源：docs/theory_drafts/theorems_draft.tex（T1--T7）+ docs/IDEA_THEORY_BLUEPRINT.md §3--§5。
+公开目标、假设和实现复杂度说明见 docs/MINEXPLAIN.md。T1至T7为开发时期的命题编号。
 本包为纯函数方法层，零 IO（不读文件、不 print、不落盘），供 experiments/ 薄壳脚本编排。
 
 统一问题实例与接口（见 core.py）：

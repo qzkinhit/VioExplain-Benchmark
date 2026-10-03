@@ -19,3 +19,5 @@
 ## 2026-10-04
 
 Separate `result/` and `log/` directories. Command wrappers now preserve failed exits, console output and source hashes in unique run directories. Released numerical artifacts are unchanged; 43 remote CPU tests and artifact-integrity checks passed.
+
+The streaming wrapper flushes each available child output chunk before process exit. MinExplain documentation now states the support-rescan runtime bound and exposes implementation assumptions without references to private paper files. Numerical solvers are unchanged.

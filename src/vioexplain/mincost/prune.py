@@ -1,7 +1,7 @@
 # coding=utf-8
 """T7(a) 聚合支配剪枝 + T7(b) 安全迫选（唯一覆盖必选）。纯函数，零 IO。
 
-theorems_draft.tex：
+开发稿（公开说明见 docs/MINEXPLAIN.md）：
   T7(a) Theorem 7.1（dominance）：若 cover(r1) ⊆ cover(r2) 且
       w_{r1} >= w_{r2} + Σ_{v∈cover(r1)} [d(v,r2) - d(v,r1)]_+     ... (eq:dom)
     则删 r1 不改变最优值（交换论证）。逐点形式（w_{r1}>=w_{r2} 且逐 v d(v,r1)>=d(v,r2)）为特例。
