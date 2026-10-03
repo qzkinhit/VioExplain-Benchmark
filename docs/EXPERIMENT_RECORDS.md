@@ -23,3 +23,5 @@ python -m run_vioexplain.logged_runner formal statistical \
 每次执行使用新的日志ID。返回非零退出码时保留日志，不创建科学验证成功标记。运行配置、模型身份和数据划分一旦变更，应使用新结果目录，保留原失败和选择历史。只有论文对应的方法协议锁定后，才能进行独立校准和测试。
 
 公开前要将用户路径转换为相对路径并审查敏感字段，同时保留原日志哈希与脱敏说明。不能把本地`log/remote`和整个`result/research`直接上传。
+
+研究运行器可用`vioexplain.utils.array_audit.ArrayAccessAudit`记录声明输入及本轮创建的数组。它允许读取自己写出的工件以核对SHA，拒绝未声明数据及未登记的旧输出；这项防误读检查不能代替数据散列、窗口身份和分区核验。

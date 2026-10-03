@@ -1,7 +1,7 @@
 {
   "date": "2026-10-04",
   "execution_host": "remote Linux CPU server",
-  "unit_tests_passed": 44,
+  "unit_tests_passed": 48,
   "smoke_and_prototype_smoke": "passed with independent execution logs",
   "result_integrity": {
     "completed_runs": 9,
@@ -12,5 +12,6 @@
   },
   "result_numeric_content_changed": false,
   "research_experiment_rerun": false,
-  "additional_streaming_check": "Progress is saved before child process exits; three execution-log checks passed on remote CPU."
+  "additional_streaming_check": "Progress is saved before child process exits; three execution-log checks passed on remote CPU.",
+  "array_access_checks": "Four remote tests: input reads, own generated output roundtrip/hash, undeclared prior/holdout rejection, symlink escape rejection."
 }
