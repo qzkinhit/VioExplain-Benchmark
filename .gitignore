@@ -21,3 +21,12 @@ results_and_logs/verification/
 .verification-deps/
 .installed/
 vendor/
+
+# Private research artifacts are never part of this public benchmark.
+/paper/
+/paper_tii/
+/paper_zh/
+/paper_zh_word/
+/history/
+/original_materials/
+/materials_original/
