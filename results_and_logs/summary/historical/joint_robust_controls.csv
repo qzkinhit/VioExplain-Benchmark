@@ -1,0 +1,13 @@
+method,case,support_precision,support_recall,support_f1,n_extra_edits,n_predicted
+prefix_robust_z_top1,clean_negative,0.0,0.0,0.0,1.0,1.0
+prefix_robust_z_top1,common_mode_state_control,0.0,0.0,0.0,1.0,1.0
+prefix_robust_z_top1,measurement_highcorr,1.0,1.0,1.0,0.0,1.0
+prefix_robust_z_top1,measurement_lowcorr,0.5,0.5,0.5,0.5,1.0
+prefix_robust_z_top3,clean_negative,0.0,0.0,0.0,3.0,3.0
+prefix_robust_z_top3,common_mode_state_control,0.0,0.0,0.0,3.0,3.0
+prefix_robust_z_top3,measurement_highcorr,0.3333333333333333,1.0,0.5,2.0,3.0
+prefix_robust_z_top3,measurement_lowcorr,0.26041666666666663,0.78125,0.390625,2.21875,3.0
+prefix_robust_z_variable,clean_negative,1.0,1.0,1.0,0.0,0.0
+prefix_robust_z_variable,common_mode_state_control,0.0,0.0,0.0,1.90625,1.90625
+prefix_robust_z_variable,measurement_highcorr,0.90625,0.90625,0.90625,0.0,0.90625
+prefix_robust_z_variable,measurement_lowcorr,0.0,0.0,0.0,0.0,0.0

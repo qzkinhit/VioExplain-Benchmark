@@ -1,0 +1,6 @@
+{
+  "purpose": "synthetic_smoke_only",
+  "theta": 0.6,
+  "fixture": "vioexplain.cli.smoke",
+  "produces_paper_results": false
+}

@@ -1,0 +1,186 @@
+{
+  "method": "TreeSHAP-IsolationForest",
+  "official_software": "https://github.com/shap/shap",
+  "shap_version": "0.46.0",
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "fit_fraction": 0.6,
+  "n_trees": 200,
+  "attribution": "TreeExplainer(tree_path_dependent), mean absolute contributions of <=30 evenly spaced event points",
+  "candidate_dimensions": "all38",
+  "source_sha256": "947b481c6f261e7803664ae19c3caafd6b160b7c5ced7af2d8d0d24d232c4f67",
+  "target_explained": "Isolation Forest expected path length; not a causal model",
+  "data": {
+    "machine-1-1": {
+      "data/smd/train/machine-1-1.txt": "ecebd2933ccdc1126e2abbfb538762dbde16410cebc77257a7b96e1e1fbcf753",
+      "data/smd/test/machine-1-1.txt": "bdb801d8d52ce6b0c4a20c310edf31b5cee9bc82eb84fb38e7d4a19309b16ddb",
+      "data/smd/test_label/machine-1-1.txt": "cddf33441ae480c6074e173c897d4715eb893f24a7078d3d3e1b79b200c7cd19",
+      "data/smd/interpretation_label/machine-1-1.txt": "ea2b75dacb9cd140d81962203b18706e8e85d70c87dcced69746a37ba133fa48"
+    },
+    "machine-1-2": {
+      "data/smd/train/machine-1-2.txt": "7f6f63ec34ce616c87b4c30d66fd52ad1b21149634ae3ff7bb1827a76d6ef79a",
+      "data/smd/test/machine-1-2.txt": "f409991af7c049d3f286a8cf89dc2fa99114bea8753f6c3aea4bd24cb03eb015",
+      "data/smd/test_label/machine-1-2.txt": "c2dbb3e4f89c9eb48f30fd1ddae48b80e7ae7ad7ca9abf2ffd71b6557ef2bb20",
+      "data/smd/interpretation_label/machine-1-2.txt": "761b4b339a14d4781f34a3cd03fb3d983b01e3bece3f638fa21bb887128d3a11"
+    },
+    "machine-1-3": {
+      "data/smd/train/machine-1-3.txt": "a4ef16a49d921e0ba9497ce2690d3833eb4a85f9a8a88392de4c3fde42e413ac",
+      "data/smd/test/machine-1-3.txt": "f3c134d45ffa7aed66587dba893111396c8c7ea3b6fa7f76895955b26b1a75ef",
+      "data/smd/test_label/machine-1-3.txt": "755d57179625682172ae85f9483749cff576ff3282d0af294271a40ab6ea7b28",
+      "data/smd/interpretation_label/machine-1-3.txt": "dbe9970c43e64445b89211f26eb13f0eccb4da869deaea298218d7c094672c8f"
+    },
+    "machine-1-4": {
+      "data/smd/train/machine-1-4.txt": "2ec56c43f91684aa4751a6b72d359669266712dd69bdc7efda3dc60c0ade1156",
+      "data/smd/test/machine-1-4.txt": "98ade00e57eac63e8f81a506a8e848803b58590835ab2b3cf53d1f0459900bd3",
+      "data/smd/test_label/machine-1-4.txt": "a470a3f7b66ec3d080fc5ee3d9565e0f3bfcfa16a1650259f771736327fa9a8b",
+      "data/smd/interpretation_label/machine-1-4.txt": "25978fb0b28261b327a6a50e21ec0c7a232b6a2ad796b1a023b7bfc3d3c19c8a"
+    },
+    "machine-1-5": {
+      "data/smd/train/machine-1-5.txt": "69061055f43413863434cb9c0424c14b13a7a0817056a8fd9439e53dc365fc0b",
+      "data/smd/test/machine-1-5.txt": "98b8979f21b4b68c7308f38dd093b9bff4275814578365103c692f28f60f61c5",
+      "data/smd/test_label/machine-1-5.txt": "e7e2e611e12b5e9e2558ed955ad271f1f408fbdd7fbbfdfc72eb745ade567815",
+      "data/smd/interpretation_label/machine-1-5.txt": "c3ab9437aeb07763bba39298dc99905a9365f27f441411d979a9bb66e26a53e9"
+    },
+    "machine-1-6": {
+      "data/smd/train/machine-1-6.txt": "27e1765c04c2a5d08f39d98e7979e7764886fc733c36382fe081157a5ac0b9d8",
+      "data/smd/test/machine-1-6.txt": "0797fe4bfd25ef13c830955cb9f2a36b4c9d5da265b8e91702408b6b048267f4",
+      "data/smd/test_label/machine-1-6.txt": "8359ffa67b5421b0b9967ccf396a58c7b3bf52fa24c3f95e6b9df6486f1d6365",
+      "data/smd/interpretation_label/machine-1-6.txt": "2cc68339b99fbf9ec0891c2a081c2d05ee04087a766d6200572fc74e99867f8f"
+    },
+    "machine-1-7": {
+      "data/smd/train/machine-1-7.txt": "dddb9f770bdb8b1b952263e0cc4f000b6f8ec612941dd3eb7a303994f257edf8",
+      "data/smd/test/machine-1-7.txt": "785a3f542ef6ac171a3af55c534f9ca598d53fa0371010172c72e33af4588d16",
+      "data/smd/test_label/machine-1-7.txt": "24b3ce00bf2c56b571775a2b28d4e50ed27d050d77a031fa16c11ef3e51809b8",
+      "data/smd/interpretation_label/machine-1-7.txt": "3a272c538dce66358e9d8f7c18f62f14c652ffb1e52dfc18464cd092860a363b"
+    },
+    "machine-1-8": {
+      "data/smd/train/machine-1-8.txt": "3b46e9754ec06bebd0bf3fe68dbe28b2a4b67298e795c9501d97f42083e337fc",
+      "data/smd/test/machine-1-8.txt": "b8784c3b4169f8a0a2ed9f47b00070d72ed214dae0307553b8cfdb80c712d779",
+      "data/smd/test_label/machine-1-8.txt": "8019476032c4c5b4b80127cfb9e74ee7d57fbbd558aa15097518713e16463a47",
+      "data/smd/interpretation_label/machine-1-8.txt": "0908b5d09296f8379a70c055fdf7e5ebd5f19419e886eab7fca0c766512187ae"
+    },
+    "machine-2-1": {
+      "data/smd/train/machine-2-1.txt": "d6eb13ff74a537cf33686319fffdd4cdcb394862570a3acd519b4c37af97cd2e",
+      "data/smd/test/machine-2-1.txt": "2d103661799271be958227907950a1c76803356442d60a4070671cc0abbefb20",
+      "data/smd/test_label/machine-2-1.txt": "416dd20a447f38b8d9394382293ed44f509c1c3f99c4aa2fbff179498626dbdc",
+      "data/smd/interpretation_label/machine-2-1.txt": "fe4e3a67039d46045b9a3b18fd4dd6138f5c228447fcefb0c5f4beb1f46ede37"
+    },
+    "machine-2-2": {
+      "data/smd/train/machine-2-2.txt": "e2e0f52994c8c884f9552c6289e42268d9d988ba7c7abadcc0d8dcd8ba993c30",
+      "data/smd/test/machine-2-2.txt": "1cb0dd0a4b8738b184c62bb07700e6800e029f7a76a715fe0ee147c603b2f2c8",
+      "data/smd/test_label/machine-2-2.txt": "b09e71b3aafe71d9ee73a4058b30efcf67dc80df98d3b7b7a8ec019ea3b769c4",
+      "data/smd/interpretation_label/machine-2-2.txt": "a27f31facae7a9948ab6ba4ce039271df95763c53c1de7f7db699c317db7b233"
+    },
+    "machine-2-3": {
+      "data/smd/train/machine-2-3.txt": "d2b0fc37d08cb727438598a1b09ced94f71f7792a9b4d057242e2ce8f2580e13",
+      "data/smd/test/machine-2-3.txt": "eaa24c78ff438eec2f847c09eb4de6ab8dbe8a0bb8d77b52ac4ecdee5bd21a7d",
+      "data/smd/test_label/machine-2-3.txt": "5768ce5280cb5ce4bee6d8bb3c7105819574d5e82f7d517d61495efa9d4f566e",
+      "data/smd/interpretation_label/machine-2-3.txt": "2ae064468235de25955439978c56d8fb217bf4682eab73636834e9d69086a777"
+    },
+    "machine-2-4": {
+      "data/smd/train/machine-2-4.txt": "077a5c18649b9d260d8dcbd4cfbf10b16cb83719a52013410cf3b5dc6a802fa6",
+      "data/smd/test/machine-2-4.txt": "85ba3101b9ab6a7684cd897b2d4c78e85caa6f5ef1c4f0e153479f4fca01cf38",
+      "data/smd/test_label/machine-2-4.txt": "c26a6dabfd2ab4aec34c40919100e13e52e17ad0e6b702dd038f582b2c633b01",
+      "data/smd/interpretation_label/machine-2-4.txt": "b559b694af8d02d23714ea74c526e85f951e1b57b0cb9d59dcd677da84947327"
+    },
+    "machine-2-5": {
+      "data/smd/train/machine-2-5.txt": "940cdf20a8345fdeeb8043efd7ce9f7506fe0e7f5f89f8b50edf19b61b304136",
+      "data/smd/test/machine-2-5.txt": "842588acfb9299735a785757fcadd98cc7f69b6a511d28e54e1af05c5e95137b",
+      "data/smd/test_label/machine-2-5.txt": "9966e4092bece4e0ef60ef54d85396c49c22da64334aad82a9fc2f3842d2ef15",
+      "data/smd/interpretation_label/machine-2-5.txt": "7a83c2c8058f60c76c9b57cdeafb857594fc92c09f77fe704d2910f554b1cd87"
+    },
+    "machine-2-6": {
+      "data/smd/train/machine-2-6.txt": "dc30adaef939060aebea3836c691e3d1bb47da593fa43553acbc52c6825dc8ae",
+      "data/smd/test/machine-2-6.txt": "c895144b7c7fb1ff960f506132d5aeefebce4325efad908d071fb7df5b3b1cf1",
+      "data/smd/test_label/machine-2-6.txt": "6fe3dd209542dc6a20879618c40ef6f5d55ce60f2da2902c311d9f0fff3c1ee0",
+      "data/smd/interpretation_label/machine-2-6.txt": "31f40cffdcc5ff99f00eb605fcfc30fe1fe80b4a59aef6567110cbd3d27e9074"
+    },
+    "machine-2-7": {
+      "data/smd/train/machine-2-7.txt": "32e9d88b18bf1b377a2bd0a6d5de2a766f36c58781e76dbe2491b0347557dec2",
+      "data/smd/test/machine-2-7.txt": "58c3dfd109437ccbedab9d36608d32874c2ae5473484c5941f85349baf32cef8",
+      "data/smd/test_label/machine-2-7.txt": "d9d7aceca750277dd28883f7b5b34da3653652ea9c96de78baa84daeebc4a9b7",
+      "data/smd/interpretation_label/machine-2-7.txt": "61b6ffc489cc22c3c08c514c59dde1bc6a0f3991cc964aff0626555e151241fe"
+    },
+    "machine-2-8": {
+      "data/smd/train/machine-2-8.txt": "01ae9289566e3518cf738518a25edb0812f889e8ed1dada057f4693ac5dda23c",
+      "data/smd/test/machine-2-8.txt": "846207955c546f0c3ea57aa7032b8e3c207ad67632a0605c8273f182059d1a72",
+      "data/smd/test_label/machine-2-8.txt": "22fbe94e06e56b6035fcc10383bac90d84ff4604f9063009a3940747f92d8105",
+      "data/smd/interpretation_label/machine-2-8.txt": "9d8a9f766645f5cca4c9dd48cbeea15db5defe872c0e6eb002e575a9c381c844"
+    },
+    "machine-2-9": {
+      "data/smd/train/machine-2-9.txt": "465db893338b6f14985dd30ac2ff20a319246bb8584cd0a9a4aaacf52cbc2f1f",
+      "data/smd/test/machine-2-9.txt": "8d93ccd1a6606de3f665cb2e905d206b60ad2b2a58f47e9561b9bb67a2cd4f28",
+      "data/smd/test_label/machine-2-9.txt": "eab9425847aa5c7c63485047a49b1bfc9cf44ed88a0d1be84e2fd0a16d0ba895",
+      "data/smd/interpretation_label/machine-2-9.txt": "253ca7dab14449f92c7ee08a270b0627808c5dc715ff39ded1cc492ef62fce52"
+    },
+    "machine-3-1": {
+      "data/smd/train/machine-3-1.txt": "c1186ac085809c0590467dd42f4f12180012ebd994c1e615250dbed2a3588111",
+      "data/smd/test/machine-3-1.txt": "b110b204ba4919250351eba7aa253d73ab54af0cf18e272b9b284de5fa7df88d",
+      "data/smd/test_label/machine-3-1.txt": "549348a9c63ed922e85157885bcb21289a8c9f5af94b50147a21cb7b928220ec",
+      "data/smd/interpretation_label/machine-3-1.txt": "52f67a2be8538138b614850392a232b3f96c9eda987eba41aa2c31b534fd3e2f"
+    },
+    "machine-3-10": {
+      "data/smd/train/machine-3-10.txt": "8f8258b3a85fe8aa5badb05e66b0cdd3405be5f180f0d418bc24c30503207fd2",
+      "data/smd/test/machine-3-10.txt": "febaf197d4a8864f3a70a5e5c0926d6dab8f1b515cf0d90d31ee81a22d80392f",
+      "data/smd/test_label/machine-3-10.txt": "d2b87c9c1d1950f0b29eaca0edf4706b917984799f6d9b5c1472435832fe3abd",
+      "data/smd/interpretation_label/machine-3-10.txt": "cd1f1df76a273f3df12bc5389850a0376a361256e0a9ebd6014e08e216661eb7"
+    },
+    "machine-3-11": {
+      "data/smd/train/machine-3-11.txt": "a2e531cf2bf9b8d833a0b6e7c42a596b1d3a64578a1c140537add46156bde4e9",
+      "data/smd/test/machine-3-11.txt": "c62f52e65d1b892ef8c556b38aa5c1d3504cf0cdd97a94e7df08985b922d7af0",
+      "data/smd/test_label/machine-3-11.txt": "ce306777bd66e9ea81de726018e440d49afcc98415cb0db7d99367dddf398f1b",
+      "data/smd/interpretation_label/machine-3-11.txt": "ebfd4cd3802c4813de72003d5cee76905c9912d5c0f81403708881e187d27083"
+    },
+    "machine-3-2": {
+      "data/smd/train/machine-3-2.txt": "7cabed178422f7772425c6cabc3c20a1f7dedc3ab2a950f90a9edfcef3b5b3e3",
+      "data/smd/test/machine-3-2.txt": "5f83ded5fbfb9b682030bdd7dd82eb53a77f9caa3773ddcc7e38db73c25db46e",
+      "data/smd/test_label/machine-3-2.txt": "1bbf4223cc6083f718f1d6022e2a48d48af44b08cdfa80048aa51af34d5111c3",
+      "data/smd/interpretation_label/machine-3-2.txt": "3b76375af29ae9bd873f0746650d293cdb043235953c7b3ca19d893971a44c69"
+    },
+    "machine-3-3": {
+      "data/smd/train/machine-3-3.txt": "6bbad775c6ef6319abba08aaa6faa2befb2cd570f9db85b80413ae6fdf1047a4",
+      "data/smd/test/machine-3-3.txt": "ecc3140ce24869a44ebac9b03ca372fb1a6eb7e5bde96946f1a350283d4b152a",
+      "data/smd/test_label/machine-3-3.txt": "4e2c657f613759f11f167c5540d047723d41d8a3c76467fa4daafcc8a7112035",
+      "data/smd/interpretation_label/machine-3-3.txt": "25da8eda22a12fedc4a3009351d6bbbfa45ed5d5f7b7aaec458840bae2378239"
+    },
+    "machine-3-4": {
+      "data/smd/train/machine-3-4.txt": "a27a88c5d96c3384e07776dd2ced9956f7ea78b1070b87786352bc6024129d72",
+      "data/smd/test/machine-3-4.txt": "07e1b43e20b7d8300fcd4b4f45ea47ea8c851f3dbd7d1fe971139c32f039357e",
+      "data/smd/test_label/machine-3-4.txt": "5c1f09b85c53d1936eff1e044c5f7413b07f10fd641934b4aba9b2669485b7be",
+      "data/smd/interpretation_label/machine-3-4.txt": "0a43f6c9ca99345a95ad7de615f275c72692c905e9e92061cdf28ce488a390fc"
+    },
+    "machine-3-5": {
+      "data/smd/train/machine-3-5.txt": "7eb4f157d5aace0f5758c8035a4cc90445fc0d3ae59c57b1bf00d7e62c363bba",
+      "data/smd/test/machine-3-5.txt": "85dbb13b3076981ad917f42081b71a1440d8b2aafd9bee626f0d1cacff43fcd6",
+      "data/smd/test_label/machine-3-5.txt": "8a17a0dff8cc0062124997d665a2055cc1c08daffffb9a63ccfd21f7d10bea8f",
+      "data/smd/interpretation_label/machine-3-5.txt": "baf251f03b57247b4f15f77e48f5238beb16a429c6211d599a825c69c23f6d96"
+    },
+    "machine-3-6": {
+      "data/smd/train/machine-3-6.txt": "88b8164dccfe67704e83c0919aa40bf1d4b8d682aff0b947d4cdd1ec4f900b84",
+      "data/smd/test/machine-3-6.txt": "04f746a4dde41adbfe5727c6ff77839d1b0b21d6d65bdb0253557e0391c5d44c",
+      "data/smd/test_label/machine-3-6.txt": "2bef9db1d998172c61008f593a7537377179ef4f24963001203c1e48345e9b61",
+      "data/smd/interpretation_label/machine-3-6.txt": "add62013ecd204670dedf2f0b4c4960ccbcbecf77088dd7712e4714c6311d7f6"
+    },
+    "machine-3-7": {
+      "data/smd/train/machine-3-7.txt": "5eb1f16e62c30eb498e968b2c6da3e8f60c8367e264f771245a970362d7d8574",
+      "data/smd/test/machine-3-7.txt": "a4588c1f39905d03bd24fce65052e7b175fba336d081843325ef780c9ed8cdad",
+      "data/smd/test_label/machine-3-7.txt": "80b3a19dfd0af2d800c2388474543bdcb723ba582b0f4a986d68f920b757c73c",
+      "data/smd/interpretation_label/machine-3-7.txt": "55534eeb66ba496b494c8bac83fe6102d45308bfd2411d152a633d003a20b0c2"
+    },
+    "machine-3-8": {
+      "data/smd/train/machine-3-8.txt": "414ba622ae70118948a3940009ce4e90580b494ea07f9e03893c26e102edd855",
+      "data/smd/test/machine-3-8.txt": "fa79d5dad3a703fbc13faf0eab26d9466b74789f2bb0d22776f2adaa4236f085",
+      "data/smd/test_label/machine-3-8.txt": "dc834a5b5e9a194f5367423c29410afcb622e0e47d7d3362979dd280de713220",
+      "data/smd/interpretation_label/machine-3-8.txt": "7dda43ca582298295fc84348fd577f7f8b0c6ab67be94bf1e8f9adcf1f26992b"
+    },
+    "machine-3-9": {
+      "data/smd/train/machine-3-9.txt": "7896b57b65da1d48ee992ba128fb914ae7e6d2bef8ea4ed8df039657fc017468",
+      "data/smd/test/machine-3-9.txt": "5a8968c269a8a3562e54235aa05344b262f44829c2bae04cf9f5d364f388310d",
+      "data/smd/test_label/machine-3-9.txt": "bdaf308affb4653e3e5826177e7e27c883294d2fa8cf48364850ef5a4dac2282",
+      "data/smd/interpretation_label/machine-3-9.txt": "8f1e4987c967faefb63ad7ebd9d6f01101507e3d908336e4e86bde33b1cb8acb"
+    }
+  }
+}

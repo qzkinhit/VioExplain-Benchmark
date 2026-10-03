@@ -1,0 +1,11 @@
+method,fault_candidate_recall,top1_among_candidate_present_fault_windows,zero_candidate_windows,normal_windows
+aec_adapted_frozen_chronos2,0.75,0.17989417989417988,11,15
+aec_adapted_interval,0.75,0.1746031746031746,11,15
+aec_adapted_raw_temporal,0.75,0.1693121693121693,11,15
+aec_prototype_relaxed,0.75,0.19576719576719576,11,15
+aec_prototype_strict,0.1865079365079365,0.425531914893617,59,15
+minexplain_frozen_chronos2,0.75,0.5185185185185185,11,15
+minexplain_interval,0.75,0.3439153439153439,11,15
+minexplain_raw_temporal,0.75,0.43915343915343913,11,15
+svm_statistics,1.0,0.5357142857142857,0,15
+svm_window_pca,1.0,0.25396825396825395,0,15

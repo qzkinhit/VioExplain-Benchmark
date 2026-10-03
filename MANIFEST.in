@@ -1,0 +1,13 @@
+include LICENSE CITATION.cff CHANGELOG.md README.md README_zh.md THIRD_PARTY_NOTICES.md
+include run.sh requirements.txt requirements-cpu-tested.txt
+recursive-include docs *.md *.json
+recursive-include data *.md *.py *.json
+recursive-exclude data/raw *
+recursive-include configs *.json *.yaml
+recursive-include run_vioexplain *.py
+recursive-include benchmark *.py *.md *.json
+recursive-include tests *.py
+recursive-include results_and_logs/summary *.csv *.json *.md
+recursive-include results_and_logs/summary/formal_v1/executed_sources *.py
+recursive-include results_and_logs/summary/event_matching_v1/source_snapshot *.py
+include results_and_logs/summary/event_matching_v1/postprocess_predictions.py

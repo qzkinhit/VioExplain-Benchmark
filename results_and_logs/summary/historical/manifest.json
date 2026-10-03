@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "export_date": "2026-10-03",
+  "full_raw_artifacts_included": false,
+  "all_results_are_exploratory": true,
+  "files": [
+    {
+      "file": "skab_native_detection.csv",
+      "source_relative_path": "results/tii/skab_chronos2_holdout/summary.csv",
+      "sha256": "5eebb441da8cb6f8f0d272e965d9689cacb237558ad881b38694884153791fa1",
+      "regime": "native_detection",
+      "status": "completed_exploratory",
+      "limitation": "Six already-evaluated held-out files; not a fresh full-dataset benchmark."
+    },
+    {
+      "file": "matching_head_support.csv",
+      "source_relative_path": "results/tii/matching_head_pilot_logits/summary.csv",
+      "sha256": "4ab4b532f3c2ce0034e059742bce5b0cc7102f97fa10109d9f4254aebc0e78c9",
+      "regime": "synthetic_support",
+      "status": "completed_exploratory",
+      "limitation": "SKAB and SMD normal backgrounds with artificial perturbations; no native event identity."
+    },
+    {
+      "file": "matching_head_support_per_seed.csv",
+      "source_relative_path": "results/tii/matching_head_pilot_logits/summary_per_seed.csv",
+      "sha256": "d03a35625e54e155771a92888058d808ba96c7df13c56a2fa461a6d3ae394b5c",
+      "regime": "synthetic_support",
+      "status": "completed_exploratory",
+      "limitation": "Three head seeds; backgrounds, not individual injections, are the independent data units."
+    },
+    {
+      "file": "joint_explanation.csv",
+      "source_relative_path": "results/tii/joint_explanation_probe/summary.csv",
+      "sha256": "71513ea311830d95a0fa0def2a2cdd7e23e780abd6d7491bd2a08fd6e5e5569b",
+      "regime": "synthetic_support",
+      "status": "completed_exploratory",
+      "limitation": "Four backgrounds; exploratory candidate with known onset and trusted prefix."
+    },
+    {
+      "file": "joint_robust_controls.csv",
+      "source_relative_path": "results/tii/joint_explanation_probe/robust_baseline_summary.csv",
+      "sha256": "a9bdac2ec9f54b13ab124f1e3541c19f5f61b412db349f7f910f371d75577308",
+      "regime": "synthetic_support",
+      "status": "completed_exploratory",
+      "limitation": "Statistics-only controls under the joint-probe assumptions."
+    },
+    {
+      "file": "oracle_temporal_main.csv",
+      "source_relative_path": "results/tii/foundation_temporal_main/temporal_witness_summary.csv",
+      "sha256": "10496725682d33187d27f844835abd940ecdf34e7f2ded6972622557dd9bf52b",
+      "regime": "synthetic_oracle",
+      "status": "completed_exploratory",
+      "limitation": "True past support and clean replacement values supplied; not deployable end-to-end explanation."
+    },
+    {
+      "file": "matching_head_normal_false_explanation.csv",
+      "source_relative_path": "results/tii/matching_head_pilot_logits/normal_false_explanation.csv",
+      "sha256": "6f8bf72efe7ad32501d5ae2ea66bbd2019971ac5ed58bbf34ef8e9b07f3a2340",
+      "regime": "synthetic_normal_controls",
+      "status": "completed_exploratory",
+      "limitation": "False explanation rates on normal backgrounds are reported alongside support F1; only a few independent backgrounds."
+    }
+  ]
+}

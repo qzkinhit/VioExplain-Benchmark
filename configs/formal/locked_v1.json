@@ -1,0 +1,70 @@
+{
+  "protocol_version": "formal_v1",
+  "normal_fit_fraction": 0.6,
+  "normal_scale_end_fraction": 0.8,
+  "threshold_alpha": 0.01,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "deterministic_seed": -1,
+  "explanation_k": [
+    1,
+    3,
+    5
+  ],
+  "smd": {
+    "n_machines": 28,
+    "development_groups": [
+      1
+    ],
+    "evaluation_groups": [
+      2,
+      3
+    ]
+  },
+  "skab": {
+    "n_anomalous_files": 34,
+    "revision": "b2c0d46c2971dcbfe71e26087b6d231998bb91c2"
+  },
+  "tep": {
+    "n_faults": 21,
+    "n_normal_test_files": 1,
+    "test_fault_start_index": 160,
+    "n_channels": 52,
+    "measurement_channels": 41,
+    "manipulated_channels": 11
+  },
+  "tranad": {
+    "revision": "7ffb98d0c18189cc3d9ab732b4cb0278200a0af0",
+    "epochs": 5,
+    "batch": 128,
+    "dtype": "float64",
+    "lr": 0.0001
+  },
+  "baro": {
+    "revision": "e35f4ec1095e5cac891d52de9ad18a5b32a37ec8",
+    "component": "RobustScorer"
+  },
+  "treeshap": {
+    "shap_version": "0.46.0",
+    "trees": 200,
+    "max_event_points": 30,
+    "feature_perturbation": "tree_path_dependent"
+  },
+  "sarad": {
+    "revision": "24854d9723b4eed31b547344061671c08fbfb3e2",
+    "epochs": 3,
+    "model_size": 512,
+    "layers": 3,
+    "heads": 8,
+    "window": 100,
+    "batch": 128,
+    "sampling_fraction": 0.1,
+    "detector_weight": 100,
+    "dtype": "float32",
+    "normal_scaling": "StandardScaler fitted on pooled first60% normal data",
+    "shared_model": true
+  }
+}

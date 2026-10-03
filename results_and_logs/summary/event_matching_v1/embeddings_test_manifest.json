@@ -1,0 +1,15 @@
+{
+  "shape": [
+    267,
+    52,
+    768
+  ],
+  "seconds": 7.265809535980225,
+  "pooling": "mean of all encoder tokens per channel including special tokens",
+  "cross_variates": true,
+  "model_revision": "29ec3766d36d6f73f0696f85560a422f50e8498c",
+  "model_sha256": "ddcda3c7508bf2528087723e98a20707cc04b7f370ae275a9fd88078ddba4f42",
+  "gpu": "NVIDIA RTX A6000",
+  "torch_version": "2.11.0+cu128",
+  "cache_sha256": "db124b679b505aa45c415bd0e4ce2e879973b61c8f1cf83e8fab2596eaf776d4"
+}

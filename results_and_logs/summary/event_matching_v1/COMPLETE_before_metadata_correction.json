@@ -1,0 +1,14 @@
+{
+  "time": 1791030603.5722163,
+  "lock_sha256": "2e651e77b3c20e52c4baea5b71da6e881e37de0a5233d8927c6ee616d5db4b00",
+  "test_windows": 267,
+  "independent_trajectories": 22,
+  "methods": 10,
+  "limitations": [
+    "one train and test trajectory per class",
+    "conditional fault interval classification",
+    "empirical learned signatures, no physical causality assertion",
+    "unknown only held out F21",
+    "3 normal calibration windows do not imply calibrated normal FPR"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "files": [
+    {
+      "original_path": "src/vioexplain/formal/event_matching.py",
+      "public_path": "src/vioexplain/formal/event_matching.py",
+      "original_sha256": "48084d8f88fb1ab65143f9cf19298034089ab15fb0528b68261973a3644cf10c",
+      "public_sha256": "48084d8f88fb1ab65143f9cf19298034089ab15fb0528b68261973a3644cf10c",
+      "changes": "none"
+    },
+    {
+      "original_path": "experiments/formal/event_matching.py",
+      "public_path": "benchmark/evaluation/run_event_matching.py",
+      "original_sha256": "e33b5642088762d24bee06c76049e3c1b286938f072da4332b78e20b9d4a7113",
+      "public_sha256": "77817e2d3137e2fd0aa9403d6e37b67aff542bad3b2275c674611b21eb45855f",
+      "changes": "Added --protocol argument and replaced hardcoded protocol location. Algorithm, numerical constants, model calls, matching and evaluation are unchanged."
+    }
+  ],
+  "executed_version": "The release result snapshot retains original executed bytes, including the original descriptive calibration-count typo. metadata_corrections.json records its correction; predictions and LOCK are unchanged."
+}

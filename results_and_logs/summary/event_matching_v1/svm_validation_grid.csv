@@ -1,0 +1,5 @@
+kind,C,balanced_accuracy
+statistics,1.0,0.5909090909090909
+statistics,10.0,0.6363636363636364
+window_pca,1.0,0.22727272727272727
+window_pca,10.0,0.2727272727272727

@@ -1,0 +1,9 @@
+method,known_false_rejection,unknown_recall,unknown_auroc,threshold
+aec_adapted_frozen_chronos2,0.0,0.0,0.8823529411764706,1.0
+aec_adapted_interval,0.0,0.0,0.8823529411764706,1.0
+aec_adapted_raw_temporal,0.0,0.0,0.8823529411764706,1.0
+aec_prototype_relaxed,0.0,0.0,0.8823529411764706,1.0
+aec_prototype_strict,0.0,0.0,0.5995098039215686,1.0
+minexplain_frozen_chronos2,0.0,0.0,0.8823529411764706,1.0
+minexplain_interval,0.0,0.0,0.8823529411764706,1.0
+minexplain_raw_temporal,0.0,0.0,0.8823529411764706,1.0

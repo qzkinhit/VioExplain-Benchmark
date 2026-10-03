@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "verified_date": "2026-10-03",
+  "datasets": {
+    "smd": {
+      "url": "https://github.com/NetManAIOps/OmniAnomaly.git",
+      "revision": "7fb0e0acf89ea49908896bcc9f9e80fcfff6baf4",
+      "subdirectory": "ServerMachineDataset",
+      "upstream_license": "MIT (repository-level notice)",
+      "purpose": "native dimension attribution and anomaly detection"
+    },
+    "skab": {
+      "url": "https://github.com/waico/SKAB.git",
+      "revision": "b2c0d46c2971dcbfe71e26087b6d231998bb91c2",
+      "subdirectory": "data",
+      "upstream_license": "GPL-3.0 (repository-level notice); consult upstream for dataset-specific terms",
+      "purpose": "native anomaly and change-point detection; no native root-dimension labels"
+    },
+    "tep": {
+      "kind": "zip",
+      "url": "https://web.mit.edu/braatzgroup/TE_process.zip",
+      "sha256": "3ae9d9578cd0883ed81ee3c2b911f85e57e367016e08bd5f1bde963694e4c111",
+      "subdirectory": "TE_process",
+      "upstream_license": "UIUC source/binary notice in the supplied readme; retain the exact archive notices",
+      "purpose": "classic simulated process fault files; onset labels are protocol-derived, not an independent native annotation file"
+    }
+  }
+}

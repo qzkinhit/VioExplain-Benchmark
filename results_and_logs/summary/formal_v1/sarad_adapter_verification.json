@@ -1,0 +1,7 @@
+{
+  "official_model_step_equivalent": true,
+  "loss_equivalent": true,
+  "machine_boundary_isolated": true,
+  "no_future_observations": true,
+  "tolerance": 1e-06
+}
