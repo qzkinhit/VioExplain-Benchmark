@@ -17,6 +17,6 @@ Final validation ran on a remote Linux CPU server on 2026-10-03. No research exp
 | Event result hashes | All 45 allowlisted artifacts and all 15 source hashes in LOCK match; locked protocol and test-start marker also match |
 | Release review | Public text contains no personal filesystem paths, private server identities or credentials; local Markdown links resolve |
 
-The tested core environment used Python 3.10.12, NumPy 1.24.3, pandas 1.5.3, SciPy 1.15.3, scikit-learn 1.7.2 and pytest 8.4.2. `requirements-cpu-tested.txt` records it. The recorded GPU event experiment has a separate [environment manifest](../results_and_logs/summary/event_matching_v1/environment.json).
+The tested core environment used Python 3.10.12, NumPy 1.24.3, pandas 1.5.3, SciPy 1.15.3, scikit-learn 1.7.2 and pytest 8.4.2. `requirements-cpu-tested.txt` records it. The recorded GPU event experiment has a separate [environment manifest](../result/summary/event_matching_v1/environment.json).
 
 These checks establish software and artifact consistency. Method performance, failure modes and dataset scope are reported separately in the [benchmark status](BENCHMARK_STATUS.md) and [event-matching guide](EVENT_MATCHING.md). Reproducible software does not establish overall method superiority.

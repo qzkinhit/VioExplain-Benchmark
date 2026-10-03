@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-04",
+  "execution_host": "remote Linux CPU server",
+  "unit_tests_passed": 43,
+  "smoke_and_prototype_smoke": "passed with independent execution logs",
+  "result_integrity": {
+    "completed_runs": 9,
+    "verified_files": 61,
+    "verified_executed_sources": 7,
+    "verified_event_artifacts": 45,
+    "event_locked_sources": 15
+  },
+  "result_numeric_content_changed": false,
+  "research_experiment_rerun": false
+}

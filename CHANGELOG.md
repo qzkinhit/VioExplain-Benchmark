@@ -15,3 +15,7 @@
 - Completed and released all nine fixed formal baseline batches, with per-entity data, clustered intervals, adapter audits and exact executed source snapshots.
 - Added the locked TEP event panel, preserving true prototype intervals and separately identifying AEC-CostAdapted and MinExplain with interval, raw temporal and frozen Chronos-2 costs.
 - Published event predictions, negative outcomes, immutable LOCK and explicit metadata-redaction provenance; fitted objects and model/embedding files remain unbundled.
+
+## 2026-10-04
+
+Separate `result/` and `log/` directories. Command wrappers now preserve failed exits, console output and source hashes in unique run directories. Released numerical artifacts are unchanged; 43 remote CPU tests and artifact-integrity checks passed.

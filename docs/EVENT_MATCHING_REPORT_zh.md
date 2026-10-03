@@ -22,7 +22,7 @@ AEC-CostAdapted 使用明确的非负代价矩阵接口，不将学习代价编�
 
 ## 正式结果
 
-以下数值均为本轮唯一测试。解释集合 P/R/F1 使用完整求解器输出，故障真值为单事件集合，正常真值为空；未用真值限制输出大小。Top3 按求解器选择次序及剩余候选成本排序。完整逐窗口、逐轨迹、逐类结果见 results_and_logs/summary/event_matching_v1。
+以下数值均为本轮唯一测试。解释集合 P/R/F1 使用完整求解器输出，故障真值为单事件集合，正常真值为空；未用真值限制输出大小。Top3 按求解器选择次序及剩余候选成本排序。完整逐窗口、逐轨迹、逐类结果见 result/summary/event_matching_v1。
 
 | 方法 | 窗口 Top1 | 窗口 Top3 | 窗口 macro F1 | 解释集合 F1 | 轨迹 Top1 | 正常窗口误解释 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -61,4 +61,4 @@ AEC-CostAdapted 使用明确的非负代价矩阵接口，不将学习代价编�
 
 ## 复核入口
 
-实现为 `benchmark/evaluation/run_event_matching.py` 与 `src/vioexplain/formal/event_matching.py`，协议为 `benchmark/protocol/event_matching_v1.md`，远端执行版本位于 `results_and_logs/summary/event_matching_v1/source_snapshot/`。本地主要产物包括 LOCK.json、training_split_windows.csv、test_split_windows.csv、validation_grid.csv、predictions_unscored.json、predictions_scored.csv、summary.csv、per_trajectory.csv、per_class_classification.csv、candidate_diagnostics.csv、paired_class_differences.csv、missing_knowledge_summary.csv、fairness_audit.json、environment.json 及完整运行日志。元数据文字更正与实际运行快照分别保留。训练对象和两份编码数组保存在同名远端目录，哈希记于 fairness_audit.json，未将大型二进制复制入本地结果目录。
+实现为 `benchmark/evaluation/run_event_matching.py` 与 `src/vioexplain/formal/event_matching.py`，协议为 `benchmark/protocol/event_matching_v1.md`，远端执行版本位于 `result/summary/event_matching_v1/source_snapshot/`。本地主要产物包括 LOCK.json、training_split_windows.csv、test_split_windows.csv、validation_grid.csv、predictions_unscored.json、predictions_scored.csv、summary.csv、per_trajectory.csv、per_class_classification.csv、candidate_diagnostics.csv、paired_class_differences.csv、missing_knowledge_summary.csv、fairness_audit.json、environment.json 及完整运行日志。元数据文字更正与实际运行快照分别保留。训练对象和两份编码数组保存在同名远端目录，哈希记于 fairness_audit.json，未将大型二进制复制入本地结果目录。

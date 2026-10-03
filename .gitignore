@@ -15,8 +15,8 @@ data/cache/
 data/downloads/
 models/
 checkpoints/
-results_and_logs/runs/
-results_and_logs/verification/
+result/runs/
+result/verification/
 *.log
 .verification-deps/
 .installed/
@@ -30,3 +30,7 @@ vendor/
 /history/
 /original_materials/
 /materials_original/
+
+log/runs/
+result/research/
+log/remote/

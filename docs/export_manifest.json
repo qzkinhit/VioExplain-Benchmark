@@ -8,7 +8,8 @@
       "source_sha256": "ae7ece2707bbe3ee6536167538bf50e14bd69ec3dab6e7548bba3bdf8d13e540",
       "kind": "project_code",
       "export_sha256": "ae7ece2707bbe3ee6536167538bf50e14bd69ec3dab6e7548bba3bdf8d13e540",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "ae7ece2707bbe3ee6536167538bf50e14bd69ec3dab6e7548bba3bdf8d13e540"
     },
     {
       "source_relative_path": "src/vioexplain/mincost/core.py",
@@ -16,7 +17,8 @@
       "source_sha256": "4cb3930003969b71669cb11a02a6560ef67fb4db9fe907edc9c6956d5ceb060b",
       "kind": "project_code",
       "export_sha256": "4cb3930003969b71669cb11a02a6560ef67fb4db9fe907edc9c6956d5ceb060b",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "4cb3930003969b71669cb11a02a6560ef67fb4db9fe907edc9c6956d5ceb060b"
     },
     {
       "source_relative_path": "src/vioexplain/mincost/exact.py",
@@ -24,7 +26,8 @@
       "source_sha256": "5b8caa25b6d4f417140b91bae775f45dc1432572c499a6cf7f87011de2c3f7a3",
       "kind": "project_code",
       "export_sha256": "5b8caa25b6d4f417140b91bae775f45dc1432572c499a6cf7f87011de2c3f7a3",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "5b8caa25b6d4f417140b91bae775f45dc1432572c499a6cf7f87011de2c3f7a3"
     },
     {
       "source_relative_path": "src/vioexplain/mincost/greedy.py",
@@ -32,7 +35,8 @@
       "source_sha256": "c3f0502278900968a82704435ef1a5b784021b351bea1d171c771d8e1cecc348",
       "kind": "project_code",
       "export_sha256": "c3f0502278900968a82704435ef1a5b784021b351bea1d171c771d8e1cecc348",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "c3f0502278900968a82704435ef1a5b784021b351bea1d171c771d8e1cecc348"
     },
     {
       "source_relative_path": "src/vioexplain/mincost/primal_dual.py",
@@ -40,7 +44,8 @@
       "source_sha256": "025d341efa7f1fcc8f25903f726bfc985eb1a9dd27263951cb5e5a9a5e2f85d5",
       "kind": "project_code",
       "export_sha256": "025d341efa7f1fcc8f25903f726bfc985eb1a9dd27263951cb5e5a9a5e2f85d5",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "025d341efa7f1fcc8f25903f726bfc985eb1a9dd27263951cb5e5a9a5e2f85d5"
     },
     {
       "source_relative_path": "src/vioexplain/mincost/prune.py",
@@ -48,7 +53,8 @@
       "source_sha256": "50d9317f3b1e2be0b759c8127e2528b6d5b445376ea994c7e9b67478792c0bf1",
       "kind": "project_code",
       "export_sha256": "50d9317f3b1e2be0b759c8127e2528b6d5b445376ea994c7e9b67478792c0bf1",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "50d9317f3b1e2be0b759c8127e2528b6d5b445376ea994c7e9b67478792c0bf1"
     },
     {
       "source_relative_path": "src/vioexplain/publicexp/__init__.py",
@@ -56,7 +62,8 @@
       "source_sha256": "74498f37540df568a5a2d83fb982bef41623a42b851475e8648080d64c7ff652",
       "kind": "project_code",
       "export_sha256": "74498f37540df568a5a2d83fb982bef41623a42b851475e8648080d64c7ff652",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "74498f37540df568a5a2d83fb982bef41623a42b851475e8648080d64c7ff652"
     },
     {
       "source_relative_path": "src/vioexplain/publicexp/aec.py",
@@ -64,7 +71,8 @@
       "source_sha256": "eb378cc59b5f662a92e26e78e65f20ac9c005f6ad1d8bb5c8f81119d72293361",
       "kind": "project_code",
       "export_sha256": "a6dd813df9bee5fe6f8beaf39c34532db506d2ac9ff72fa493d3cb85bcdccf0e",
-      "byte_identical": false
+      "byte_identical": false,
+      "initial_export_sha256": "a6dd813df9bee5fe6f8beaf39c34532db506d2ac9ff72fa493d3cb85bcdccf0e"
     },
     {
       "source_relative_path": "src/vioexplain/publicexp/constraints.py",
@@ -72,7 +80,8 @@
       "source_sha256": "3656f2bf0f6a6da912370031a5f49f20e46ffd5ca507bc038f2ef6f5595a8f4e",
       "kind": "project_code",
       "export_sha256": "3656f2bf0f6a6da912370031a5f49f20e46ffd5ca507bc038f2ef6f5595a8f4e",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "3656f2bf0f6a6da912370031a5f49f20e46ffd5ca507bc038f2ef6f5595a8f4e"
     },
     {
       "source_relative_path": "src/vioexplain/publicexp/encoding.py",
@@ -80,7 +89,8 @@
       "source_sha256": "ab10b36915e95e17827448c66b705e02f5edc2827049dd47bd7629dcf5fba9ec",
       "kind": "project_code",
       "export_sha256": "ea4574361262136edab6388b081a0145cdf9764e31e5c6d368e5dd3a54dfeaba",
-      "byte_identical": false
+      "byte_identical": false,
+      "initial_export_sha256": "ea4574361262136edab6388b081a0145cdf9764e31e5c6d368e5dd3a54dfeaba"
     },
     {
       "source_relative_path": "src/vioexplain/publicexp/evaluate.py",
@@ -88,7 +98,8 @@
       "source_sha256": "880c51835306e2e6c08d039efb4a663174472a468fc43dac07eea9a7670bcf5e",
       "kind": "project_code",
       "export_sha256": "880c51835306e2e6c08d039efb4a663174472a468fc43dac07eea9a7670bcf5e",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "880c51835306e2e6c08d039efb4a663174472a468fc43dac07eea9a7670bcf5e"
     },
     {
       "source_relative_path": "src/vioexplain/publicexp/features.py",
@@ -96,7 +107,8 @@
       "source_sha256": "f0c55ce61a8e60193660be51df0abdcca117b7c1fc365faf33302f1b4d6668c5",
       "kind": "project_code",
       "export_sha256": "f0c55ce61a8e60193660be51df0abdcca117b7c1fc365faf33302f1b4d6668c5",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "f0c55ce61a8e60193660be51df0abdcca117b7c1fc365faf33302f1b4d6668c5"
     },
     {
       "source_relative_path": "src/vioexplain/publicexp/knowledge.py",
@@ -104,7 +116,8 @@
       "source_sha256": "2a71368bbc17365aa4c80ca97c603e233d7af78556501090658116fc966a8d08",
       "kind": "project_code",
       "export_sha256": "2a71368bbc17365aa4c80ca97c603e233d7af78556501090658116fc966a8d08",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "2a71368bbc17365aa4c80ca97c603e233d7af78556501090658116fc966a8d08"
     },
     {
       "source_relative_path": "src/vioexplain/setcover/__init__.py",
@@ -112,7 +125,8 @@
       "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "kind": "project_code",
       "export_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
       "source_relative_path": "src/vioexplain/setcover/apriori.py",
@@ -120,7 +134,8 @@
       "source_sha256": "ef444315233cc96d5e18d4d20943b750ec566633296eac761c939f1a230a5177",
       "kind": "project_code",
       "export_sha256": "ef444315233cc96d5e18d4d20943b750ec566633296eac761c939f1a230a5177",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "ef444315233cc96d5e18d4d20943b750ec566633296eac761c939f1a230a5177"
     },
     {
       "source_relative_path": "src/vioexplain/setcover/demo_data.py",
@@ -128,7 +143,8 @@
       "source_sha256": "68e2d1a8e561f15ad2ea7278627d524087c3df78972b968f6edf4c1bd8d0c8e1",
       "kind": "project_code",
       "export_sha256": "68e2d1a8e561f15ad2ea7278627d524087c3df78972b968f6edf4c1bd8d0c8e1",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "68e2d1a8e561f15ad2ea7278627d524087c3df78972b968f6edf4c1bd8d0c8e1"
     },
     {
       "source_relative_path": "src/vioexplain/setcover/models.py",
@@ -136,7 +152,8 @@
       "source_sha256": "6b19afb98e8aacf618dab560738e24a3ee392c72eeada03db9649e09f552d80f",
       "kind": "project_code",
       "export_sha256": "6b19afb98e8aacf618dab560738e24a3ee392c72eeada03db9649e09f552d80f",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "6b19afb98e8aacf618dab560738e24a3ee392c72eeada03db9649e09f552d80f"
     },
     {
       "source_relative_path": "src/vioexplain/setcover/set_covering.py",
@@ -144,7 +161,8 @@
       "source_sha256": "cec68f36a760b295f59455d0e7c59ad94c2aa5772c27f96c97756ef70fe9266e",
       "kind": "project_code",
       "export_sha256": "cec68f36a760b295f59455d0e7c59ad94c2aa5772c27f96c97756ef70fe9266e",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "cec68f36a760b295f59455d0e7c59ad94c2aa5772c27f96c97756ef70fe9266e"
     },
     {
       "source_relative_path": "src/vioexplain/setcover/update_graph.py",
@@ -152,7 +170,8 @@
       "source_sha256": "79d2e345db464673d33a38239cf81011ef6faf3700db8fae8a80943cb218a189",
       "kind": "project_code",
       "export_sha256": "79d2e345db464673d33a38239cf81011ef6faf3700db8fae8a80943cb218a189",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "79d2e345db464673d33a38239cf81011ef6faf3700db8fae8a80943cb218a189"
     },
     {
       "source_relative_path": "src/vioexplain/update/__init__.py",
@@ -160,7 +179,8 @@
       "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "kind": "project_code",
       "export_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
       "source_relative_path": "src/vioexplain/update/generate.py",
@@ -168,7 +188,8 @@
       "source_sha256": "760d193cb06d91dff43aec84d2e4e42f9ad14a004ef39b420e893803e843711a",
       "kind": "project_code",
       "export_sha256": "760d193cb06d91dff43aec84d2e4e42f9ad14a004ef39b420e893803e843711a",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "760d193cb06d91dff43aec84d2e4e42f9ad14a004ef39b420e893803e843711a"
     },
     {
       "source_relative_path": "src/vioexplain/update/train_test.py",
@@ -176,7 +197,8 @@
       "source_sha256": "5f7b667075f91d9b488d9d25634b49e20deedd27a9d582cb1cba7d4d9ee54da1",
       "kind": "project_code",
       "export_sha256": "5f7b667075f91d9b488d9d25634b49e20deedd27a9d582cb1cba7d4d9ee54da1",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "5f7b667075f91d9b488d9d25634b49e20deedd27a9d582cb1cba7d4d9ee54da1"
     },
     {
       "source_relative_path": "src/vioexplain/tii/__init__.py",
@@ -184,7 +206,8 @@
       "source_sha256": "d90e96c79356cedb5ecf33282ac288dc3ad8cff540cc433a4f7c88bda81033e3",
       "kind": "project_code",
       "export_sha256": "d90e96c79356cedb5ecf33282ac288dc3ad8cff540cc433a4f7c88bda81033e3",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "d90e96c79356cedb5ecf33282ac288dc3ad8cff540cc433a4f7c88bda81033e3"
     },
     {
       "source_relative_path": "src/vioexplain/tii/joint_latent.py",
@@ -192,7 +215,8 @@
       "source_sha256": "04d51672811bc727e5374d4ea281557f9a1e160b34f8c1beb9f836850f9219a9",
       "kind": "project_code",
       "export_sha256": "04d51672811bc727e5374d4ea281557f9a1e160b34f8c1beb9f836850f9219a9",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "04d51672811bc727e5374d4ea281557f9a1e160b34f8c1beb9f836850f9219a9"
     },
     {
       "source_relative_path": "src/vioexplain/tii/residuals.py",
@@ -200,7 +224,8 @@
       "source_sha256": "16947d08ec7948df9f17377a20ae7f10bf5b6c73f54f4f7dcc765054b02235c7",
       "kind": "project_code",
       "export_sha256": "16947d08ec7948df9f17377a20ae7f10bf5b6c73f54f4f7dcc765054b02235c7",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "16947d08ec7948df9f17377a20ae7f10bf5b6c73f54f4f7dcc765054b02235c7"
     },
     {
       "source_relative_path": "src/vioexplain/utils/__init__.py",
@@ -208,7 +233,8 @@
       "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "kind": "project_code",
       "export_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
       "source_relative_path": "src/vioexplain/utils/seeding.py",
@@ -216,7 +242,8 @@
       "source_sha256": "a7824e7353742c94517fe3c1f615649a8ceb784428056a4d4597d91273752626",
       "kind": "project_code",
       "export_sha256": "a7824e7353742c94517fe3c1f615649a8ceb784428056a4d4597d91273752626",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "a7824e7353742c94517fe3c1f615649a8ceb784428056a4d4597d91273752626"
     },
     {
       "source_relative_path": "tests/test_mincost.py",
@@ -224,7 +251,8 @@
       "source_sha256": "447cf16e3578a839ecd5ef0598db2f736afbea4ab351f5ab832a16d9afb37c7c",
       "kind": "project_code",
       "export_sha256": "447cf16e3578a839ecd5ef0598db2f736afbea4ab351f5ab832a16d9afb37c7c",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "447cf16e3578a839ecd5ef0598db2f736afbea4ab351f5ab832a16d9afb37c7c"
     },
     {
       "source_relative_path": "tests/test_tii_aec_partial.py",
@@ -232,7 +260,8 @@
       "source_sha256": "3f090a77774bcf4a8f8584262c2e6a4397814fd3e973d29e84cf71949f92eea1",
       "kind": "project_code",
       "export_sha256": "3f090a77774bcf4a8f8584262c2e6a4397814fd3e973d29e84cf71949f92eea1",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "3f090a77774bcf4a8f8584262c2e6a4397814fd3e973d29e84cf71949f92eea1"
     },
     {
       "source_relative_path": "tests/test_tii_residuals.py",
@@ -240,7 +269,8 @@
       "source_sha256": "4d50176a6e43648be03c95c4504743f945ee9dbb52d7a96167d506755e2ac468",
       "kind": "project_code",
       "export_sha256": "4d50176a6e43648be03c95c4504743f945ee9dbb52d7a96167d506755e2ac468",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "4d50176a6e43648be03c95c4504743f945ee9dbb52d7a96167d506755e2ac468"
     },
     {
       "source_relative_path": "tests/test_tii_joint_latent.py",
@@ -248,7 +278,8 @@
       "source_sha256": "7c5d5d1e2f3741999233068de48891ed6a5373009cba23a063bff6107aec496d",
       "kind": "project_code",
       "export_sha256": "7c5d5d1e2f3741999233068de48891ed6a5373009cba23a063bff6107aec496d",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "7c5d5d1e2f3741999233068de48891ed6a5373009cba23a063bff6107aec496d"
     },
     {
       "source_relative_path": "tests/test_setcover.py",
@@ -256,8 +287,10 @@
       "source_sha256": "e3c9559956670a4187a027854409405c3e1a728545b42e350436349c3b403191",
       "kind": "project_code",
       "export_sha256": "e3c9559956670a4187a027854409405c3e1a728545b42e350436349c3b403191",
-      "byte_identical": true
+      "byte_identical": true,
+      "initial_export_sha256": "e3c9559956670a4187a027854409405c3e1a728545b42e350436349c3b403191"
     }
   ],
-  "changed_export_notes": "Changes to exported aec.py and encoding.py are documentation corrections: method identity and removal of an unsupported universal-improvement statement. Inherited algorithm bodies are unchanged."
+  "changed_export_notes": "Changes to exported aec.py and encoding.py are documentation corrections: method identity and removal of an unsupported universal-improvement statement. Inherited algorithm bodies are unchanged.",
+  "organization_update": "2026-10-04: result and log directories separated; original source hashes and initial export metadata retained."
 }

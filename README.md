@@ -39,7 +39,7 @@ python -m pytest -q
 | [`data/`](data/README.md) | Data cards and downloads pinned to upstream commits; raw data remain local |
 | `configs/` | Named smoke and experiment configurations |
 | `run_vioexplain/` | Experiment entry points |
-| [`results_and_logs/`](results_and_logs/README.md) | Tracked aggregate evidence and local run outputs |
+| [`result/`](result/README.md) | Tracked aggregate evidence and local run outputs |
 | [`docs/`](docs/REPRODUCING.md) | Reproduction, baseline fidelity, dataset scope, provenance, and limitations |
 | `tests/` | API, partial coverage, optimization, and experimental-component checks |
 
@@ -71,15 +71,15 @@ SMD supplies native anomaly-contributing dimensions. SKAB supplies anomaly and c
 
 ```bash
 # CPU statistical detection. Runs all official entities in the supplied data root.
-bash run.sh formal statistical --dataset smd --data data/raw/smd --output results_and_logs/runs/smd-statistical
-bash run.sh formal statistical --dataset skab --data data/raw/skab --output results_and_logs/runs/skab-statistical
+bash run.sh formal statistical --dataset smd --data data/raw/smd --output result/runs/smd-statistical
+bash run.sh formal statistical --dataset skab --data data/raw/skab --output result/runs/skab-statistical
 ```
 
 The SMD conditional attribution track can additionally invoke the official BARO RobustScorer component. TranAD and TreeSHAP have their own entry points and dependency requirements. See [formal reproduction](docs/FORMAL_BENCHMARK.md) for pinned source acquisition, commands, adaptation boundaries, and status. Statistical scores, conditional attribution, and event-class diagnosis remain separate tasks.
 
 ## Evidence status
 
-The software release and research validation have different scopes. The inherited AEC core and exploratory solvers are implemented. [Historical aggregates](results_and_logs/summary/historical/manifest.json) preserve both gains and negative results, including the absence of cross-domain gains for a frozen foundation-model matching head. They are not a new blind benchmark. [Completed formal batches](docs/BENCHMARK_STATUS.md) have their own protocol, per-entity records and manifest. These baseline runs do not establish an advantage for a new VioExplain method.
+The software release and research validation have different scopes. The inherited AEC core and exploratory solvers are implemented. [Historical aggregates](result/summary/historical/manifest.json) preserve both gains and negative results, including the absence of cross-domain gains for a frozen foundation-model matching head. They are not a new blind benchmark. [Completed formal batches](docs/BENCHMARK_STATUS.md) have their own protocol, per-entity records and manifest. These baseline runs do not establish an advantage for a new VioExplain method.
 
 [Reproduction](docs/REPRODUCING.md) describes the commands and result contracts. [Limitations](docs/LIMITATIONS.md) records known boundaries. The release contains no private industrial measurements, dissertation text, model weights, or copied third-party baseline source.
 
@@ -90,3 +90,5 @@ Project code is released under [MIT](LICENSE). Datasets, external implementation
 Historical method names are resolved in the [method registry](docs/METHOD_IDENTITIES.md).
 
 The [locked TEP event panel](docs/EVENT_MATCHING.md) adds the original interval prototype, an explicit cost adaptation, and MinExplain with interval, raw temporal or frozen Chronos-2 matching. All nine formal baseline batches and this event panel are complete; gains and negative results are reported together.
+
+Commands retain console output and execution evidence in `log/runs/`. Published snapshots are in `result/summary/`; use `result/runs/` for new runs. See [the recording contract](docs/EXPERIMENT_RECORDS.md).

@@ -29,7 +29,7 @@ An experiment output should contain the locked protocol, source and input hashes
 
 ## Historical results
 
-`results_and_logs/summary/historical/` contains exact aggregate CSV exports from prior experiments. Its manifest identifies source CSV hashes and the data regime. Large predictions, fitted artifacts, and original private execution manifests are not redistributed. These aggregates are auditable records of the listed observations; this package alone does not reconstruct every historical run. New formal results belong to a separate protocol and output directory.
+`result/summary/historical/` contains exact aggregate CSV exports from prior experiments. Its manifest identifies source CSV hashes and the data regime. Large predictions, fitted artifacts, and original private execution manifests are not redistributed. These aggregates are auditable records of the listed observations; this package alone does not reconstruct every historical run. New formal results belong to a separate protocol and output directory.
 
 ## Optional foundation models
 

@@ -7,7 +7,7 @@ import json
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--root", type=Path, default=Path("results_and_logs/summary/formal_v1"))
+    parser.add_argument("--root", type=Path, default=Path("result/summary/formal_v1"))
     args = parser.parse_args()
     root = args.root.resolve()
     index = json.loads((root / "INDEX.json").read_text())

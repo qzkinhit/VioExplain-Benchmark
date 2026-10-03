@@ -7,10 +7,10 @@ recursive-include configs *.json *.yaml
 recursive-include run_vioexplain *.py
 recursive-include benchmark *.py *.md *.json
 recursive-include tests *.py
-recursive-include results_and_logs/summary *.csv *.json *.md
-recursive-include results_and_logs/summary/formal_v1/executed_sources *.py
-recursive-include results_and_logs/summary/event_matching_v1/source_snapshot *.py
-include results_and_logs/summary/event_matching_v1/postprocess_predictions.py
+recursive-include result/summary *.csv *.json *.md
+recursive-include result/summary/formal_v1/executed_sources *.py
+recursive-include result/summary/event_matching_v1/source_snapshot *.py
+include result/summary/event_matching_v1/postprocess_predictions.py
 
 prune paper
 prune paper_tii
@@ -18,3 +18,7 @@ prune history
 prune original_materials
 prune materials_original
 include tools/check_public_boundary.py
+
+include result/README.md log/README.md
+prune log/runs
+prune result/runs

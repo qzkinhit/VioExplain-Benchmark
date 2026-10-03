@@ -69,12 +69,12 @@ SKAB独立正常文件与不同阀门/运行工况之间存在明显分布差异
 
 ## 复核与可复现性
 
-1. `results_and_logs/summary/formal_v1/cpu_validation.json`与`gpu_validation.json`记录全量、唯一性、指标界限和全部原始工件SHA。
-2. `results_and_logs/summary/formal_v1/sarad_adapter_verification.json`确认适配评分、逐维诊断和损失与原官方model_step在1e-6内一致，并验证机器边界及无未来访问。
-3. `results_and_logs/summary/formal_v1/summary/`提供按完整机器/文件重采样的95%区间。训练种子在观测单元内先平均，不虚增样本数。
+1. `result/summary/formal_v1/cpu_validation.json`与`gpu_validation.json`记录全量、唯一性、指标界限和全部原始工件SHA。
+2. `result/summary/formal_v1/sarad_adapter_verification.json`确认适配评分、逐维诊断和损失与原官方model_step在1e-6内一致，并验证机器边界及无未来访问。
+3. `result/summary/formal_v1/summary/`提供按完整机器/文件重采样的95%区间。训练种子在观测单元内先平均，不虚增样本数。
 4. 早期BARO返回类型适配失败run保留，327个失败事件，eligible_main=false；正确版本完整重跑，失败为0。没有用默认列顺序代替错误输出。
-5. `results_and_logs/summary/formal_v1/executed_sources/`保留实际执行源码快照。发布入口之后加入来源hash和完整性检查，不改变已运行评分算法。
-6. `results_and_logs/summary/formal_v1/`提供9个完成run的脱敏复现表；checkpoint和大体积分数保留在原执行目录，hash可查。
+5. `result/summary/formal_v1/executed_sources/`保留实际执行源码快照。发布入口之后加入来源hash和完整性检查，不改变已运行评分算法。
+6. `result/summary/formal_v1/`提供9个完成run的脱敏复现表；checkpoint和大体积分数保留在原执行目录，hash可查。
 
 ## 尚不能下的结论
 

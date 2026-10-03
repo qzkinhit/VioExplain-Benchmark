@@ -25,9 +25,9 @@ python -m pip install -e '.[test]'
 python data/download.py smd
 python data/download.py skab
 python data/download.py tep
-bash run.sh formal statistical --dataset smd --data data/raw/smd --output results_and_logs/runs/smd-statistical
-bash run.sh formal statistical --dataset skab --data data/raw/skab --output results_and_logs/runs/skab-statistical
-bash run.sh formal statistical --dataset tep --data data/raw/tep --output results_and_logs/runs/tep-statistical
+bash run.sh formal statistical --dataset smd --data data/raw/smd --output result/runs/smd-statistical
+bash run.sh formal statistical --dataset skab --data data/raw/skab --output result/runs/skab-statistical
+bash run.sh formal statistical --dataset tep --data data/raw/tep --output result/runs/tep-statistical
 ```
 
 The TEP data root must contain `d00.dat` and `d00_te.dat` through `d21_te.dat`, directly or in `TE_process/`. Obtain the classic distribution using the data-card instructions. The loader transposes the 52-by-500 normal training file and checks for 52 columns. They comprise XMEAS(1–41) and XMV(1–11), not an invented 22/30 split. This is a simulated chemical process, not measurements from an operating factory.
@@ -40,7 +40,7 @@ Obtain the official repository separately. It is ignored and not redistributed.
 python -m pip install -e '.[baro]'
 git clone https://github.com/phamquiluan/baro.git vendor/baro
 git -C vendor/baro checkout --detach e35f4ec1095e5cac891d52de9ad18a5b32a37ec8
-bash run.sh formal statistical --dataset smd --data data/raw/smd --output results_and_logs/runs/smd-with-baro --baro-source vendor/baro
+bash run.sh formal statistical --dataset smd --data data/raw/smd --output result/runs/smd-with-baro --baro-source vendor/baro
 ```
 
 The runner calls the unchanged DataFrame `RobustScorer` path. It does not run BARO's full change-point detection chain. Reference observations are the observed equally sized segment before the event, or the tail of the normal fit segment when the event starts at zero. Ground truth is not used to filter that reference. The output row must be named `baro_robust_scorer`, not a full BARO reproduction.
@@ -52,7 +52,7 @@ Use an appropriate separate PyTorch 2 CUDA environment and obtain the official s
 ```bash
 git clone https://github.com/imperial-qore/TranAD.git vendor/TranAD
 git -C vendor/TranAD checkout --detach 7ffb98d0c18189cc3d9ab732b4cb0278200a0af0
-bash run.sh formal tranad --dataset smd --data data/raw/smd --vendor vendor/TranAD --output results_and_logs/runs/smd-tranad --seeds 0 1 2 --epochs 5
+bash run.sh formal tranad --dataset smd --data data/raw/smd --vendor vendor/TranAD --output result/runs/smd-tranad --seeds 0 1 2 --epochs 5
 ```
 
 The adapter extracts the official network classes with AST to avoid unrelated dependencies and global argument parsing. A compatible one-layer container omits new PyTorch causal-mask keywords, preserving the old layer computation. The protocol fixes five epochs, float64, batch size 128, AdamW learning rate 0.0001, weight decay 0.00001, and StepLR(5,0.9).
@@ -63,7 +63,7 @@ Fit-segment min/max normalization is applied to every partition without test fit
 
 ```bash
 python -m pip install -e '.[shap]'
-bash run.sh formal treeshap --data data/raw/smd --output results_and_logs/runs/smd-treeshap
+bash run.sh formal treeshap --data data/raw/smd --output result/runs/smd-treeshap
 ```
 
 This explains a fitted 200-tree Isolation Forest using the official `TreeExplainer` with path-dependent contributions. It averages absolute contributions on at most 30 evenly spaced points per supplied event. The explained target is expected path length, not physical causality, and this is not a reproduction of a different classifier's SHAP system.
@@ -77,14 +77,14 @@ Every run retains per-file detection, per-event attribution where applicable, th
 ## TEP conditional fault classification
 
 ```bash
-bash run.sh formal tep-classifiers --data data/raw/tep --output results_and_logs/runs/tep-classifiers
+bash run.sh formal tep-classifiers --data data/raw/tep --output result/runs/tep-classifiers
 ```
 
 The released classifier panel uses 64-point nonoverlapping windows, all 21 fault IDs and the normal class, with separate official training and testing trajectories. Features are per-channel mean, standard deviation and least-squares slope. RBF-SVM chooses C and gamma on development windows only; shrinkage LDA and 500-tree Random Forest provide additional supervised controls. RF uses seeds 0,1,2. The exact candidate grid and split boundaries are saved in each manifest.
 
 The protocol excludes the first 20 fault-training samples as a preset warm-up choice. This is not a claim that fault begins at training sample 20. The official 480-point fault-training files should not be confused with another distribution's 500-point files. Test fault windows begin at the prescribed sample 160. There are 267 complete test windows from 22 trajectories; windows from one trajectory are not independent trials. Trajectory voting uses the smallest class ID to break ties.
 
-Completed, sanitized run artifacts are listed in [`formal_v1/INDEX.json`](../results_and_logs/summary/formal_v1/INDEX.json). They include per-entity or per-window measurements and source/input hashes. Actual executed source paths refer to the original research layout (`experiments/formal/`); public entry points reside in `benchmark/evaluation/`. Current wrappers additionally verify pinned official vendor-file hashes before loading them. Those acquisition and path changes are not counted as model improvements.
+Completed, sanitized run artifacts are listed in [`formal_v1/INDEX.json`](../result/summary/formal_v1/INDEX.json). They include per-entity or per-window measurements and source/input hashes. Actual executed source paths refer to the original research layout (`experiments/formal/`); public entry points reside in `benchmark/evaluation/`. Current wrappers additionally verify pinned official vendor-file hashes before loading them. Those acquisition and path changes are not counted as model improvements.
 
 ## Official SARAD candidate
 
@@ -92,7 +92,7 @@ Completed, sanitized run artifacts are listed in [`formal_v1/INDEX.json`](../res
 python -m pip install -e '.[gpu]'
 git clone https://github.com/daidahao/SARAD.git vendor/SARAD
 git -C vendor/SARAD checkout --detach 24854d9723b4eed31b547344061671c08fbfb3e2
-bash run.sh formal sarad --data data/raw/smd --vendor vendor/SARAD --output results_and_logs/runs/smd-sarad --seeds 0 1 2 --epochs 3
+bash run.sh formal sarad --data data/raw/smd --vendor vendor/SARAD --output result/runs/smd-sarad --seeds 0 1 2 --epochs 3
 ```
 
 This separate protocol uses the official 512-dimensional, three-layer, eight-head network with three epochs and a 10% fit-window sample. The model is shared across machines; windows never join the end of one machine to the start of another. Fitting, score-scale estimation and threshold calibration use separate chronological segments. This run is complete on all 28 SMD machines and three seeds; final artifacts are linked in the [status table](BENCHMARK_STATUS.md). Do not label this constrained training budget as the paper's original reported setting.

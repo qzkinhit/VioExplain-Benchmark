@@ -5,8 +5,8 @@ VIOEXPLAIN_PYTHON="${VIOEXPLAIN_PYTHON:-python3}"
 command="${1:-help}"
 if [ "$#" -gt 0 ]; then shift; fi
 case "$command" in
-  smoke|prototype-smoke) "$VIOEXPLAIN_PYTHON" -m vioexplain.cli "$command" "$@" ;;
+  smoke|prototype-smoke) "$VIOEXPLAIN_PYTHON" -m run_vioexplain.logged_runner "$command" "$@" ;;
   test) "$VIOEXPLAIN_PYTHON" -m pytest -q "$@" ;;
-  formal) "$VIOEXPLAIN_PYTHON" -m run_vioexplain.formal_runner "$@" ;;
+  formal) "$VIOEXPLAIN_PYTHON" -m run_vioexplain.logged_runner formal "$@" ;;
   *) printf '%s\n' 'Usage: bash run.sh smoke [--out FILE] | prototype-smoke | test | formal --help' ;;
 esac

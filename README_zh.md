@@ -39,7 +39,7 @@ python -m pytest -q
 | [`data/`](data/README.md) | 数据卡与固定上游提交的下载脚本，原始数据仅保存在使用者本地 |
 | `configs/` | 最小检查与正式实验配置 |
 | `run_vioexplain/` | 实验入口 |
-| [`results_and_logs/`](results_and_logs/README.md) | 纳入版本管理的汇总证据与本地运行输出 |
+| [`result/`](result/README.md) | 纳入版本管理的汇总证据与本地运行输出 |
 | [`docs/`](docs/REPRODUCING.md) | 复现、基线实现差异、数据适用范围、来源与局限 |
 | `tests/` | 接口、部分覆盖、优化求解与探索组件的检查 |
 
@@ -71,15 +71,15 @@ SMD 提供原生异常贡献维标注。SKAB 提供异常与变化点标注，�
 
 ```bash
 # CPU 统计检测，遍历给定目录中的官方完整对象。
-bash run.sh formal statistical --dataset smd --data data/raw/smd --output results_and_logs/runs/smd-statistical
-bash run.sh formal statistical --dataset skab --data data/raw/skab --output results_and_logs/runs/skab-statistical
+bash run.sh formal statistical --dataset smd --data data/raw/smd --output result/runs/smd-statistical
+bash run.sh formal statistical --dataset skab --data data/raw/skab --output result/runs/skab-statistical
 ```
 
 SMD 条件归因轨道还可调用官方 BARO 的 RobustScorer 组件。TranAD 与 TreeSHAP 使用独立入口及依赖。[正式复现说明](docs/FORMAL_BENCHMARK.md) 给出固定来源的获取方式、运行命令、适配边界和状态。统计检测、条件维归因与事件类诊断分别评价。
 
 ## 证据状态
 
-软件完成状态与研究验证状态分别记录。原有 AEC-Prototype 与后加 MinExplain 核心和探索求解器已经实现。[历史汇总](results_and_logs/summary/historical/manifest.json) 同时保留改善与负结果，包括冻结基模匹配头未获得跨域增益的结果。这些历史试验不属于新的盲测基准。[已完成正式批次](docs/BENCHMARK_STATUS.md) 提供独立协议、逐实体记录与运行清单。这些基线结果本身不能证明新 VioExplain 方法具有优势。
+软件完成状态与研究验证状态分别记录。原有 AEC-Prototype 与后加 MinExplain 核心和探索求解器已经实现。[历史汇总](result/summary/historical/manifest.json) 同时保留改善与负结果，包括冻结基模匹配头未获得跨域增益的结果。这些历史试验不属于新的盲测基准。[已完成正式批次](docs/BENCHMARK_STATUS.md) 提供独立协议、逐实体记录与运行清单。这些基线结果本身不能证明新 VioExplain 方法具有优势。
 
 [复现说明](docs/REPRODUCING.md) 给出命令与输出约定，[局限说明](docs/LIMITATIONS.md) 记录已知边界。仓库不包含私有工业测量、博士论文全文、模型权重或复制的第三方基线源码。
 
@@ -90,3 +90,5 @@ SMD 条件归因轨道还可调用官方 BARO 的 RobustScorer 组件。TranAD �
 历史同名方法的具体实现见[方法身份表](docs/METHOD_IDENTITIES.md)。
 
 [锁定的 TEP 事件实验](docs/EVENT_MATCHING.md) 包含原始区间原型、显式代价适配及采用区间、原始时序或冻结 Chronos-2 匹配的 MinExplain。九个正式基线批次与该事件实验均已完成，改善与负结果同时保留。
+
+运行入口自动将控制台输出及来源保存到`log/runs/`。已发布结果在`result/summary/`，新实验建议输出到`result/runs/`。详见[实验工件约定](docs/EXPERIMENT_RECORDS.md)。
