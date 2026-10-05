@@ -1,4 +1,4 @@
-"""Deep diagnosers, multi-label CNNs and MantisV2 for a simulated process (hit, GPU), on the windows of common.py.
+"""Deep diagnosers, multi-label CNNs and MantisV2 for a simulated process (gpu-server, GPU), on the windows of common.py.
 
 Usage:  V3_DATA=cstr V3_MODE=f100t V3_RES=simproc_v1/cstr python gpu_simproc.py cuda:N NAME [NAME ...]
 NAME in cnn resnet lstm inceptiontime mlcnn_f0 mlcnn_f100t mantis

@@ -1,4 +1,4 @@
-"""Collect the simulated-process results (cpu1, results/simproc_v1/<process>/) into summary files. Rerun at any time;
+"""Collect the simulated-process results (cpu-server, results/simproc_v1/<process>/) into summary files. Rerun at any time;
 rows whose run has not finished are null.
 
 Comparison (A), as the main table of the paper: every baseline learns from normal and single-fault fit runs only (f0),

@@ -22,7 +22,7 @@ rep('''EFF = [1, 2, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20]
 t0 = time.time()''', '''EFF = [1, 2, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20]
 DATA = os.environ.get('V3_DATA', 'tep'); ONSET_TR, ONSET_TE, NTRI, FROZ = 20, 160, 300, 30
 if DATA != 'tep':
-    DD = ('/home/user' if HIT else '/home/user') + '/vioexplain-v3/data/simproc/%s/' % DATA
+    DD = ('/home/user' if ON_GPU_SERVER else '/home/user') + '/vioexplain-v3/data/simproc/%s/' % DATA
     DS = json.load(open(DD + 'dataset.json'))
     TRAIN = DD + 'training_arrays/'; TEST = DD + 'testing_arrays/'; SIM = DD
     W = DS['W']; C = DS['C']; M = DS['M']; K = C - 1; EFF = [int(e) for e in DS['EFF']]

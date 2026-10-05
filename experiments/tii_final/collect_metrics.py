@@ -1,10 +1,10 @@
-"""Collect every metrics*.json of the final runs on cpu1 into one local table (all_metrics.json and a printed view).
+"""Collect every metrics*.json of the final runs on cpu-server into one local table (all_metrics.json and a printed view).
 Run locally: python collect_metrics.py  (pulls with ssh/scp)."""
 import json, os, subprocess, glob
 HERE = os.path.dirname(os.path.abspath(__file__)); DST = os.path.join(HERE, 'final_metrics')
 os.makedirs(DST, exist_ok=True)
 subprocess.run(['rsync', '-a', '--include=*/', '--include=metrics*.json', '--include=*.json', '--exclude=*',
-                'cpu1:/path/to/vioexplain/results/final_v1/', DST + '/'], check=True)
+                'cpu-server:/path/to/vioexplain/results/final_v1/', DST + '/'], check=True)
 ALL = {}
 for f in sorted(glob.glob(DST + '/**/*.json', recursive=True)):
     rel = os.path.relpath(f, DST); mode = rel.split('/')[0] if '/' in rel else 'root'

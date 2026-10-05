@@ -98,7 +98,7 @@ Common random numbers: every random number of a run (disturbance and noise strea
 of its seed only, so the runs of all subsets of a fault set are paired runs. `sim_check.py` confirmed determinism and
 identical records before the onset. No run of the generated data trips an interlock.
 
-## Data (`gen_data.py`, `data/simproc2/<process>/`, identical on cpu1 and hit)
+## Data (`gen_data.py`, `data/simproc2/<process>/`, identical on cpu-server and gpu-server)
 
 Same layout and protocol as `scripts/simproc/`: 400 training runs per class (seeds 0 to 399, 512 samples, onset 64,
 runs 0 to 299 fit, 300 to 399 calibration, 7 windows each), 500 test runs per class (960 samples, onset 160, hash split
@@ -106,14 +106,14 @@ into test calibration and evaluation, 12 windows each), test_pairs with 30 seeds
 45 pairs, test_triples with 15 seeds for 50 random triples and all their subsets, four-fault windows superposed from
 the paired single-fault runs of test_pairs (40 random four-fault sets). Window length 64 samples. All 10 faults are
 effective. 71 composed triple sets on the training side (300 times 45 over 190, as on TEP). `gen_all.sh` generates the
-three data sets (bitwise identical on cpu1 and hit, checked by md5 of sample files).
+three data sets (bitwise identical on cpu-server and gpu-server, checked by md5 of sample files).
 
 ## Running
 
-- `launch_cpu2.sh` (cpu1, 12 threads): all CPU baselines under f0 and BR-LGBM, CC-LGBM under f100t (`final_base.py`),
+- `launch_cpu2.sh` (cpu-server, 12 threads): all CPU baselines under f0 and BR-LGBM, CC-LGBM under f100t (`final_base.py`),
   MiniRocket, MultiRocket (1000 kernels) and QUANT (`final_rocket.py`).
-- `launch_gpu2.sh [PROCESS ...]` (hit, cuda:0): 1D-CNN, ResNet, LSTM, InceptionTime, ML-CNN under f0 and f100t, MantisV2.
-- `relay2.sh early|late PROCESS ...` (workstation): copies `results/simproc_v1/<dir>/gpu/` from hit to cpu1 and starts
+- `launch_gpu2.sh [PROCESS ...]` (gpu-server, cuda:0): 1D-CNN, ResNet, LSTM, InceptionTime, ML-CNN under f0 and f100t, MantisV2.
+- `relay2.sh early|late PROCESS ...` (workstation): copies `results/simproc_v1/<dir>/gpu/` from gpu-server to cpu-server and starts
   `launch_after_gpu2.sh PROCESS early|late`, which runs VioExplain (run label B, f100t, V3_FUNC=1 V3_NOSTEP=1
   V3_ABL=full, ResNet temporal encoder) and scores the GPU outputs.
 - `kb_rerun.sh DIR PROCESS`: AEC and MinExplain with the auto-extended grids.

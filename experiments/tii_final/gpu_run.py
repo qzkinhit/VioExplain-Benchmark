@@ -1,7 +1,7 @@
-"""VioExplain v3 GPU baselines and temporal evidence on hit (same windows as final_run.py).
+"""VioExplain v3 GPU baselines and temporal evidence on gpu-server (same windows as final_run.py).
 
 Trains (1) a 1D-CNN fault diagnoser on raw windows and (2) a frozen MantisV2 per-sensor embedding classifier, and saves
-per-window class probabilities for every evaluation group so that cpu1 can score them with the shared metric code
+per-window class probabilities for every evaluation group so that cpu-server can score them with the shared metric code
 and fuse the temporal evidence into the first selection of VioExplain.
 Usage: python gpu_run.py cuda:N
 """

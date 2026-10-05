@@ -1,4 +1,4 @@
-"""Deep diagnosers, multi-label CNNs and MantisV2 for a simulated process (hit, GPU), on the windows of common.py.
+"""Deep diagnosers, multi-label CNNs and MantisV2 for a simulated process (gpu-server, GPU), on the windows of common.py.
 
 Usage:  V3_DATA=cstr V3_MODE=f100t V3_RES=simproc_v1/cstr python gpu_simproc.py cuda:N NAME [NAME ...]
 NAME in cnn resnet lstm inceptiontime mlcnn_f0 mlcnn_f100t mantis
@@ -8,7 +8,7 @@ as in gpu_run.py (frozen per-sensor embedding, per-sensor PCA(16), LightGBM head
 ML-CNN-f0 learn from normal and single-fault fit windows; ML-CNN-f100t also learns from the compositions that BR-LGBM
 and CC-LGBM receive in f100t (common.AUG, same draws).
 Writes results/<V3_RES>/gpu/<NAME>_probs_v2.npz (keys ev, tcal and every concurrent group of common.GRAW) and, for cnn,
-resnet and the multi-label CNNs, <NAME>_model.pt (weights and normalization) for CPU inference on cpu1.
+resnet and the multi-label CNNs, <NAME>_model.pt (weights and normalization) for CPU inference on cpu-server.
 """
 import sys
 DEV = sys.argv[1]; NAMES = sys.argv[2:]

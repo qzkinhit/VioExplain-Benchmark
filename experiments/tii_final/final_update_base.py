@@ -49,7 +49,7 @@ if os.environ.get('V3_CFGS'): CFGS = [c_ if c_ == 'full' else int(c_) for c_ in 
 TRI = {c: ok_tr[c][::SUB] for c in range(C)}; NPC = len(TRI[0])
 THRG = [0.005, 0.01, 0.02, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.98, 0.99, 0.995]
 
-# ---------- helpers of the shared protocol (identical to common.py on hit; defined here when the local common.py lacks them)
+# ---------- helpers of the shared protocol (identical to common.py on gpu-server; defined here when the local common.py lacks them)
 if 'tviol_all' not in globals(): tviol_all = tviol_z
 if 'TC_RUN' not in globals():
     TC_RUN = np.concatenate([1000 * c + np.repeat(np.arange(len(TCAL)), len(Z['tcal'][c]) // len(TCAL)) for c in range(C)])[TC_KEEP]
@@ -236,7 +236,7 @@ for H in HS:
                                          '_smoke' if SMOKE else '')
         RJ = json.load(open(OUTJ)) if os.path.exists(OUTJ) and not SMOKE else {}
         RJ.update(H=H, method=meth, mode='f0', sub=SUB, rows_per_class=NPC, lgbm_trees=ITER, lgbm_lr=LR, balanced=BAL,
-                  n_eval=NEVAL, host='hit' if 'user' in ROOT else 'cpu1')
+                  n_eval=NEVAL, host='gpu-server' if 'user' in ROOT else 'cpu-server')
         RJ.setdefault('curve', {})
         for cfg in CFGS:
             if str(cfg) in RJ['curve'] and not SMOKE: continue

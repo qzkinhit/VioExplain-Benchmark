@@ -34,8 +34,8 @@ FUNC = os.environ.get('V3_FUNC', '0') == '1'
 OUT = ('/home/user' if os.path.exists('/path/to/vioexplain') else '/home/user') + '/vioexplain-v3/results/' + \
     os.environ.get('V3_RES', 'final_v1') + '/' + MODE + '/'
 os.makedirs(OUT, exist_ok=True)
-HIT = os.path.exists('/path/to/vioexplain')
-if HIT:
+ON_GPU_SERVER = os.path.exists('/path/to/vioexplain')
+if ON_GPU_SERVER:
     TRAIN = '/path/to/vioexplain/data/rieth2017/training_arrays/'
     TEST = '/path/to/vioexplain/data/rieth2017/testing_arrays/'
     PART = '/path/to/vioexplain/data/rieth2017/run_partitions.csv'
@@ -45,12 +45,12 @@ else:
     TEST = '/path/to/vioexplain/data/rieth2017/testing_arrays/'
     PART = '/path/to/vioexplain/results/data_split/run_partitions.csv'
     SIM = '/path/to/vioexplain/tepsim_data/'
-GDIR = ('/home/user' if HIT else '/home/user') + '/vioexplain-v3/results/final_v1_gpu/'
+GDIR = ('/home/user' if ON_GPU_SERVER else '/home/user') + '/vioexplain-v3/results/final_v1_gpu/'
 W = 64; C = 21; M = 52; K = 20; NJ = int(os.environ.get('NJ', '16'))
 EFF = [1, 2, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20]
 DATA = os.environ.get('V3_DATA', 'tep'); ONSET_TR, ONSET_TE, NTRI, FROZ = 20, 160, 300, 30
 if DATA != 'tep':
-    DD = ('/home/user' if HIT else '/home/user') + '/vioexplain-v3/data/simproc/%s/' % DATA
+    DD = ('/home/user' if ON_GPU_SERVER else '/home/user') + '/vioexplain-v3/data/simproc/%s/' % DATA
     DS = json.load(open(DD + 'dataset.json'))
     TRAIN = DD + 'training_arrays/'; TEST = DD + 'testing_arrays/'; SIM = DD
     W = DS['W']; C = DS['C']; M = DS['M']; K = C - 1; EFF = [int(e) for e in DS['EFF']]

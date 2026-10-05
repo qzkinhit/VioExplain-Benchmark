@@ -1,4 +1,4 @@
-"""Collect the simproc3 results (cpu1, results/simproc_v1/{evap,ph}/) into the delivery files. Rerun at any time;
+"""Collect the simproc3 results (cpu-server, results/simproc_v1/{evap,ph}/) into the delivery files. Rerun at any time;
 methods whose run has not finished are missing from the files (and listed under 'missing' in simproc3_logs/summary_simproc3.json).
 
 metrics_main.json      comparison (A): every baseline learns from normal and single-fault fit runs only (f0), VioExplain
