@@ -27,12 +27,12 @@
 
 \title{Proofs for\\ ``VioExplain: Single-Event Knowledge Explains Concurrent Industrial Constraint Violations''}
 \author{}
-\date{Revised October 5, 2026}
+\date{Revised October 6, 2026}
 
 \begin{document}
 \maketitle
 
-This document states and proves the theoretical results for VioExplain. Theorem and corollary numbers correspond to the main text. Each statement includes the assumptions used in its proof. Theorem~1 concerns an event-prior-penalized profile likelihood, Theorem~4 specifies a staged calibration protocol, and Proposition~S2 strengthens the sufficient margins in Theorem~3. Proposition~S1 concerns changes in functional-constraint degrees.
+This document states and proves the theoretical results for VioExplain. Theorem numbers correspond to the main text. Each statement includes the assumptions used in its proof. Theorem~1 concerns an event-prior-penalized profile likelihood, Theorem~2 an error lower bound for rules that read a window through a fixed interface, Theorem~3 a recovery certificate, and Theorem~4 a staged calibration protocol. Lemmas and remarks of this document are numbered S1, S2 and so on.
 
 \section{Notation and the Path of Algorithm 1}
 \label{sec:s-notation}
@@ -47,7 +47,7 @@ Put $S_0=\emptyset$ and $r_0=\phi(X)$. If $p_\emptyset(X)\ge\tau_0$, the event o
 \]
 If its score is at most $\tau_1$, stop and return $S_j$. If its score is greater than $\tau_1$, add it and deduct its footprint, giving $S_{j+1}=S_j\cup\{E_{j+1}\}$ and $r_{j+1}=r_j-\hat\Delta_{E_{j+1}}(r_j)$. Here $1\le K_{\max}\le K$, and ties use a fixed measurable rule. A violation on unit $u$ is assigned to an event maximizing $f_E(u)$ among $E\in S$ with $u\in\Supp(E)$, or to background if there is no such event. The unknown flag is set when the template deviation $D_{S}(\phi(X))$ exceeds $\tau_u$. The deviation, for example a Mahalanobis distance using fixed template means and a fixed positive-definite covariance, is assumed finite and measurable.
 
-\section{Theorem 1 and Corollary 1}
+\section{Theorem 1}
 \label{sec:s-map}
 
 \subsection{Model and scope}
@@ -88,7 +88,7 @@ The coverage term in $F$ is monotone submodular and its penalty is modular. Put
 \[
 G_u=\max_{E:\,u\in R(E)}[g_u(E)]_+,
 \]
-with $G_u=0$ if no event is incident to $u$. Then $C(H)=\sum_uG_u-F(H)$ is the minimum assignment cost plus opening cost of a nonmetric uncapacitated facility location instance with opened event set $H$, event opening costs $\hat w_E$, admissible assignment costs $c(u,E)=G_u-[g_u(E)]_+$, and an always-open background facility with $c(u,\bot)=G_u$ and zero opening cost. When finite rational gains and costs are the optimization input, maximizing $F$ is NP-hard. For every fixed $\epsilon\in(0,1)$, a polynomial-time $(1-\epsilon)\ln|U|$ approximation of its minimum facility cost on all sufficiently large instances would imply $\mathrm{P}=\mathrm{NP}$. A restricted binary special case yields minimum-cost consistent covering, as specified in Step~6 below.
+with $G_u=0$ if no event is incident to $u$. Then $C(H)=\sum_uG_u-F(H)$ is the minimum assignment cost plus opening cost of a nonmetric uncapacitated facility location instance with opened event set $H$, event opening costs $\hat w_E$, admissible assignment costs $c(u,E)=G_u-[g_u(E)]_+$, and an always-open background facility with $c(u,\bot)=G_u$ and zero opening cost. When finite rational gains and costs are the optimization input, maximizing $F$ is NP-hard. For every fixed $\epsilon\in(0,1)$, a polynomial-time $(1-\epsilon)\ln|U|$ approximation of its minimum facility cost on all sufficiently large instances would imply $\mathrm{P}=\mathrm{NP}$.
 \end{result}
 
 \begin{proof}
@@ -123,25 +123,6 @@ C(H)=G\left|U\setminus\bigcup_{E_i\in H}S_i\right|+|H|.
 \]
 A noncover costs at least $G>m$, whereas opening all events costs $m$, so minimum facility cost equals minimum cover cardinality. This proves NP-hardness. For fixed $\epsilon\in(0,1)$ and sufficiently large $n$, put $\rho=(1-\epsilon)\ln n<n$. A $\rho$-approximate solution costs at most $\rho m<G$, hence must cover $U$ and gives a set cover within factor $\rho$. The set-cover inapproximability theorem therefore proves the stated claim~\cite{DinurSteurer14}.
 
-\emph{Step 6, a restricted binary covering case.} This step is a specialization of the surrogate $F$, not an equivalence to a general noisy-OR or joint MAP model. Let $x_u\in\{0,1\}$, $M=\{u:x_u=1\}$, and $R^*(E)=R(E)=S_E$. Choose a common background success probability $b\in(0,1/2)$ and success probability $1-b$ for event $E$ on each unit in $S_E$. With $L=\log((1-b)/b)>0$, every admissible gain is finite and equals $L$ on $M$ and $-L$ outside $M$. Consequently
-\[
-F(H)=L\left|M\cap\bigcup_{E\in H}S_E\right|
--L\sum_{E\in H}|S_E\setminus M|-\sum_{E\in H}w_E.
-\]
-Call $H$ a consistent cover if $\bigcup_{E\in H}S_E=M$. Suppose at least one consistent cover exists, and choose $b$ so that $L>W=\sum_{E\in\E}w_E$. Equivalently, minimizing $L|M|-F(H)$ minimizes
-\[
-L\left|M\setminus\bigcup_{E\in H}S_E\right|
-+L\sum_{E\in H}|S_E\setminus M|+\sum_{E\in H}w_E.
-\]
-A consistent cover has cost at most $W<L$, whereas an inconsistent set has at least one unit in one of the first two terms and hence costs at least $L$. Thus the maximizers of $F$ are exactly the minimum-event-cost consistent covers. If every $w_E>0$, every optimizer is irredundant, because deleting a redundant event preserves consistency and strictly reduces cost. Nonnegative costs alone do not exclude redundant optimizers. This establishes a restricted covering interpretation~\cite{Peng1990Abductive}; it does not identify $\exp F_{\mathrm{ex}}$ with a noisy-OR likelihood.
-\end{proof}
-
-\begin{result}{Corollary 1 (Forced spurious events)}
-Let $\emptyset\ne\V_0\subseteq\V(X)$. Suppose that the key of every $v\in\V_0$ belongs only to representations of inactive events, and put $N_v=\{E:\mathrm{key}(v)\in\mathrm{keys}(R(E))\}$. Every explanation that assigns all violations in $\V_0$ to events contains at least one inactive event. More precisely, if such an explanation exists, its number of inactive events is at least the minimum hitting-set cardinality of the family $\{N_v:v\in\V_0\}$. The bound holds regardless of any nonnegative event costs.
-\end{result}
-
-\begin{proof}
-For any such explanation, $a(v)\in H\cap N_v$ for every $v\in\V_0$. Thus $H\cap\bigcup_{v\in\V_0}N_v$ is a hitting set. All of its members are inactive by assumption. Because $\V_0$ is nonempty, existence of the explanation implies that every $N_v$ is nonempty and that the hitting-set cardinality is at least one. Costs do not change this necessary condition on feasible explanations. If some $N_v$ is empty, no explanation assigning every violation to an event exists.
 \end{proof}
 
 \begin{remark}[Approximation of the facility cost]
@@ -151,51 +132,12 @@ To prove the claim, create a weighted set-cover column for every nonempty star $
 
 The weighted set-cover density-greedy bound is $H(\Delta)$~\cite{Chvatal79}, since every column has at most $\Delta$ units. Although the number of stars is exponential, an exact greedy step is polynomial. For a fixed event, deleting already covered units from a proposed star cannot increase its cost per newly covered unit. Sort its remaining admissible units by $c(u,E)$; among stars with exactly $k$ newly covered units, a prefix of length $k$ minimizes cost. Enumerating all nonempty prefixes for every event and all remaining background singletons finds the global minimum-density star~\cite{Hochbaum82}. Each iteration covers a new unit, so there are at most $|U|$ iterations. The argument includes zero-cost stars. If $U$ is empty, the empty event set is optimal with cost zero.
 
-The facility cost also admits a primal-dual approximation with factor $f$ when $f\ge1$, where
-\[
-f=\max\bigl(\{0\}\cup\{|\{E:u\in R(E)\}|:u\in U\}\bigr).
-\]
-If $f=0$, all $G_u$ are zero and assigning everything to the background is optimal with cost zero. Thus the two cases can also be stated as a $\max(1,f)$ approximation guarantee.
-
-Here is a complete algorithm and proof for $f\ge1$. Maintain nonnegative variables $\alpha_u$ and, on each admissible event incidence, $\beta_{uE}=[\alpha_u-c(u,E)]_+$. Initially every $\alpha_u=0$, every unit is active, and the background is open. The constraints maintained throughout are
-\[
-\alpha_u\le G_u,
-\qquad
-\sum_{u\in R(E)}\beta_{uE}\le\hat w_E.
-\]
-At time zero, open all events with $\hat w_E=0$. At any later event time, open every previously unopened event whose second constraint becomes tight. Process units at that time in the following order. First, every active unit or unit currently assigned to the background that satisfies $\alpha_u\ge c(u,E)$ for at least one open event is assigned to any such event. An active unit then freezes; a unit reassigned from the background stays frozen and retains its existing $\alpha_u$ and $\beta_{uE}$. An event-assigned unit is never reassigned. Second, assign and freeze every remaining active unit with $\alpha_u=G_u$ to the background. Apply this same ordering at time zero, so it covers zero opening costs, zero assignment costs and simultaneous ties.
-
-Raise the $\alpha_u$ of all remaining active units at unit speed until the next of the following occurs: an unopened event constraint becomes tight; an active unit reaches $c(u,E)$ for an already open event; or an active unit reaches $G_u$. Process every event and unit tied at that time by the preceding rules. Once a unit freezes, its $\alpha_u$ and all its $\beta_{uE}$ remain fixed, including if it is later reassigned from the background. Stop when no active units remain. Reassigning background units when an event opens is essential to the factor $f$; freezing them permanently to the background would not in general give this guarantee.
-
-All assignment costs are nonnegative, so the constraints hold initially. Opening all tight events preserves equality of their opening constraints, because assignments and freezing do not change current variable values. After an event opens, every unit with a positive contribution to it is frozen, either already or at that instant. Every remaining active unit has $\alpha_u<c(u,E)$ and freezes as soon as equality is reached, unless it freezes earlier for another reason. It therefore never acquires a positive contribution to that open event. The event's opening constraint remains tight, while the event times prevent an unopened constraint or background bound from being violated. After initialization, every processed time opens at least one new event or freezes at least one new unit. There are at most $|\E|+|U|$ such subsequent times; each unit can additionally be reassigned from the background at most once. Each active unit has a finite background bound, so a next time exists whenever active units remain. Thus the algorithm terminates. For rational costs it is polynomial-time: an unopened event's contribution is a sum of fixed contributions from frozen units and positive parts of affine functions of time from active units; sorting their breakpoints finds its next tight time. Scanning these times and the assignment and background thresholds finds the next event time in polynomial time.
-
-Let $O$ be the opened events and $\sigma(u)$ the final assigned source. Event assignment, including reassignment from the background, occurs with $\alpha_u\ge c(u,\sigma(u))$, so
-$\alpha_u=c(u,\sigma(u))+\beta_{u,\sigma(u)}$.
-Final background assignments have $\alpha_u=G_u$. Every opened event has a tight opening constraint. Summing opening and assignment costs therefore gives
-\[
-C_{\mathrm{alg}}
-=\sum_u\alpha_u
-+\sum_u\sum_{\substack{E\in O:\ u\in R(E),\ E\ne\sigma(u)}}\beta_{uE}.
-\]
-For a unit assigned to an event, there are at most $f-1$ other admissible events, and each $\beta_{uE}\le\alpha_u$. A unit that remains assigned to the background has zero contribution to every opened event. If it had a positive contribution when such an event opened, the reassignment rule would have moved it to an event; if the event was already open when the unit reached its background bound, the event-first rule would have assigned it to an event at that time or earlier. Its variables cannot change after freezing. Hence
-\[
-C_{\mathrm{alg}}\le f\sum_u\alpha_u.
-\]
-For completeness, weak duality here follows directly from the maintained constraints. On every event incidence $\alpha_u\le c(u,E)+\beta_{uE}$, and on the background $\alpha_u\le G_u$. For any competing feasible facility assignment with event set $H$, summing these inequalities over its assigned units and then using nonnegativity of $\beta$ gives
-\[
-\sum_u\alpha_u
-\le\sum_u c(u,a(u))+
-\sum_{E\in H}\sum_{u:a(u)=E}\beta_{uE}
-\le\sum_u c(u,a(u))+\sum_{E\in H}\hat w_E.
-\]
-Taking the optimum competing assignment proves $\sum_u\alpha_u\le C^*$, and therefore $C_{\mathrm{alg}}\le f C^*$. The minimum assignment cost for the algorithm's opened set is no greater than its explicitly constructed assignment cost, so the same guarantee holds for $C(O)$.
-
 A cost approximation factor does not imply a multiplicative guarantee on $F$. Write $B=\sum_uG_u$, $C^*=\min_H C(H)$ and $F^*=\max_H F(H)=B-C^*$. If $C(H)\le\rho C^*$, then only the additive implication
 $F(H)\ge F^*-(\rho-1)C^*$ follows in general.
 \end{remark}
 
 
-\section{Theorem 2 and Corollaries 2 and 3}
+\section{Theorem 2}
 \label{sec:s-interface}
 
 \begin{result}{Theorem 2 (Interface lower bound on paired runs)}
@@ -239,41 +181,14 @@ Taking the supremum over $B$ proves the coupling inequality. Applying it to the 
 The theorem requires no parametric family for the marginal laws. A mismatch fraction from finitely many paired runs estimates $\delta_T$; it is not the population probability itself. A finite-sample confidence statement about the error lower bound must use a valid upper confidence bound for $\delta_T$, with the sampling units and dependence of the paired observations accounted for.
 \end{remark}
 
-\begin{result}{Corollary 2 (Interval knowledge)}
-Let $P_{E_1}$ and $P_{E_2}$ denote the laws of a continuous description vector $\phi$. Fix common intervals $I_u$ for its coordinates, let $B=\prod_u I_u$, and define the common membership interface
+\begin{remark}[Two interfaces referred to in the main text]
+\emph{Interval membership.} Let $P_{E_1}$ and $P_{E_2}$ denote the laws of a continuous description vector $\phi$ under two events. Fix common intervals $I_u$ for its coordinates, let $B=\prod_u I_u$, and define the common membership interface $T_I(\phi)=(\mathbf 1[\phi_u\in I_u])_u$. If $P_{E_i}(B)\ge1-\epsilon$ for $i=1,2$, with $0\le\epsilon\le1$, every decision rule based only on $T_I$ has error at least $\tfrac12(1-\epsilon)$ under equal priors, whereas the Bayes error with access to the full description is $\tfrac12(1-\TV(P_{E_1},P_{E_2}))$. Indeed, the interface has a common value $t_0$ throughout $B$, so its laws $\mu_1$ and $\mu_2$ each put mass at least $1-\epsilon$ on $t_0$. If a measurable set $A$ contains $t_0$, both $\mu_i(A)$ lie in $[1-\epsilon,1]$, and otherwise both lie in $[0,\epsilon]$. Thus $\TV(\mu_1,\mu_2)\le\epsilon$, and Theorem~2 gives the error bound. The variational characterization applied to the description laws gives the full-description Bayes error. The statement concerns the specified common membership interface. Membership in additional intervals need not be constant on $B$, so it does not extend to such a richer interface without a separate argument.
+
+\emph{Violated constraints.} Let $T_{\mathrm{key}}(X)=\{\mathrm{key}(v):v\in\V(X)\}$ be the set of violated constraints of a window, which discards the numerical degree intervals. Apply Theorem~2 with $T=T_{\mathrm{key}}$, the window laws of an event $E$ and of the fault-free run, and the decision event $\mathcal A=\{F:E\in F\}$. Every window-level rule $f$ that depends only on $T_{\mathrm{key}}$ satisfies
 \[
- T_I(\phi)=(\mathbf 1[\phi_u\in I_u])_u.
+ \Pr_E(E\notin f)+\Pr_\emptyset(E\in f)\ge1-\delta_{\mathrm{key}}(E,\emptyset),
 \]
-If $P_{E_i}(B)\ge1-\epsilon$ for $i=1,2$, with $0\le\epsilon\le1$, every decision rule based only on $T_I$ has error at least $\tfrac12(1-\epsilon)$ under equal priors. The same bound holds for any interface constant on $B$. With access to the full description $\phi$, the Bayes error is $\tfrac12(1-\TV(P_{E_1},P_{E_2}))$.
-\end{result}
-
-\begin{proof}
-The interface has a common value $t_0$ throughout $B$, so its laws $\mu_1$ and $\mu_2$ each put mass at least $1-\epsilon$ on $t_0$. If a measurable set $A$ contains $t_0$, both $\mu_i(A)$ lie in $[1-\epsilon,1]$; otherwise both lie in $[0,\epsilon]$. Thus $\TV(\mu_1,\mu_2)\le\epsilon$, and Theorem~2 gives the claimed error bound. Applying the variational characterization directly to the description laws gives the full-description Bayes error. If the probability assumption is available separately for each of $m$ coordinates, with error at most $\epsilon$ per coordinate, the union bound gives the joint error bound $\min\{1,m\epsilon\}$ instead.
-\end{proof}
-
-\begin{remark}[Scope and an example]
-The result concerns the specified common membership interface. Membership in additional intervals need not be constant on $B$, so the result does not apply to such a richer interface without a separate argument. For example, let two description laws assign probabilities $(0.9,0.1)$ and $(0.1,0.9)$ to $\{4,8\}$. Both have the $5\%$ to $95\%$ quantile interval $[4,8]$. Its membership is constant, giving Bayes error $1/2$, whereas the full description has total variation $0.8$ and Bayes error $0.1$.
-\end{remark}
-
-\begin{result}{Corollary 3 (Sub-threshold events)}
-Every window-level rule that depends only on the violation feature set $\V(X)$ satisfies
-\[
- \Pr_E(E\notin f)+\Pr_\emptyset(E\in f)
- \ge1-\delta_{\V}(E,\emptyset),
-\]
-where $\delta_{\V}(E,\emptyset)$ is the population probability that the paired event and fault-free windows have different violation feature sets. Equality of these sets includes equality of the degree intervals recorded in their features.
-\end{result}
-
-\begin{proof}
-Apply Theorem~2 with $T=\V(\cdot)$, the event and fault-free window laws, and the decision event $\mathcal A=\{F:E\in F\}$.
-\end{proof}
-
-\begin{remark}[Information retained by a violation interface]
-The distinct interface
-\[
- T_{\mathrm{key}}(X)=\{\mathrm{key}(v):v\in\V(X)\}
-\]
-discards numerical degree intervals. Theorem~2 also gives an error-sum lower bound of $1-\delta_{\mathrm{key}}(E,\emptyset)$ for a rule based only on this interface, where $\delta_{\mathrm{key}}$ is its paired mismatch probability. Key sets differ precisely when some key is present only in one paired window. However, two windows can have the same violated keys and different degree intervals, so $\delta_{\mathrm{key}}\le\delta_{\V}$ and the inequality may be strict. The key mismatch probability cannot replace $\delta_{\V}$ in Corollary~3 for a rule that also reads interval values. An application to a particular baseline must establish its interface and use the mismatch probability for that interface.
+where $\delta_{\mathrm{key}}(E,\emptyset)$ is the population probability that the paired event and fault-free windows differ in their sets of violated constraints. The same argument with $T=\V(\cdot)$ gives the bound $1-\delta_{\V}(E,\emptyset)$ for rules that read the complete violation features, where equality of feature sets includes equality of the recorded degree intervals. Two windows can have the same violated constraints and different degree intervals, so $\delta_{\mathrm{key}}\le\delta_{\V}$ and the inequality may be strict. The bound for $T_{\mathrm{key}}$ therefore does not apply to a rule that also reads interval values. An application to a particular method must establish its interface and use the mismatch probability for that interface.
 \end{remark}
 
 \begin{remark}[Several windows of one run]
@@ -281,7 +196,7 @@ For $n$ independent and identically distributed interface observations under eac
 \end{remark}
 
 
-\section{Theorem 3 and Proposition 1}
+\section{Theorem 3}
 \label{sec:s-recovery}
 
 Fix a window $X=X^{(H)}(\xi)$ with a nonempty true set $H\subseteq\E$ and $1\le k=|H|\le K_{\max}$. The candidate set $\E$ is finite, and the thresholds $\tau_0,\tau_1$ in this section are finite. In addition to the stopping rules in Algorithm~1, the algorithm stops if no unselected candidate remains. For a selected set $S\subseteq H$, define the paired reference description
@@ -339,73 +254,15 @@ After $k$ additions the selected set is $H$. If $k=K_{\max}$, the cardinality bo
 so the threshold stops it. Each stopping case returns exactly $H$. For a violation on a unit supported by exactly one event of $H$, the assignment rule has that event as its sole candidate and assigns the violation to it.
 \end{proof}
 
-\begin{result}{Proposition S2 (Sharper recovery margins)}
-Retain the setup, initial conditions, and stopping conditions of Theorem~3. For each nonempty proper visited prefix $S\subsetneq H$, define
-\begin{align*}
- M_S&=\max_{E\in H\setminus S}z_E^{X,S}(\psi_S),\\
- B_S&=\max_{E'\in\E\setminus H}z_{E'}^{X,S}(\psi_S),\\
- d_S&=M_S-B_S,\qquad a_S=M_S-\tau_1.
-\end{align*}
-It suffices to replace the intermediate condition of Theorem~3 by
-\[
- a_S>\omega_S,
- \qquad d_S>2\omega_S\quad\text{if }\E\setminus H\ne\emptyset.
-\]
-Under these conditions, the event-set recovery and assignment conclusions of Theorem~3 still hold.
-\end{result}
-
-\begin{proof}
-The initial conditions give a true first selection exactly as in Theorem~3. At a visited proper prefix $S\subsetneq H$, let $E^\dagger\in H\setminus S$ attain $M_S$, and let $r$ be the residual at this prefix. The score discrepancy bound gives
-\[
- z_{E^\dagger}^{X,S}(r)
- \ge M_S-\omega_S
- =\tau_1+a_S-\omega_S>\tau_1.
-\]
-When false candidates exist, every such $E'$ also satisfies
-\[
- z_{E^\dagger}^{X,S}(r)-z_{E'}^{X,S}(r)
- \ge M_S-B_S-2\omega_S
- =d_S-2\omega_S>0.
-\]
-Thus the highest-scoring unselected candidate is true and passes the addition threshold. When there are no false candidates, every unselected candidate is true and only the threshold inequality is needed. The induction, stopping cases, and assignment argument of Theorem~3 apply unchanged.
-
-For the original margins, monotonicity of $t\mapsto\min\{t-B_S,t-\tau_1\}$ gives
-\[
- \eta_S=\min\{M_S-B_S,M_S-\tau_1\}
-        =\min\{d_S,a_S\},
-\]
-using $B_S=-\infty$ when there are no false candidates. Therefore $\eta_S>2\omega_S$ implies the conditions above, while the converse need not hold. For $\omega_S>0$, margins $d_S=3\omega_S$ and $a_S=\tfrac32\omega_S$ satisfy the new conditions but not the intermediate condition of Theorem~3.
-\end{proof}
-
-\begin{remark}[Meaning of the refinement]
-Proposition~S2 separates the discrepancy needed to preserve ordering against a false candidate from the discrepancy needed to cross a fixed threshold. It enlarges the sufficient region of the paired, pathwise certificate. It does not establish an empirical performance improvement or an unconditional recovery guarantee for unseen processes.
-\end{remark}
-
 \begin{remark}[Scope of the certificate]
 This is a sufficient condition along the path actually visited. It certifies the returned event set and the stated assignment behavior. Unique membership in a learned support does not itself establish that the assigned event is a counterfactual cause, nor does the theorem establish that every background violation is left unassigned.
 
 An order-uniform condition is also possible. For each $S\subseteq H$, keep $X$, $S$, and the reference $\psi_S$ fixed, and let $\bar\omega_S$ be the supremum of the same score discrepancy over residuals formed by successively deducting the events of $S$ in every possible order. Conditions $\eta_S>2\bar\omega_S$ for every nonempty proper subset of $H$, together with the initial conditions and the stopping condition $\eta_H>\bar\omega_H$ when needed, imply the pathwise certificate. Checking only the prefixes of one prescribed order does not establish this order-uniform condition. No global Lipschitz property of the learned scores is assumed; in particular, discontinuous tree scores need not satisfy such a property.
 \end{remark}
 
-\begin{result}{Proposition 1 (Interaction bound and single-label rules)}
-(i) If the available training information consists only of fault-free runs, single-event runs, and synthetic sums of their single-event effects, then for any three distinct event labels $A,B,C$ there are two processes with identical available training information such that, in one process, $\{A,B\}$ and $\{C\}$ produce the same window law while both $A$ and $B$ are effective. Under that process every window-based rule $f$, with the same independent randomization under both hypotheses, satisfies
-\[
- \Pr(f\ne\{A,B\}\mid A,B)+\Pr(f\ne\{C\}\mid C)\ge1.
-\]
-(ii) A rule that outputs one event per window has event-set F1 at most $2/(k+1)$ on a window with $k\ge1$ effective events.
-\end{result}
-
-\begin{proof}
-(i) Use deterministic one-sample windows in $\mathbb R^3$, with fault-free window $0$ and single-event windows $e_1,e_2,e_3$ for $A,B,C$, respectively, where $e_i$ are the coordinate basis vectors. Each coordinate has the normal interval $[-1/2,1/2]$. Define a process $\mathcal P$ by summing the active single-event vectors. Define $\mathcal P'$ to agree with $\mathcal P$ on every event set except $\{A,B\}$, and set $X^{(AB)}=e_3$ under $\mathcal P'$. The two processes agree on normal and single-event windows, and every synthetic sum computed from those windows is identical. The synthetic sum for $A,B$ is $e_1+e_2$ in both training collections; it need not equal the actual joint window under $\mathcal P'$.
-
-Under $\mathcal P'$, the third coordinate is violated in $X^{(AB)}=e_3$ and in $X^{(C)}=e_3$, but not in the normal window. Removing $A$ from $\{A,B\}$ gives $e_2$ and removes this violation; removing $B$ gives $e_1$ and also removes it. Thus both events are effective by the counterfactual definition. The two hypotheses have the same window law. If $p$ is the probability that $f$ outputs $\{A,B\}$ on $e_3$, their error probabilities are $1-p$ and at least $p$, respectively. Their sum is at least one. The interaction in this example is $e_3-e_1-e_2$, whose Euclidean norm divided by $\|e_1+e_2\|_2$ is $\sqrt{3/2}$. The construction shows why unrestricted interactions preclude a uniform recovery guarantee based solely on the stated training information; it does not assert a sharp universal interaction threshold.
-
-(ii) For a true set $T$ with $|T|=k$ and singleton output $\{\ell\}$, event-set F1 is
-\[
- \frac{2|\{\ell\}\cap T|}{1+k}\le\frac{2}{k+1}.
-\]
-Equality holds exactly when $\ell\in T$.
-\end{proof}
+\begin{remark}[Interaction of events]
+The certificate bounds the interaction of events through $\omega_S$, and single-event information alone cannot replace such a bound. Use deterministic one-sample windows in $\mathbb R^3$, with fault-free window $0$ and single-event windows $e_1,e_2,e_3$ for three events $A,B,C$, where $e_i$ are the coordinate basis vectors and each coordinate has the normal interval $[-1/2,1/2]$. One process sums the active single-event vectors. A second process agrees with it on every event set except $\{A,B\}$, for which the window is $e_3$. The two processes have the same fault-free runs, single-event runs and sums of single-event effects. In the second process the windows of $\{A,B\}$ and of $\{C\}$ coincide while both $A$ and $B$ are effective, so no rule based on the window separates the two event sets.
+\end{remark}
 
 
 \section{Theorem 4}
@@ -505,41 +362,6 @@ The protocol above is sufficient for this theorem, not a claim that every releas
 \end{remark}
 
 
-\section{Functional Constraints}
-\label{sec:s-functional}
-
-\begin{result}{Proposition S1 (Functional constraints)}
-Suppose the normal variables satisfy $x_j=\beta_0+\beta^\top x_P+e$, have finite variances, and obey $\operatorname{Cov}(e,x_P)=0$. Let $\sigma_j^2=\operatorname{Var}(x_j)>0$, $\sigma_e^2=\operatorname{Var}(e)>0$, and $R^2=1-\sigma_e^2/\sigma_j^2\in[0,1)$. Fix the learned coefficients and interval midpoints, and use range half-widths $c\sigma_j$ and $c\sigma_i$ and functional half-width $c\sigma_e$, with the same constant $c>0$ and $\sigma_i^2=\operatorname{Var}(x_i)>0$ for a partner under consideration. For a paired perturbation $(\Delta_j,\Delta_P)$ of the variables, the changes in range and functional degrees are
-\[
- \Delta F_j=\frac{\Delta_j}{c\sigma_j},\qquad
- \Delta F_i=\frac{\Delta_i}{c\sigma_i},\qquad
- \Delta F_{\mathrm{fun}}=
- \frac{\Delta_j-\beta^\top\Delta_P}{c\sigma_j\sqrt{1-R^2}}.
-\]
-If only the target changes, then $|\Delta F_{\mathrm{fun}}|=|\Delta F_j|/\sqrt{1-R^2}$. If only partner $x_i$ changes while $x_j$ and the other partners are held fixed, then
-\[
- |\Delta F_{\mathrm{fun}}|
- =\frac{|\beta_i|\sigma_i}{\sigma_j\sqrt{1-R^2}}
-   |\Delta F_i|.
-\]
-For a relation with just one predictor, this coefficient becomes $|r|/\sqrt{1-r^2}$, where $r=\operatorname{Corr}(x_i,x_j)$ and $r^2=R^2$; it exceeds one exactly when $R^2>1/2$. A perturbation along the relation, $\Delta_j=\beta^\top\Delta_P$, leaves the functional degree unchanged.
-\end{result}
-
-\begin{proof}
-The fixed functional quantity is the residual $x_j-\beta_0-\beta^\top x_P$. Under the paired perturbation its change is $\Delta_j-\beta^\top\Delta_P$. Subtracting the original degree from the perturbed degree cancels the fixed interval midpoint. Dividing by the half-width $c\sigma_e=c\sigma_j\sqrt{1-R^2}$ gives the displayed formula. The same calculation for a range constraint gives $\Delta F_j$ and $\Delta F_i$.
-
-With $\Delta_P=0$, the functional change is $\Delta F_j/\sqrt{1-R^2}$. With $\Delta_j=0$ and only the $i$th partner changing, its magnitude is $|\beta_i\Delta_i|/(c\sigma_e)$, giving the general coefficient. When $x_i$ is the only predictor, the orthogonality assumption implies
-\[
- \operatorname{Cov}(x_i,x_j)=\beta_i\sigma_i^2,
- \qquad \beta_i=r\frac{\sigma_j}{\sigma_i}.
-\]
-It also gives $\sigma_j^2=\beta_i^2\sigma_i^2+\sigma_e^2$, so $r^2=R^2$. Substitution yields $|r|/\sqrt{1-r^2}$. Since $0\le r^2<1$, this quantity exceeds one exactly when $r^2>1-r^2$, or $R^2>1/2$. Finally, $\Delta_j=\beta^\top\Delta_P$ makes the residual change zero, so the functional degree is unchanged.
-\end{proof}
-
-\begin{remark}[Changes and observed degrees]
-These identities describe paired changes in degrees. An unchanged functional degree can be nonzero and can already violate its interval because of the original residual. In a relation with several predictors, the total $R^2$ alone does not determine the coefficient for moving one partner. If range and functional half-widths use different proportionality constants, the corresponding degree-change coefficient must also include the ratio of those constants.
-\end{remark}
-
 % Generated by IEEEtran.bst, version: 1.14 (2015/08/26)
 \begin{thebibliography}{1}
 \providecommand{\url}[1]{#1}
@@ -569,13 +391,6 @@ I.~Dinur and D.~Steurer, ``Analytical approach to parallel repetition,'' in
   \emph{Proceedings of the 46th {ACM} Symposium on Theory of Computing
   ({STOC})}, 2014, pp. 624--633. [Online]. Available:
   \url{https://doi.org/10.1145/2591796.2591884}
-\BIBentrySTDinterwordspacing
-
-\bibitem{Peng1990Abductive}
-\BIBentryALTinterwordspacing
-Y.~Peng and J.~A. Reggia, \emph{Abductive Inference Models for Diagnostic
-  Problem-Solving}.\hskip 1em plus 0.5em minus 0.4em\relax New York: Springer,
-  1990. [Online]. Available: \url{https://doi.org/10.1007/978-1-4419-8682-5}
 \BIBentrySTDinterwordspacing
 
 \bibitem{Chvatal79}
