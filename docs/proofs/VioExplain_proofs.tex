@@ -72,7 +72,7 @@ The event-prior-penalized profile log-likelihood ratio is
 \[
 F_{\mathrm{ex}}(H)=\log\frac{\Pr(H)\max_{a\in\mathcal A(H)}p(x\mid H,a)}{\Pr(\emptyset)\prod_u p_u^0(x_u)}.
 \]
-This score is not a joint or marginal posterior ratio for a probabilistic latent assignment. Such a posterior would require an assignment distribution and its normalization. Define its separable surrogate by
+Define its separable surrogate by
 \[
 F(H)=\sum_{u\in U}\max(0,m_u(H))-\sum_{E\in H}\hat w_E,
 \qquad
@@ -126,16 +126,14 @@ A noncover costs at least $G>m$, whereas opening all events costs $m$, so minimu
 \end{proof}
 
 \begin{remark}[Approximation of the facility cost]
-There is a polynomial-time density-greedy algorithm with approximation factor $H(\Delta)=\sum_{i=1}^{\Delta}1/i$, where $\Delta=\max(\{1\}\cup\{|R(E)|:E\in\E\})$. This is an algorithm for the nonnegative facility cost, not a guarantee for Algorithm~1 of the main text.
+There is a polynomial-time density-greedy algorithm with approximation factor $H(\Delta)=\sum_{i=1}^{\Delta}1/i$, where $\Delta=\max(\{1\}\cup\{|R(E)|:E\in\E\})$.
 
 To prove the claim, create a weighted set-cover column for every nonempty star $(E,T)$, $T\subseteq R(E)$, with covered set $T$ and cost $\hat w_E+\sum_{u\in T}c(u,E)$. Also create a background singleton of cost $G_u$ for each $u$. Every facility solution decomposes into one star for the units assigned to each used event and background singletons, at the same cost after unused opened events are removed. Conversely, a cover by stars gives a facility solution of no greater cost: open each event used by a star once, and assign each unit to one of its covering stars, retaining its indicated facility. The removed duplicate opening costs and unused assignment costs are nonnegative. Hence the two optimum costs coincide.
 
 The weighted set-cover density-greedy bound is $H(\Delta)$~\cite{Chvatal79}, since every column has at most $\Delta$ units. Although the number of stars is exponential, an exact greedy step is polynomial. For a fixed event, deleting already covered units from a proposed star cannot increase its cost per newly covered unit. Sort its remaining admissible units by $c(u,E)$; among stars with exactly $k$ newly covered units, a prefix of length $k$ minimizes cost. Enumerating all nonempty prefixes for every event and all remaining background singletons finds the global minimum-density star~\cite{Hochbaum82}. Each iteration covers a new unit, so there are at most $|U|$ iterations. The argument includes zero-cost stars. If $U$ is empty, the empty event set is optimal with cost zero.
 
-A cost approximation factor does not imply a multiplicative guarantee on $F$. Write $B=\sum_uG_u$, $C^*=\min_H C(H)$ and $F^*=\max_H F(H)=B-C^*$. If $C(H)\le\rho C^*$, then only the additive implication
 $F(H)\ge F^*-(\rho-1)C^*$ follows in general.
 \end{remark}
-
 
 \section{Theorem 2}
 \label{sec:s-interface}
@@ -177,10 +175,6 @@ For any measurable set $B$ in the interface space and any coupling,
 Taking the supremum over $B$ proves the coupling inequality. Applying it to the paired runs proves the last assertion. Under equal priors, minimization over all binary decisions on the interface gives the Bayes error $\tfrac12(1-\TV(\mu,\nu))$, by the variational characterization of total variation.
 \end{proof}
 
-\begin{remark}[Estimating the paired probability]
-The theorem requires no parametric family for the marginal laws. A mismatch fraction from finitely many paired runs estimates $\delta_T$; it is not the population probability itself. A finite-sample confidence statement about the error lower bound must use a valid upper confidence bound for $\delta_T$, with the sampling units and dependence of the paired observations accounted for.
-\end{remark}
-
 \begin{remark}[Two interfaces referred to in the main text]
 \emph{Interval membership.} Let $P_{E_1}$ and $P_{E_2}$ denote the laws of a continuous description vector $\phi$ under two events. Fix common intervals $I_u$ for its coordinates, let $B=\prod_u I_u$, and define the common membership interface $T_I(\phi)=(\mathbf 1[\phi_u\in I_u])_u$. If $P_{E_i}(B)\ge1-\epsilon$ for $i=1,2$, with $0\le\epsilon\le1$, every decision rule based only on $T_I$ has error at least $\tfrac12(1-\epsilon)$ under equal priors, whereas the Bayes error with access to the full description is $\tfrac12(1-\TV(P_{E_1},P_{E_2}))$. Indeed, the interface has a common value $t_0$ throughout $B$, so its laws $\mu_1$ and $\mu_2$ each put mass at least $1-\epsilon$ on $t_0$. If a measurable set $A$ contains $t_0$, both $\mu_i(A)$ lie in $[1-\epsilon,1]$, and otherwise both lie in $[0,\epsilon]$. Thus $\TV(\mu_1,\mu_2)\le\epsilon$, and Theorem~2 gives the error bound. The variational characterization applied to the description laws gives the full-description Bayes error. The statement concerns the specified common membership interface. Membership in additional intervals need not be constant on $B$, so it does not extend to such a richer interface without a separate argument.
 
@@ -188,13 +182,12 @@ The theorem requires no parametric family for the marginal laws. A mismatch frac
 \[
  \Pr_E(E\notin f)+\Pr_\emptyset(E\in f)\ge1-\delta_{\mathrm{key}}(E,\emptyset),
 \]
-where $\delta_{\mathrm{key}}(E,\emptyset)$ is the population probability that the paired event and fault-free windows differ in their sets of violated constraints. The same argument with $T=\V(\cdot)$ gives the bound $1-\delta_{\V}(E,\emptyset)$ for rules that read the complete violation features, where equality of feature sets includes equality of the recorded degree intervals. Two windows can have the same violated constraints and different degree intervals, so $\delta_{\mathrm{key}}\le\delta_{\V}$ and the inequality may be strict. The bound for $T_{\mathrm{key}}$ therefore does not apply to a rule that also reads interval values. An application to a particular method must establish its interface and use the mismatch probability for that interface.
+where $\delta_{\mathrm{key}}(E,\emptyset)$ is the population probability that the paired event and fault-free windows differ in their sets of violated constraints. The same argument with $T=\V(\cdot)$ gives the bound $1-\delta_{\V}(E,\emptyset)$ for rules that read the complete violation features, where equality of feature sets includes equality of the recorded degree intervals.
 \end{remark}
 
 \begin{remark}[Several windows of one run]
-For $n$ independent and identically distributed interface observations under each hypothesis, let their one-window laws be $\mu,\nu$ and let $A(\mu,\nu)=\int\sqrt{pq}$ be their Hellinger affinity relative to a common dominating measure. The inequalities $1-\TV(\mu,\nu)\ge\tfrac12 A(\mu,\nu)^2$ and $A(\mu^{\otimes n},\nu^{\otimes n})=A(\mu,\nu)^n$ give a lower bound $\tfrac12 A(\mu,\nu)^{2n}$ on the sum of the two errors. Consecutive windows need not be independent, so this product bound does not apply to them without further assumptions.
+For $n$ independent and identically distributed interface observations under each hypothesis, let their one-window laws be $\mu,\nu$ and let $A(\mu,\nu)=\int\sqrt{pq}$ be their Hellinger affinity relative to a common dominating measure. The inequalities $1-\TV(\mu,\nu)\ge\tfrac12 A(\mu,\nu)^2$ and $A(\mu^{\otimes n},\nu^{\otimes n})=A(\mu,\nu)^n$ give a lower bound $\tfrac12 A(\mu,\nu)^{2n}$ on the sum of the two errors.
 \end{remark}
-
 
 \section{Theorem 3}
 \label{sec:s-recovery}
@@ -254,16 +247,14 @@ After $k$ additions the selected set is $H$. If $k=K_{\max}$, the cardinality bo
 so the threshold stops it. Each stopping case returns exactly $H$. For a violation on a unit supported by exactly one event of $H$, the assignment rule has that event as its sole candidate and assigns the violation to it.
 \end{proof}
 
-\begin{remark}[Scope of the certificate]
-This is a sufficient condition along the path actually visited. It certifies the returned event set and the stated assignment behavior. Unique membership in a learned support does not itself establish that the assigned event is a counterfactual cause, nor does the theorem establish that every background violation is left unassigned.
+\begin{remark}[Order-uniform condition]
 
-An order-uniform condition is also possible. For each $S\subseteq H$, keep $X$, $S$, and the reference $\psi_S$ fixed, and let $\bar\omega_S$ be the supremum of the same score discrepancy over residuals formed by successively deducting the events of $S$ in every possible order. Conditions $\eta_S>2\bar\omega_S$ for every nonempty proper subset of $H$, together with the initial conditions and the stopping condition $\eta_H>\bar\omega_H$ when needed, imply the pathwise certificate. Checking only the prefixes of one prescribed order does not establish this order-uniform condition. No global Lipschitz property of the learned scores is assumed; in particular, discontinuous tree scores need not satisfy such a property.
+The certificate is a condition along the path that the algorithm visits, and an order-uniform condition is also possible. For each $S\subseteq H$, keep $X$, $S$, and the reference $\psi_S$ fixed, and let $\bar\omega_S$ be the supremum of the same score discrepancy over residuals formed by successively deducting the events of $S$ in every possible order. Conditions $\eta_S>2\bar\omega_S$ for every nonempty proper subset of $H$, together with the initial conditions and the stopping condition $\eta_H>\bar\omega_H$ when needed, imply the pathwise certificate. No global Lipschitz property of the learned scores is assumed.
 \end{remark}
 
 \begin{remark}[Interaction of events]
 The certificate bounds the interaction of events through $\omega_S$, and single-event information alone cannot replace such a bound. Use deterministic one-sample windows in $\mathbb R^3$, with fault-free window $0$ and single-event windows $e_1,e_2,e_3$ for three events $A,B,C$, where $e_i$ are the coordinate basis vectors and each coordinate has the normal interval $[-1/2,1/2]$. One process sums the active single-event vectors. A second process agrees with it on every event set except $\{A,B\}$, for which the window is $e_3$. The two processes have the same fault-free runs, single-event runs and sums of single-event effects. In the second process the windows of $\{A,B\}$ and of $\{C\}$ coincide while both $A$ and $B$ are effective, so no rule based on the window separates the two event sets.
 \end{remark}
-
 
 \section{Theorem 4}
 \label{sec:s-conformal}
@@ -348,19 +339,16 @@ If the first selected event is the true one and a second selection is allowed, e
 (c) Given $\mathcal F,C_0,C_1$, the entire output rule $H$, including both selection thresholds, is fixed before $C_u$ is inspected. Thus $X\mapsto D_{H(X)}(\phi(X))$ is a fixed measurable score under this conditioning. The assumed conditional exchangeability of the known-mixture calibration and test windows makes their scores exchangeable. The flag uses $D_{H(X)}(\phi(X))>\tau_u$, so Lemma~\ref{lem:rank} gives the conditional upper bound; averaging gives (c).
 \end{proof}
 
-\begin{remark}[Scope, fluctuation and implementation]
-Part (c) controls the stated mixture marginally, not each output set or each event class. Conditional control within an output group would require an appropriate groupwise calibration construction and sufficient selected calibration data. Known concurrent-event windows have no guarantee from (c) unless their distribution also satisfies its exchangeability hypothesis. Their false-flag rate must otherwise be evaluated empirically.
+\begin{remark}[Fluctuation over calibration sets]
 
-For the Beta fluctuation statement, impose the stronger assumption that, conditional on $\mathcal F$, the normal calibration and test scores are independent and identically distributed with continuous distribution function $F_{\mathcal F}$, and $m_0\le n_0$. The conditional test naming probability
+Suppose that, conditional on $\mathcal F$, the normal calibration and test scores are independent and identically distributed with continuous distribution function $F_{\mathcal F}$, and $m_0\le n_0$. The conditional test naming probability
 \[
  q(C_0)=\Pr(\text{naming}\mid\mathcal F,C_0)
        =1-F_{\mathcal F}(Z_{(m_0)})
 \]
-then has distribution $\mathrm{Beta}(n_0+1-m_0,m_0)$ over random draws of $C_0$, conditional on $\mathcal F$: the transformed calibration scores are independent uniform variables, whose $m_0$-th order statistic is $\mathrm{Beta}(m_0,n_0+1-m_0)$~\cite{Vovk2005Algorithmic,Lei2018Distribution}. Once $C_0$ is fixed, $q(C_0)$ is a number. Mere exchangeability does not imply this Beta law. When $m_0=n_0+1$, $q(C_0)=0$ under the infinite-threshold convention.
+then has distribution $\mathrm{Beta}(n_0+1-m_0,m_0)$ over random draws of $C_0$, conditional on $\mathcal F$: the transformed calibration scores are independent uniform variables, whose $m_0$-th order statistic is $\mathrm{Beta}(m_0,n_0+1-m_0)$~\cite{Vovk2005Algorithmic,Lei2018Distribution}. When $m_0=n_0+1$, $q(C_0)=0$ under the infinite-threshold convention.
 
-The protocol above is sufficient for this theorem, not a claim that every released experiment follows it. Selecting the fusion weight on a threshold-calibration pool, or reusing the pools that determine $H$ to calibrate the unknown score, is not justified by this proof. The repository's proof README records the implementation scope; disjointness from evaluation data alone does not supply the missing conditional exchangeability.
 \end{remark}
-
 
 % Generated by IEEEtran.bst, version: 1.14 (2015/08/26)
 \begin{thebibliography}{1}
