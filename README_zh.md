@@ -1,94 +1,89 @@
-# VioExplain Benchmark
+# VioExplain
 
 [English](README.md)
 
-VioExplain 以异常表征解释约束违反，通过最小代价覆盖组织解释。仓库保留**违反提取、表征匹配、异常解释、知识更新**这一原有方法主线，提供方法实现、未知违反的独立记录、公开数据协议、基线适配器及已有探索结果。
+本仓库包含 VioExplain 一文的代码、结果文件与证明。VioExplain 对工业过程的一个窗口输出三项内容，即一组异常事件、约束违反到事件的归属、未被解释的剩余违反。方法只用无故障运行与单故障运行学习，用配对运行合成并发故障的反事实窗口，并把含未知事件的窗口标记出来用于知识更新。
 
-时序基模组件属于研究扩展。目前的小规模试验与正式事件实验尚未证明相对于统计对照的稳定优势，也未证明达到最优性能。合成检查、原生异常检测、异常贡献维归因和事件诊断分别报告。
-
-## 方法身份
-
-| 方法 | 目标与求解方式 | 入口 |
-|---|---|---|
-| `AEC-Prototype` | 所提供的区间表征事件覆盖原型及原 `Select` 过程 | `vioexplain.setcover.set_covering.MyCover` |
-| `MinExplain` | 后加的表征开设代价与违反指派代价目标，采用密度贪心或原始对偶求解 | `vioexplain.api.explain`、`vioexplain.mincost` |
-
-二者的目标函数与算法不同。默认公开接口运行 **MinExplain**，`AEC-Prototype` 以独立入口保留，并与所提供旧原型的演示结果核对。当前对照以所提供的原英文稿和代码为依据。适配器与接口修复不属于研究创新。
-
-## 快速开始
-
-使用 Python 3.10 或更高版本，并建立独立环境。最小运行检查不需要 GPU、模型权重或数据集。
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -e '.[test]'
-bash run.sh smoke
-bash run.sh prototype-smoke
-python -m pytest -q
-```
-
-`smoke` 使用两条可匹配违反和一条未知违反组成的微型合成实例，仅检查接口约定，不产生论文实验指标。
-
-## 目录说明
+## 目录
 
 | 路径 | 内容 |
 |---|---|
-| [`src/vioexplain/`](src/vioexplain/README.md) | 公开接口、违反提取、异常表征、集合覆盖与知识更新 |
-| `benchmark/` | 官方数据适配、指标计算与冻结协议 |
-| [`data/`](data/README.md) | 数据卡与固定上游提交的下载脚本，原始数据仅保存在使用者本地 |
-| `configs/` | 最小检查与正式实验配置 |
-| `run_vioexplain/` | 实验入口 |
-| [`result/`](result/README.md) | 纳入版本管理的汇总证据与本地运行输出 |
-| [`docs/`](docs/REPRODUCING.md) | 复现、基线实现差异、数据适用范围、来源与局限 |
-| `tests/` | 接口、部分覆盖、优化求解与探索组件的检查 |
+| [`experiments/tii_final/`](experiments/tii_final/README.md) | Tennessee Eastman 过程（TEP）实验的脚本 |
+| `experiments/tii_final/simproc/`、`simproc2/`、`simproc3/`、`simproc4/` | 九个仿真过程的仿真器、数据生成脚本与运行脚本 |
+| [`results/`](results/README.md) | 文中每张表、每幅图对应的结果文件及索引 |
+| [`docs/proofs/VioExplain_proofs.pdf`](docs/proofs/VioExplain_proofs.pdf) | 理论结果的证明 |
 
-方法入口是 [`vioexplain.api.explain`](src/vioexplain/api.py)。输出分别记录被所选表征支持的证据和未知证据，未知违反不会被计作已解释。
+## 数据集
 
-```python
-from vioexplain import Violation, Representation, explain
+| 数据集 | 来源 | 文中任务 |
+|---|---|---|
+| TEP-R | Rieth 等（2017）的扩展 Tennessee Eastman 数据，20 种扰动 IDV(1) 至 IDV(20)，使用官方测试集 | 单故障诊断 |
+| TEP-C | 用 TEP 仿真器在全厂控制方案下生成，扰动单独注入以及两两、三三组合注入，四故障窗口由配对的单故障运行叠加得到 | 并发故障解释、违反归因 |
+| TEP 留出错误类型 | TEP 错误类型轮流留出，窗口取自 TEP-R 与 TEP-C | 未知事件与知识更新 |
+| HYD | Helwig 等（2015）的液压试验台数据，取自 UCI 数据库，含四个退化部件 | 并发故障解释 |
+| CSTR、QTank | 搅拌釜反应器与四容水箱，见 `simproc/` | 并发故障解释 |
+| DIST、CSTH、DTS200 | 精馏塔、搅拌釜加热器与三容水箱，见 `simproc2/` | 并发故障解释 |
+| EVAP、PH | 强制循环蒸发器与 pH 中和过程，见 `simproc3/` | 违反归因 |
+| FERM、HEX | 连续发酵罐与管壳式换热器，见 `simproc4/` | 单故障诊断 |
 
-violations = [Violation("temperature", "domain", 1, 1.0, (1.0, 1.0), 3)]
-knowledge = [Representation({"temperature"}, w=1.0, support=2)]
-result = explain(violations, knowledge, theta=0.6)
-print(result.to_dict())
-```
+仓库不附带数据。TEP-R 与 HYD 需从数据所有者处下载。仿真过程由各目录下的 `gen_data.py` 生成，生成过程是确定性的。
 
-可选参数 `distances={(违反索引, 表征索引): 非负代价}` 用于接入匹配模型，覆盖问题保持一致。缺失的边表示不兼容。[接口说明](docs/API.md) 定义索引、代价、指派与未知违反的含义。
+## 方法
 
-## 数据与评测
+VioExplain 与 18 种基线比较。
+
+| 类别 | 方法 |
+|---|---|
+| 过程监控 | PCA-RBC、FDA |
+| 单标签诊断 | RF、XGB、LGBM、MiniRocket、MultiRocket、QUANT、1D-CNN、LSTM、ResNet、InceptionTime、MantisV2 |
+| 多标签诊断 | BR、CC、ML-CNN |
+| 知识型解释 | AEC、MinExplain |
+
+未知事件实验把 VioExplain 的未知得分与 MDS、MSP、Energy 比较。
+
+## 运行实验
+
+脚本需要 Python 3.10 及以上版本和 `requirements.txt` 中的包。MantisV2 还需要其公开权重与加载代码。数据目录与结果目录在各目录的 `common.py` 顶部设置，其中 `/path/to/vioexplain` 与 `/home/user` 是占位路径。`final_run.py`、`gpu_*.py`、`agg_update_base.py`、`final_update_base.py` 与 `gen_data.py` 的顶部写有同样的目录。
+
+每个脚本从环境变量读取设置。`V3_MODE` 取 `f0` 时只用单故障运行的知识，取 `f100t` 时加入反事实合成窗口，取 `f10t` 至 `f75t` 时只合成相应比例的故障对。`V3_RES` 指定结果目录，`V3_LOG` 与 `V3_METRICS` 指定输出文件名。各脚本的文档字符串给出用法。
+
+TEP 实验在 `experiments/tii_final/` 下运行。
 
 ```bash
-python data/download.py smd --show-source
-python data/download.py smd
-python data/download.py skab
-bash run.sh formal --help
+# 基于窗口描述与类型化违反的 CPU 基线
+V3_MODE=f0 V3_METRICS=metrics_base.json python final_base.py RF MC-LGBM XGB FDA PCA-RBC BR-LGBM CC-LGBM AEC MinExplain
+# 时间序列分类器
+V3_MODE=f0 V3_METRICS=metrics_QUANT.json python final_rocket.py QUANT
+# 深度诊断器与多标签网络，随后对其输出概率评分
+python gpu_run.py cuda:0 && python gpu_run2.py cuda:0 && python gpu_save.py cuda:0 && python gpu_save2.py cuda:0
+V3_MODE=f0 V3_METRICS=metrics_probs.json python final_probs.py ResNet:/path/to/resnet_probs.npz:single
+# VioExplain
+V3_MODE=f100t V3_FUNC=1 V3_NOSTEP=1 V3_ABL=full V3_TMODEL=/path/to/resnet_model.pt V3_TNAME=B \
+  V3_METRICS=metrics_B.json python final_fuse5.py /path/to/resnet_probs_v2.npz
 ```
 
-SMD 提供原生异常贡献维标注。SKAB 提供异常与变化点标注，不能单独验证根因维解释。正式统计基线入口还支持经典 Tennessee Eastman 模拟数据。Exathlon 仍作为单独记录的候选扩展。[数据卡](docs/DATASETS.md) 说明数据支持的结论，[基线说明](docs/BASELINES.md) 区分官方实现与方法适配。
+消融实验在最后一条命令中设置 `V3_ABL`（`noTemp`、`noOp`）或 `V3_NOTWIN=1`、`V3_FUNC=0`。覆盖率实验把 `V3_MODE` 设为 `f10t`、`f25t`、`f50t` 或 `f75t`，ML-CNN 用 `gpu_save3.py` 训练。`final_update_base.py` 与 `agg_update_base.py` 运行知识更新实验中的基线。`stats_extra.py` 与 `finding4.py` 计算正文引用的统计量。
 
-## 正式基准命令
+仿真过程在 `experiments/tii_final/simproc*/` 下运行。
 
 ```bash
-# CPU 统计检测，遍历给定目录中的官方完整对象。
-bash run.sh formal statistical --dataset smd --data data/raw/smd --output result/runs/smd-statistical
-bash run.sh formal statistical --dataset skab --data data/raw/skab --output result/runs/skab-statistical
+python gen_data.py cstr
+V3_DATA=cstr V3_RES=simproc_v1/cstr V3_MODE=f0 V3_METRICS=metrics_base.json python final_base.py RF MC-LGBM XGB FDA PCA-RBC BR-LGBM CC-LGBM AEC MinExplain
+V3_DATA=cstr V3_RES=simproc_v1/cstr V3_MODE=f100t python gpu_simproc.py cuda:0 cnn resnet lstm inceptiontime mlcnn_f0 mlcnn_f100t mantis
 ```
 
-SMD 条件归因轨道还可调用官方 BARO 的 RobustScorer 组件。TranAD 与 TreeSHAP 使用独立入口及依赖。[正式复现说明](docs/FORMAL_BENCHMARK.md) 给出固定来源的获取方式、运行命令、适配边界和状态。统计检测、条件维归因与事件类诊断分别评价。
+之后依次运行 `final_rocket.py`、`final_probs.py`、`final_fuse5.py` 与该目录的汇总脚本。各目录的 README 说明仿真器、注入的故障与数据布局。
 
-## 证据状态
+本次发布包含上面列出的运行脚本。HYD 实验、未知事件得分、VioExplain 的知识更新曲线、恢复证书与计时这五项实验的运行脚本未包含在内，其结果文件在 `results/` 中。
 
-软件完成状态与研究验证状态分别记录。原有 AEC-Prototype 与后加 MinExplain 核心和探索求解器已经实现。[历史汇总](result/summary/historical/manifest.json) 同时保留改善与负结果，包括冻结基模匹配头未获得跨域增益的结果。这些历史试验不属于新的盲测基准。[已完成正式批次](docs/BENCHMARK_STATUS.md) 提供独立协议、逐实体记录与运行清单。这些基线结果本身不能证明新 VioExplain 方法具有优势。
+## 核对表格
 
-[复现说明](docs/REPRODUCING.md) 给出命令与输出约定，[局限说明](docs/LIMITATIONS.md) 记录已知边界。仓库不包含私有工业测量、博士论文全文、模型权重或复制的第三方基线源码。
+```bash
+python results/print_main_table.py
+```
 
-## 许可与引用
+该脚本从 `results/` 下的文件打印文中的主表。[`results/README.md`](results/README.md) 把每张表、每幅图和正文引用的每个数字对应到文件与字段。
 
-本项目代码采用 [MIT 许可](LICENSE)。数据、外部实现与模型权重遵守各自条款，详见[第三方声明](THIRD_PARTY_NOTICES.md)。[CITATION.cff](CITATION.cff) 描述本软件版本，不宣称已发表期刊论文或已获得论文 DOI。
+## 许可
 
-历史同名方法的具体实现见[方法身份表](docs/METHOD_IDENTITIES.md)。
-
-[锁定的 TEP 事件实验](docs/EVENT_MATCHING.md) 包含原始区间原型、显式代价适配及采用区间、原始时序或冻结 Chronos-2 匹配的 MinExplain。九个正式基线批次与该事件实验均已完成，改善与负结果同时保留。
-
-运行入口自动将控制台输出及来源保存到`log/runs/`。已发布结果在`result/summary/`，新实验建议输出到`result/runs/`。详见[实验工件约定](docs/EXPERIMENT_RECORDS.md)。
+代码以 [MIT 许可](LICENSE) 发布。数据集、外部库与模型权重遵守各自的条款，见[第三方声明](THIRD_PARTY_NOTICES.md)。

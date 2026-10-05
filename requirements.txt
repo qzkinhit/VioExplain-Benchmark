@@ -1,1 +1,7 @@
--e .[test]
+numpy
+scipy
+scikit-learn
+lightgbm
+xgboost
+torch
+aeon

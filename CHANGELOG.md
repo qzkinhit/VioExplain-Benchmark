@@ -1,25 +1,11 @@
 # Changelog
 
-## 0.1.0, 2026-10-03
+## 0.2.0
 
-- Exported the original violation, representation, covering, and knowledge-update components through an explicit allowlist.
-- Included the corrected partial AEC behavior that preserves known explanations when unmatched violations occur.
-- Added a public explanation result with separate unknown-evidence indices and assignments, plus nonnegative-cost input validation.
-- Added packaging, a synthetic smoke command, baseline/data scope documentation, and CPU tests.
-- Added upstream-commit-pinned SMD/SKAB acquisition with retained notices and per-file SHA256 manifests.
-- Preserved historical exploratory aggregates, including negative results, without presenting them as a new formal benchmark.
-- Kept foundation-model solvers explicitly exploratory and documented historical correlation-extractor limitations.
+- The repository now contains only what the paper uses: the experiment scripts of `experiments/tii_final/`, the simulators of the nine simulated processes, the proofs and the result files.
+- Added `results/` with the result files behind every table and figure of the paper, an index and a script that prints the main table.
+- Removed the earlier package, its tests, its data cards and its recorded results, which belonged to an earlier formulation of the method and to datasets and baselines that the paper does not use.
 
-- Explicitly separated the supplied AEC-Prototype from the later MinExplain formulation, and provided a runnable prototype smoke with inherited golden checks.
+## 0.1.0
 
-- Completed and released all nine fixed formal baseline batches, with per-entity data, clustered intervals, adapter audits and exact executed source snapshots.
-- Added the locked TEP event panel, preserving true prototype intervals and separately identifying AEC-CostAdapted and MinExplain with interval, raw temporal and frozen Chronos-2 costs.
-- Published event predictions, negative outcomes, immutable LOCK and explicit metadata-redaction provenance; fitted objects and model/embedding files remain unbundled.
-
-## 2026-10-04
-
-Separate `result/` and `log/` directories. Command wrappers now preserve failed exits, console output and source hashes in unique run directories. Released numerical artifacts are unchanged; 43 remote CPU tests and artifact-integrity checks passed.
-
-The streaming wrapper flushes each available child output chunk before process exit. MinExplain documentation now states the support-rescan runtime bound and exposes implementation assumptions without references to private paper files. Numerical solvers are unchanged.
-
-Array-access auditing distinguishes declared inputs from arrays created during the run, so output integrity checks remain possible without permitting undeclared holdout reads. All 48 remote CPU tests pass.
+- First release.

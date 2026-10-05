@@ -8,7 +8,7 @@ Model. The four-tank laboratory process of Johansson (IEEE TCST 2000), nonlinear
 with the published parameters of the minimum-phase setting (A1 = A3 = 28 cm2, A2 = A4 = 32 cm2, a1 = a3 = 0.071 cm2,
 a2 = a4 = 0.057 cm2, k1 = 3.33, k2 = 3.35 cm3/(V s), gamma1 = 0.70, gamma2 = 0.60, v1 = v2 = 3 V, g = 981 cm/s2) and the
 decentralized PI controllers of that paper (K1 = 3.0, Ti1 = 30 s, K2 = 2.7, Ti2 = 40 s on the level-sensor voltage,
-sensor gain 0.5 V/cm). The values were written from memory and not checked against the paper, so this file does not
+sensor gain 0.5 V/cm). The values were not checked against the paper, so this file does not
 reproduce a published data set. Additions introduced here:
   * four stochastic disturbances as first-order autoregressive processes (multiplicative gain fluctuation of each pump,
     unmeasured inflow to each upper tank), Gaussian measurement noise, flow sensors on both pumps;

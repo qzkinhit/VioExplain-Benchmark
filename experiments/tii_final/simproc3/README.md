@@ -1,20 +1,19 @@
 # Two more simulated benchmarks with concurrent events: forced-circulation evaporator (EVAP) and pH neutralization (PH)
 
 This folder adds two closed-loop process simulators with paired concurrent-fault runs and runs VioExplain and the 18
-baselines on them under the protocol of `scripts/simproc2/` (see its README). `common.py`, `final_base.py`,
+baselines on them under the protocol of `../simproc2/` (see its README). `common.py`, `final_base.py`,
 `final_fuse5.py`, `final_probs.py`, `final_rocket.py`, `gpu_simproc.py`, `gen_data.py` and `sim_check.py` are copies
-of the `scripts/simproc2/` files. The copies differ from them in the following places.
+of the `../simproc2/` files. The copies differ from them in the following places.
 
 1. `common.py` reads its data from `data/simproc3/<process>/`.
 2. `gen_data.py` writes to `data/simproc3/<process>/` and samples min(5 x number of fault types, all triples) random
-   triples, which is 50 for both processes (as in `scripts/simproc2/`).
-3. `launch_gpu3.sh` takes the GPU from `V3_DEV` (on gpu-server, cuda:2 for EVAP and cuda:5 for PH, because the other four
-   cards had about 4 GB free memory at launch time), and `launch_after_gpu3.sh` also runs VioExplain without
-   composition (f0) for `metrics_extra.json`.
+   triples, which is 50 for both processes (as in `../simproc2/`).
+3. `gpu_simproc.py` takes the GPU from `V3_DEV`, and VioExplain is also run without composition (f0) for
+   `metrics_extra.json`.
 
 The method (run label B: learned addition decision without the step feature, ResNet temporal encoder,
 functional-constraint units), the 18 baselines, the calibration rule, the conformal empty set, the composition recipe,
-the effective-event truth, the metrics and the MultiRocket kernel count (1000) are those of `scripts/simproc2/`.
+the effective-event truth, the metrics and the MultiRocket kernel count (1000) are those of `../simproc2/`.
 No parameter of any method was chosen on evaluation windows. The fault sizes of the simulators were set before any
 method was run, with `sim_check.py` only (share of windows in which a fault causes a typed violation against the
 paired normal window), with the aim that every fault type is effective in a part of its windows.
@@ -69,16 +68,17 @@ Common random numbers: every random number of a run (disturbance and noise strea
 of its seed only, so the runs of all subsets of a fault set are paired runs. `sim_check.py` confirmed determinism and
 identical records before the onset for both simulators. No run of the generated data trips an interlock.
 
-## Data (`gen_data.py`, `data/simproc3/<process>/`, identical on cpu-server and gpu-server)
+## Data (`gen_data.py`, `data/simproc3/<process>/`)
 
-Same layout and protocol as `scripts/simproc2/`: 400 training runs per class (runs 0 to 299 fit, 300 to 399
+Same layout and protocol as `../simproc2/`: 400 training runs per class (runs 0 to 299 fit, 300 to 399
 calibration, 512 samples, onset 64, 7 windows each), 500 test runs per class (960 samples, onset 160, hash split into
 test calibration and evaluation, 12 windows each), test_pairs with 30 seeds for normal, every single fault and all 45
 pairs, test_triples with 15 seeds for 50 random triples and all their subsets, four-fault windows superposed from the
-paired single-fault runs of test_pairs. Window length 64 samples. `gen_all3.sh` generates both data sets.
+paired single-fault runs of test_pairs. Window length 64 samples.
 
 ## Run order
 
-`gen_all3.sh` (cpu-server and gpu-server), `launch_cpu3.sh` (cpu-server; after the first minutes its lane loops were replaced by `launch_cpu3_split.sh`, which runs the same commands with the same threads for one data set per call, so that EVAP and PH ran in parallel), `launch_gpu3.sh` (gpu-server, `V3_DEV`), `relay3.sh early|late`
-(workstation), `collect3.py` (cpu-server). Results: `results/simproc_v1/{evap,ph}/metrics_main.json`,
-`metrics_samecomp.json`, `metrics_extra.json`, `dataset_stats.json`, `dataset_truth_stats.json` (written by `stats3.py`). All runs finished on 2026-10-05 between 21:53 and 22:22; no method is missing.
+`gen_data.py`, `final_base.py` and `final_rocket.py` (CPU baselines), `gpu_simproc.py` (networks and MantisV2, device from
+`V3_DEV`), `final_probs.py`, `final_fuse5.py` (VioExplain, with and without composition), `stats3.py`, `collect3.py`.
+Results: `results/simproc_v1/{evap,ph}/metrics_main.json`, `metrics_samecomp.json`, `metrics_extra.json`,
+`dataset_stats.json`, `dataset_truth_stats.json` (written by `stats3.py`). No method is missing.

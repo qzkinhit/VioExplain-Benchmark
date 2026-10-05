@@ -9,7 +9,7 @@ CSTR (reactant concentration C, reactor temperature T, jacket temperature Tc) in
     dTc/dt = Qc / Vc (Tci - Tc) + b UA / (rhoc Cpc Vc) (T - Tc)
 Parameter values (Q 100 L/min, V 150 L, Vc 10 L, dH -2e5 cal/mol, UA 7e5 cal/(min K), k0 7.2e10 1/min, E/R 1e4 K,
 rho Cp 1000 cal/(L K), Ci 1 mol/L, Ti 350 K, Tci 350 K, T set point 430 K) are the ones commonly quoted for this
-benchmark. They were written from memory and not checked against the paper, so this file does not reproduce a
+benchmark. They were not checked against the paper, so this file does not reproduce a
 published data set. Deviations from the published model, all introduced here:
   * a liquid-level balance with a PI level loop acting on the outlet valve (the level is a state, UA does not depend
     on it), and a cascade for the reactor temperature (outer PI gives the jacket temperature set point, inner PI acts

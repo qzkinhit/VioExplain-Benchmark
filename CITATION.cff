@@ -1,10 +1,10 @@
 cff-version: 1.2.0
-message: "Please cite this software release. A journal paper and DOI have not been assigned to this release."
+message: "Please cite this software release. The accompanying paper is under double-blind review."
 type: software
-title: "VioExplain-Benchmark: Constraint-Violation Explanation for Time Series"
-version: 0.1.0
-date-released: 2026-10-03
+title: "VioExplain: experiment scripts, result files and proofs"
+version: 0.2.0
+date-released: 2026-10-05
 authors:
-  - name: "VioExplain contributors"
+  - name: "Anonymous authors"
 license: MIT
-abstract: "Research software for violation extraction, anomaly representation, minimum-cost explanation, and reproducible evaluation. Foundation-model extensions are exploratory."
+abstract: "Experiment scripts, simulators of nine process benchmarks, result files and proofs for the explanation of constraint violations by sets of anomaly events."

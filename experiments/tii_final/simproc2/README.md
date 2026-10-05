@@ -1,46 +1,28 @@
 # Three more benchmarks with concurrent events: distillation column A, stirred tank heater, three-tank system
 
 This folder adds three closed-loop process simulators with paired concurrent-fault runs and runs VioExplain and the 18
-baselines on them under the TEP protocol. It reuses the runner and loader of `scripts/simproc/` (CSTR, quadruple tank)
+baselines on them under the TEP protocol. It reuses the runner and loader of `../simproc/` (CSTR, quadruple tank)
 without modifying them: `common.py`, `final_base.py`, `final_fuse5.py`, `final_probs.py`, `final_rocket.py`,
-`gpu_simproc.py`, `gen_data.py` and `sim_check.py` are copies of the `scripts/simproc/` files of 2026-10-05 13:39.
+`gpu_simproc.py`, `gen_data.py` and `sim_check.py` are copies of the `../simproc/` files.
 The copies differ from the originals in the following places.
 
 1. `common.py` reads its data from `data/simproc2/<process>/` instead of `data/simproc/<process>/`.
 2. `gen_data.py` writes to `data/simproc2/<process>/` and samples 50 random triples for each process.
 3. `final_rocket.py` reads the number of MultiRocket kernels from `V3_MR_KERNELS`. The aeon default is 10000. The runs
-   here use 1000. On the tank data of `scripts/simproc/` the default MultiRocket needed 45 minutes to train and had not
+   here use 1000. On the tank data of `../simproc/` the default MultiRocket needed 45 minutes to train and had not
    finished scoring 40 minutes later, and a later attempt on the CSTR and tank data ended with a segmentation fault.
    With 1000 kernels it takes 5 to 8 minutes per data set here.
 
 Two later changes concern only the copies of this folder. `final_base.py` searches the AEC and MinExplain parameters
 with `tune_axes`, which uses the objective, windows and tie rule of `tune_on_tcal` and extends every grid outward while
-the optimum sits at its end (the first pass with the fixed grids of `scripts/simproc/` left the exact-representation
-threshold at its end on DIST and CSTH). Those reruns are `f0/metrics_kb.json` (`kb_rerun.sh`), and the earlier fixed-grid
+the optimum sits at its end (the first pass with the fixed grids of `../simproc/` left the exact-representation
+threshold at its end on DIST and CSTH). Those reruns are `f0/metrics_kb.json`, and the earlier fixed-grid
 results remain in `f0/metrics_base.json` and `f0/metrics_kb_grid5.json` for reference. The scoring of the GPU outputs is
 split into an early part (VioExplain, 1D-CNN, ResNet, LSTM, ML-CNN) and a late part (InceptionTime, MantisV2,
-`f0/metrics_probs_late.json`), because InceptionTime trained for about 30 minutes on the shared GPU.
+`f0/metrics_probs_late.json`), because InceptionTime takes longer to train.
 
 The method, the 18 baselines, the calibration rule, the conformal empty set, the composition recipe, the effective-event
 truth and the metrics are therefore those of the CSTR and tank runs, which are those of the TEP runs.
-
-## Third data set: what was checked
-
-A public real or hardware-in-the-loop data set with simultaneous labeled events was preferred. Four were checked
-(sources read on 2026-10-05).
-
-| Data set | Simultaneous labeled events | Labels | Verdict |
-|---|---|---|---|
-| BATADAL (C-Town, Taormina et al. 2018) | none: the 14 attack intervals of the paper tables are pairwise disjoint, the shortest gap is 40 h | binary `ATT_FLAG` in training set 2 (1 on 219 h, unknown elsewhere), no label in the test file | not usable |
-| Cranfield PRONTO (Stief et al. 2019) | none seeded together: four fault scenarios (air leakage, air blockage, diverted flow, slugging), each in its own test, slugging appears only as a consequence of leakage | no per-sample label, fault state rebuilt from the operation log | not usable |
-| SKAB (Katser and Kozitsin) | none: 34 anomaly files, each with exactly one contiguous anomaly segment | binary `anomaly` and `changepoint` | not usable |
-| UCI naval propulsion CBM (Coraddu et al.) | two continuous degradation coefficients present in every row | regression targets on a full factorial grid of steady-state points, no time axis | not usable |
-
-Sources: https://www.batadal.net/data.html, https://par.nsf.gov/servlets/purl/10104860, https://zenodo.org/records/1341583,
-https://github.com/waico/SKAB, https://archive.ics.uci.edu/dataset/316/condition+based+maintenance+of+naval+propulsion+plants.
-None has several event types with many instances that overlap in time, so the third data set is a third simulated
-process, the three-tank system DTS200 (results directory `third`). An IndPenSim implementation was not used because no
-verified implementation was at hand and writing one from the publication was not feasible in the time available.
 
 ## Simulators and provenance
 
@@ -70,12 +52,12 @@ temperature P 3, I 0.1 on the steam valve), hot water in manual, cold water 24 C
 rho c_p instead of the enthalpy and density tables, autoregressive noise with the standard deviations of the recorded
 noise sequences instead of the recordings, and added disturbances (hot-water and cold-water supply temperature, steam
 supply pressure) and two added sensors (hot-water flow and temperature), because the distributed model has no supply
-disturbances. The paper's application section could not be read (paywall), and the distributed files contain no fault
+disturbances. The distributed files contain no fault
 blocks, so all fault blocks are written here. 8 recorded variables, sampling 1 s, 10 fault types.
 
 **`sim_dts200.py`, three-tank system DTS200** (Amira, used as the COSY benchmark). Equations and parameter values as
 commonly quoted in the fault-diagnosis literature (A 0.0154 m2, Sn 5e-5 m2, outflow coefficients 0.5, 0.5, 0.6, pumps up
-to 1e-4 m3/s), written from memory and not checked against the Amira manual. Two PI level loops (h1 at 0.45 m, h2 at
+to 1e-4 m3/s), not checked against the Amira manual. Two PI level loops (h1 at 0.45 m, h2 at
 0.25 m, chosen here), autoregressive pump and outflow-coefficient disturbances. 7 recorded variables (three levels, two
 pump flows, two pump demands), sampling 2 s, 10 fault types.
 
@@ -98,25 +80,25 @@ Common random numbers: every random number of a run (disturbance and noise strea
 of its seed only, so the runs of all subsets of a fault set are paired runs. `sim_check.py` confirmed determinism and
 identical records before the onset. No run of the generated data trips an interlock.
 
-## Data (`gen_data.py`, `data/simproc2/<process>/`, identical on cpu-server and gpu-server)
+## Data (`gen_data.py`, `data/simproc2/<process>/`)
 
-Same layout and protocol as `scripts/simproc/`: 400 training runs per class (seeds 0 to 399, 512 samples, onset 64,
+Same layout and protocol as `../simproc/`: 400 training runs per class (seeds 0 to 399, 512 samples, onset 64,
 runs 0 to 299 fit, 300 to 399 calibration, 7 windows each), 500 test runs per class (960 samples, onset 160, hash split
 into test calibration and evaluation, 12 windows each), test_pairs with 30 seeds for normal, every single fault and all
 45 pairs, test_triples with 15 seeds for 50 random triples and all their subsets, four-fault windows superposed from
 the paired single-fault runs of test_pairs (40 random four-fault sets). Window length 64 samples. All 10 faults are
-effective. 71 composed triple sets on the training side (300 times 45 over 190, as on TEP). `gen_all.sh` generates the
-three data sets (bitwise identical on cpu-server and gpu-server, checked by md5 of sample files).
+effective. 71 composed triple sets on the training side (300 times 45 over 190, as on TEP). `gen_data.py` generates the
+three data sets.
 
 ## Running
 
-- `launch_cpu2.sh` (cpu-server, 12 threads): all CPU baselines under f0 and BR-LGBM, CC-LGBM under f100t (`final_base.py`),
-  MiniRocket, MultiRocket (1000 kernels) and QUANT (`final_rocket.py`).
-- `launch_gpu2.sh [PROCESS ...]` (gpu-server, cuda:0): 1D-CNN, ResNet, LSTM, InceptionTime, ML-CNN under f0 and f100t, MantisV2.
-- `relay2.sh early|late PROCESS ...` (workstation): copies `results/simproc_v1/<dir>/gpu/` from gpu-server to cpu-server and starts
-  `launch_after_gpu2.sh PROCESS early|late`, which runs VioExplain (run label B, f100t, V3_FUNC=1 V3_NOSTEP=1
-  V3_ABL=full, ResNet temporal encoder) and scores the GPU outputs.
-- `kb_rerun.sh DIR PROCESS`: AEC and MinExplain with the auto-extended grids.
+- `gen_data.py PROCESS`: data of one process (`dist`, `csth` or `dts200`).
+- `final_base.py`: all CPU baselines under f0 and BR-LGBM, CC-LGBM under f100t. `final_rocket.py`: MiniRocket,
+  MultiRocket (1000 kernels) and QUANT.
+- `gpu_simproc.py`: 1D-CNN, ResNet, LSTM, InceptionTime, ML-CNN under f0 and f100t, MantisV2.
+- `final_fuse5.py`: VioExplain (run label B, f100t, V3_FUNC=1 V3_NOSTEP=1 V3_ABL=full, ResNet temporal encoder).
+  `final_probs.py` scores the network outputs.
+- AEC and MinExplain are rerun with the auto-extended grids (`f0/metrics_kb.json`).
 - Extra run: VioExplain without composition (f0), `f0/metrics_B.json`, collected in `metrics_extra.json`.
 - `stats2.py`: effective-event statistics. `collect2.py`: delivery files (rerun at any time).
 
@@ -129,7 +111,6 @@ three data sets (bitwise identical on cpu-server and gpu-server, checked by md5 
   VioExplain.
 - `dataset_stats.json`, `dataset_truth_stats.json`: sizes, variables, faults, relation units, effective-event statistics.
 - `f0/`, `f100t/`: logs, per-method metrics, per-window records. `gpu/`: GPU outputs.
-- `results/simproc_v1/simproc2_logs/summary_simproc2.md`: all tables.
 
 ## Dataset statistics
 

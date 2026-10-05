@@ -7,7 +7,7 @@ Sn = 5e-5 m2, outflow coefficients mu13 = mu32 = 0.5 and mu20 = 0.6), pump 1 fee
     A dh3/dt = q13 - q32 - q3L
     A dh2/dt = Q2 + q32 - q20 - q2L
 These are the DTS200 equations and parameter values as quoted in the fault-diagnosis literature (for example the
-COSY three-tank benchmark); the values were written from memory and not checked against the Amira manual. Levels h1
+COSY three-tank benchmark); the values were not checked against the Amira manual. Levels h1
 and h2 are controlled by two decentralized PI loops on the pumps (set points 0.45 m and 0.25 m, so h3 = 0.35 m).
 Leaks q_iL are flows through an extra opening at the tank bottom; clogging lowers an outflow coefficient.
 Deviations, all introduced here: the PI settings (chosen on this model); first-order autoregressive disturbances on

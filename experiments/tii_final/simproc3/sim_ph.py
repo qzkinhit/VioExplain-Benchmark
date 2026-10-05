@@ -12,7 +12,7 @@ where Wa4 and Wb4 are the reaction invariants of the acid-base system (Wa = [H+]
 Wb = [H2CO3] + [HCO3-] + [CO3(2-)]). The pH follows from the electroneutrality equation (9) of the paper,
     Wb4 (Ka1/[H+] + 2 Ka1 Ka2/[H+]^2) / (1 + Ka1/[H+] + Ka1 Ka2/[H+]^2) + Wa4 + Kw/[H+] - [H+] = 0,
 solved here by a vectorized Newton iteration in log10([H+]); pH = -log10([H+]).
-Parameters taken from the paper Table I (checked against the original paper and its reproductions on 2026-10-05):
+Parameters taken from the paper Table I (checked against the original paper and its reproductions):
 A = 207 cm2, q1 = 16.6, q2 = 0.55, q3 = 15.55, q4 = 32.7 ml/s (the value that closes the balances; the table prints
 15.6 and 32.8), h = 14.0 cm, pH = 7.0, Wa1 = 3.0e-3, Wb1 = 0, Wa2 = -3.0e-2, Wb2 = 3.0e-2, Wa3 = -3.05e-3,
 Wb3 = 5.0e-5 mol/L, Ka1 = 4.47e-7, Ka2 = 5.62e-11, Kw = 1.0e-14, transmitter lags tau_pH = tau_h = 15 s, pH

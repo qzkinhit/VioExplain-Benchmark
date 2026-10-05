@@ -7,7 +7,7 @@ NAME in
   PCA-RBC   PCA monitoring with the combined index and reconstruction-based identification along fault directions
             learned from paired runs, extended greedily to several directions until the reconstructed index is in control
   CC-LGBM   classifier chain of gradient boosting models (same training data as BR-LGBM, incl. composition in f100t)
-  AEC       thesis anomaly-explanation covering (Algorithm 5-1 semantics) on typed violations: exact and possible
+  AEC       anomaly-explanation covering on typed violations: exact and possible
             representations from paired runs, greedy weighted covering, thresholds tuned on test calibration runs
   MinExplain  probabilistic minimum-cost explanation (uncapacitated facility location with a free background facility)
             on typed violations, density greedy, opening cost tuned on test calibration runs

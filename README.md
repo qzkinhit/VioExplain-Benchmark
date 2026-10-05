@@ -1,94 +1,89 @@
-# VioExplain Benchmark
+# VioExplain
 
 [简体中文](README_zh.md)
 
-VioExplain explains constraint violations through anomaly representations and minimum-cost covering. It preserves the original sequence of **violation extraction, representation matching, anomaly explanation, and knowledge update**. This repository provides the method implementation, explicit handling of unmatched evidence, public-data protocols, baseline adapters, and recorded exploratory results.
+This repository holds the code, the result files and the proofs of the paper on VioExplain. VioExplain explains the constraint violations of an industrial process window by a set of anomaly events, an assignment of violations to events and a residual of unexplained violations. It learns from fault-free and single-fault runs, composes counterfactual windows of concurrent faults from paired runs, and flags windows with unknown events for knowledge update.
 
-The foundation-model components are research extensions. Existing pilot and formal event results do not establish a consistent advantage over statistical controls or a state-of-the-art result. Synthetic checks, native anomaly detection, dimension attribution, and event diagnosis are reported separately.
+## Contents
 
-## Method identities
-
-| Method | Objective and solver | Entry point |
-|---|---|---|
-| `AEC-Prototype` | Supplied interval-based event-covering prototype with its original `Select` procedure | `vioexplain.setcover.set_covering.MyCover` |
-| `MinExplain` | Later opening-cost plus violation-assignment objective; density greedy or primal-dual | `vioexplain.api.explain`, `vioexplain.mincost` |
-
-These are different objectives and algorithms. The default public API is **MinExplain**. `AEC-Prototype` remains separately callable and is verified against the supplied legacy demonstrations. The reference lineage is the supplied original English manuscript and code. Repairs to adapters and interfaces are not research contributions.
-
-## Quick start
-
-Use Python 3.10 or later in a fresh environment. No GPU, model weights, or dataset is required for the smoke check.
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -e '.[test]'
-bash run.sh smoke
-bash run.sh prototype-smoke
-python -m pytest -q
-```
-
-`smoke` runs a tiny synthetic explanation with two matchable violations and one unmatched violation. It checks the API contract and does not produce a paper result.
-
-## Repository map
-
-| Path | Purpose |
+| Path | Content |
 |---|---|
-| [`src/vioexplain/`](src/vioexplain/README.md) | Public API, violation extraction, representations, covering, knowledge update |
-| `benchmark/` | Official-data adapters, evaluation, and frozen protocols |
-| [`data/`](data/README.md) | Data cards and downloads pinned to upstream commits; raw data remain local |
-| `configs/` | Named smoke and experiment configurations |
-| `run_vioexplain/` | Experiment entry points |
-| [`result/`](result/README.md) | Tracked aggregate evidence and local run outputs |
-| [`docs/`](docs/REPRODUCING.md) | Reproduction, baseline fidelity, dataset scope, provenance, and limitations |
-| `tests/` | API, partial coverage, optimization, and experimental-component checks |
+| [`experiments/tii_final/`](experiments/tii_final/README.md) | Scripts of the experiments on the Tennessee Eastman process (TEP) |
+| `experiments/tii_final/simproc/`, `simproc2/`, `simproc3/`, `simproc4/` | Simulators, data generators and runners of the nine simulated processes |
+| [`results/`](results/README.md) | Result files behind every table and figure of the paper, with an index |
+| [`docs/proofs/VioExplain_proofs.pdf`](docs/proofs/VioExplain_proofs.pdf) | Proofs of the theoretical results |
 
-Start with [`vioexplain.api.explain`](src/vioexplain/api.py). The public result separates evidence supported by selected representations from unmatched evidence; an unknown violation is never silently counted as explained.
+## Datasets
 
-```python
-from vioexplain import Violation, Representation, explain
+| Dataset | Source | Task in the paper |
+|---|---|---|
+| TEP-R | Extended Tennessee Eastman data of Rieth et al. (2017), 20 disturbances IDV(1) to IDV(20), official test set | Single-fault diagnosis |
+| TEP-C | Runs generated with the TEP simulator under the plant-wide control scheme, disturbances injected alone and in combinations of two and three, four-fault windows superposed from paired single-fault runs | Concurrent-fault explanation, violation attribution |
+| TEP, held-out error types | TEP error types held out in turn, windows from TEP-R and TEP-C | Unknown events and knowledge update |
+| HYD | Hydraulic test rig of Helwig et al. (2015), UCI repository, four degrading components | Concurrent-fault explanation |
+| CSTR, QTank | Stirred-tank reactor and quadruple tank, `simproc/` | Concurrent-fault explanation |
+| DIST, CSTH, DTS200 | Distillation column, stirred tank heater and three-tank system, `simproc2/` | Concurrent-fault explanation |
+| EVAP, PH | Forced-circulation evaporator and pH neutralization, `simproc3/` | Violation attribution |
+| FERM, HEX | Continuous fermenter and shell-and-tube heat exchanger, `simproc4/` | Single-fault diagnosis |
 
-violations = [Violation("temperature", "domain", 1, 1.0, (1.0, 1.0), 3)]
-knowledge = [Representation({"temperature"}, w=1.0, support=2)]
-result = explain(violations, knowledge, theta=0.6)
-print(result.to_dict())
-```
+No data are bundled. TEP-R and HYD are downloaded from their owners. The simulated processes are generated by `gen_data.py` of their folder, and the generation is deterministic.
 
-An optional `distances={(violation_index, representation_index): nonnegative_cost}` supplies a matching model without replacing the covering problem. Missing edges are incompatible. [API semantics](docs/API.md) define identities, cost, assignments, and unknown evidence.
+## Methods
 
-## Data and evaluation
+VioExplain is compared with 18 baselines.
+
+| Group | Methods |
+|---|---|
+| Process monitoring | PCA-RBC, FDA |
+| Single-label diagnosis | RF, XGB, LGBM, MiniRocket, MultiRocket, QUANT, 1D-CNN, LSTM, ResNet, InceptionTime, MantisV2 |
+| Multi-label diagnosis | BR, CC, ML-CNN |
+| Knowledge-based explanation | AEC, MinExplain |
+
+The unknown-event experiments compare the unknown score of VioExplain with MDS, MSP and Energy.
+
+## Running the experiments
+
+The scripts need Python 3.10 or later and the packages of `requirements.txt`. MantisV2 additionally needs its published weights and loader. The data and result directories are set at the top of `common.py` of each folder, where `/path/to/vioexplain` and `/home/user` are placeholders. The scripts `final_run.py`, `gpu_*.py`, `agg_update_base.py`, `final_update_base.py` and `gen_data.py` name the same directories at their top.
+
+Every script reads its setting from environment variables: `V3_MODE` (`f0` for knowledge from single-fault runs only, `f100t` with counterfactual compositions, `f10t` to `f75t` for a share of composed fault pairs), `V3_RES` (result directory), `V3_LOG` and `V3_METRICS` (output names). The docstring of each script gives its usage line.
+
+The TEP experiments run in `experiments/tii_final/`.
 
 ```bash
-python data/download.py smd --show-source
-python data/download.py smd
-python data/download.py skab
-bash run.sh formal --help
+# CPU baselines on window descriptions and typed violations
+V3_MODE=f0 V3_METRICS=metrics_base.json python final_base.py RF MC-LGBM XGB FDA PCA-RBC BR-LGBM CC-LGBM AEC MinExplain
+# time-series classifiers
+V3_MODE=f0 V3_METRICS=metrics_QUANT.json python final_rocket.py QUANT
+# deep diagnosers and multi-label networks, then scoring of their probabilities
+python gpu_run.py cuda:0 && python gpu_run2.py cuda:0 && python gpu_save.py cuda:0 && python gpu_save2.py cuda:0
+V3_MODE=f0 V3_METRICS=metrics_probs.json python final_probs.py ResNet:/path/to/resnet_probs.npz:single
+# VioExplain
+V3_MODE=f100t V3_FUNC=1 V3_NOSTEP=1 V3_ABL=full V3_TMODEL=/path/to/resnet_model.pt V3_TNAME=B \
+  V3_METRICS=metrics_B.json python final_fuse5.py /path/to/resnet_probs_v2.npz
 ```
 
-SMD supplies native anomaly-contributing dimensions. SKAB supplies anomaly and change-point labels, so it cannot by itself validate root-dimension explanation. The formal statistical runners also support the classic Tennessee Eastman simulation. Exathlon remains a separately documented candidate extension. [Dataset cards](docs/DATASETS.md) identify what each dataset can support; [baseline notes](docs/BASELINES.md) distinguish official implementations from adaptations.
+The ablations set `V3_ABL` (`noTemp`, `noOp`) or `V3_NOTWIN=1` and `V3_FUNC=0` in the last command. The coverage study sets `V3_MODE` to `f10t`, `f25t`, `f50t` or `f75t`, with `gpu_save3.py` for ML-CNN. `final_update_base.py` and `agg_update_base.py` run the baselines of the knowledge-update experiment. `stats_extra.py` and `finding4.py` compute the statistics quoted in the text.
 
-## Formal benchmark commands
+The simulated processes run in `experiments/tii_final/simproc*/`.
 
 ```bash
-# CPU statistical detection. Runs all official entities in the supplied data root.
-bash run.sh formal statistical --dataset smd --data data/raw/smd --output result/runs/smd-statistical
-bash run.sh formal statistical --dataset skab --data data/raw/skab --output result/runs/skab-statistical
+python gen_data.py cstr
+V3_DATA=cstr V3_RES=simproc_v1/cstr V3_MODE=f0 V3_METRICS=metrics_base.json python final_base.py RF MC-LGBM XGB FDA PCA-RBC BR-LGBM CC-LGBM AEC MinExplain
+V3_DATA=cstr V3_RES=simproc_v1/cstr V3_MODE=f100t python gpu_simproc.py cuda:0 cnn resnet lstm inceptiontime mlcnn_f0 mlcnn_f100t mantis
 ```
 
-The SMD conditional attribution track can additionally invoke the official BARO RobustScorer component. TranAD and TreeSHAP have their own entry points and dependency requirements. See [formal reproduction](docs/FORMAL_BENCHMARK.md) for pinned source acquisition, commands, adaptation boundaries, and status. Statistical scores, conditional attribution, and event-class diagnosis remain separate tasks.
+These commands are followed by `final_rocket.py`, `final_probs.py`, `final_fuse5.py` and the collection script of the folder. The README of each folder describes the simulators, the injected faults and the data layout.
 
-## Evidence status
+This release contains the runners listed above. The runners of the HYD experiments, of the unknown-event scores, of the knowledge-update curve of VioExplain, of the recovery certificate and of the timing are not part of it. Their result files are in `results/`.
 
-The software release and research validation have different scopes. The inherited AEC core and exploratory solvers are implemented. [Historical aggregates](result/summary/historical/manifest.json) preserve both gains and negative results, including the absence of cross-domain gains for a frozen foundation-model matching head. They are not a new blind benchmark. [Completed formal batches](docs/BENCHMARK_STATUS.md) have their own protocol, per-entity records and manifest. These baseline runs do not establish an advantage for a new VioExplain method.
+## Checking the tables
 
-[Reproduction](docs/REPRODUCING.md) describes the commands and result contracts. [Limitations](docs/LIMITATIONS.md) records known boundaries. The release contains no private industrial measurements, dissertation text, model weights, or copied third-party baseline source.
+```bash
+python results/print_main_table.py
+```
 
-## License and citation
+This command prints the main table of the paper from the files of `results/`. [`results/README.md`](results/README.md) maps every table, figure and quoted number to its file and field.
 
-Project code is released under [MIT](LICENSE). Datasets, external implementations, and model weights retain their own terms; see [third-party notices](THIRD_PARTY_NOTICES.md). [CITATION.cff](CITATION.cff) identifies the software. This release does not claim a published journal article or an assigned paper DOI.
+## License
 
-Historical method names are resolved in the [method registry](docs/METHOD_IDENTITIES.md).
-
-The [locked TEP event panel](docs/EVENT_MATCHING.md) adds the original interval prototype, an explicit cost adaptation, and MinExplain with interval, raw temporal or frozen Chronos-2 matching. All nine formal baseline batches and this event panel are complete; gains and negative results are reported together.
-
-Commands retain console output and execution evidence in `log/runs/`. Published snapshots are in `result/summary/`; use `result/runs/` for new runs. See [the recording contract](docs/EXPERIMENT_RECORDS.md).
+The code is released under the [MIT license](LICENSE). Datasets, external libraries and model weights keep their own terms, see [third-party notices](THIRD_PARTY_NOTICES.md).
