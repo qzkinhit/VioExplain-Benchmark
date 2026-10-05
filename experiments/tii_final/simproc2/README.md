@@ -15,9 +15,9 @@ The copies differ from the originals in the following places.
 
 Two later changes concern only the copies of this folder. `final_base.py` searches the AEC and MinExplain parameters
 with `tune_axes`, which uses the objective, windows and tie rule of `tune_on_tcal` and extends every grid outward while
-the optimum sits at its end (the first pass with the fixed grids of `../simproc/` left the exact-representation
-threshold at its end on DIST and CSTH). Those reruns are `f0/metrics_kb.json`, and the earlier fixed-grid
-results remain in `f0/metrics_base.json` and `f0/metrics_kb_grid5.json` for reference. The scoring of the GPU outputs is
+the optimum sits at its end (the fixed grids of `../simproc/` leave the exact-representation
+threshold at its end on DIST and CSTH). These runs write `f0/metrics_kb.json`, and the fixed-grid
+results are in `f0/metrics_base.json` and `f0/metrics_kb_grid5.json` for reference. The scoring of the GPU outputs is
 split into an early part (VioExplain, 1D-CNN, ResNet, LSTM, ML-CNN) and a late part (InceptionTime, MantisV2,
 `f0/metrics_probs_late.json`), because InceptionTime takes longer to train.
 
@@ -98,9 +98,9 @@ three data sets.
 - `gpu_simproc.py`: 1D-CNN, ResNet, LSTM, InceptionTime, ML-CNN under f0 and f100t, MantisV2.
 - `final_fuse5.py`: VioExplain (run label B, f100t, V3_FUNC=1 V3_NOSTEP=1 V3_ABL=full, ResNet temporal encoder).
   `final_probs.py` scores the network outputs.
-- AEC and MinExplain are rerun with the auto-extended grids (`f0/metrics_kb.json`).
+- AEC and MinExplain run with the auto-extended grids (`f0/metrics_kb.json`).
 - Extra run: VioExplain without composition (f0), `f0/metrics_B.json`, collected in `metrics_extra.json`.
-- `stats2.py`: effective-event statistics. `collect2.py`: delivery files (rerun at any time).
+- `stats2.py`: effective-event statistics. `collect2.py`: delivery files.
 
 ## Results (`results/simproc_v1/{dist,csth,third}/`)
 
@@ -138,7 +138,7 @@ Windows removed as invalid: none (no trip and no frozen record in any run).
 
 Columns: gated macro F1 on single-fault evaluation windows, share of normal evaluation windows with a named event,
 event-set F1 on single-fault windows (k=1), on two, three and four simultaneous faults, attribution F1 (mean over pairs,
-triples and four faults). AEC and MinExplain rows are the reruns with the auto-extended grids (`f0/metrics_kb.json`).
+triples and four faults). AEC and MinExplain rows use the auto-extended grids (`f0/metrics_kb.json`).
 All tuned parameters that decide how many events a method names are interior or at a natural bound (zero) of their
 grids: BR, CC and ML-CNN thresholds by `tune_threshold`, PCA-RBC continuation 8, 256 and 4 inside 0.25 to 1e12, AEC and
 MinExplain by `tune_axes` (on CSTH the exact-representation grid was extended down to 0.3 and lambda down to

@@ -53,7 +53,7 @@ for d, proc in DIRS:
     if not os.path.isdir(R + d): continue
     cnt = counts(d); main = {}; same = {}; miss = []
     for n, p, k in A:
-        v = load(d, 'f0/metrics_kb.json', k, cnt) if n in ('AEC', 'MinExplain') else None   # extended-grid rerun (dist, csth)
+        v = load(d, 'f0/metrics_kb.json', k, cnt) if n in ('AEC', 'MinExplain') else None   # extended grids (dist, csth)
         v = v or load(d, p, k, cnt)
         if v: main[n] = v
         else: miss.append('A:' + n)

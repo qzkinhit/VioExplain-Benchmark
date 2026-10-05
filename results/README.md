@@ -21,6 +21,33 @@ This directory holds the result files behind the tables, figures and quoted numb
 
 In a file of `tep/`, the entry whose value is a dictionary holds the metrics of the method. `single_macroF1_gated` is MF1 on TEP-R. `pair_eff`, `triple_eff` and `quad_eff` are SF1 on two, three and four faults. `pair_attrF1`, `triple_attrF1` and `quad_attrF1` are AF1. `normal_named` is the naming rate on fault-free windows. `pair_eff_unseen` is SF1 on fault pairs that were never composed.
 
+## Scripts
+
+The scripts are in `experiments/tii_final/`. Each row names the scripts that wrote a group of result files.
+
+| Result files | Scripts |
+|---|---|
+| Runs of TEP-C read by every script of `tep/` | `tep_generation/build.py`, `tep_generation/scripts/generate_crn.py` |
+| `tep/main/VioExplain.json`, `tep/ablation/`, `tep/coverage/<percent>/VioExplain.json` | `final_fuse5.py` |
+| `tep/main/{PCA-RBC,FDA,RF,XGB,LGBM,BR,CC,AEC,MinExplain}.json`, `tep/same_compositions/{BR,CC}.json`, `tep/coverage/<percent>/{BR,CC}.json` | `final_base.py` |
+| `tep/main/{MiniRocket,MultiRocket,QUANT}.json` | `final_rocket.py`, scored by `final_probs.py` |
+| `tep/main/{1D-CNN,LSTM,ResNet,InceptionTime,MantisV2,ML-CNN}.json`, `tep/same_compositions/ML-CNN.json`, `tep/coverage/<percent>/ML-CNN.json` | `gpu_run.py`, `gpu_run2.py`, `gpu_save.py`, `gpu_save2.py`, `gpu_save3.py`, scored by `final_probs.py` |
+| `tep/dataset_statistics.json` | `stats_extra.py` |
+| `tep/addition_statistics.json` | `finding4.py` |
+| `tep/unknown_events.json` | `gpu_unknown.py`, `final_unknown_v3.py` with `common_u.py`, `collect_unknown.py` |
+| `tep/update_curve.json` | `final_update.py` with `V3_BRREFIT=1`, `agg_update.py` |
+| `tep/update_baselines.json` | `final_update_base.py`, `fold_part2.py`, `agg_update_base.py` |
+| `tep/certificate.json` | `final_cert5.py`, `cert5_finalize.py` |
+| `tep/timing.json` | `final_timing.py` with `final_fuse.py` |
+| `hyd/single_fault_knowledge.json` | `hyd/hyd_run.py` (RF, XGB, LGBM, FDA, PCA-RBC, BR, CC, AEC, MinExplain), `hyd/hyd_deep.py` (1D-CNN, LSTM, ResNet, InceptionTime, MiniRocket, MultiRocket, QUANT, ML-CNN), `hyd/hyd_rescore.py` (ML-CNN), `hyd/hyd_mantis.py` and `hyd/hyd_mantis_embed.py` (MantisV2), `hyd/hyd_final_merge.py` |
+| `hyd/with_compositions.json` | `hyd/hyd_tnet.py` and `hyd/hyd_final.py` (VioExplain), `hyd/hyd_run.py` (BR, CC), `hyd/hyd_deep.py` and `hyd/hyd_rescore.py` (ML-CNN), `hyd/hyd_final_merge.py` |
+| `simulated/{cstr,qtank}/` | Runners of `simproc/`, `simproc/collect_simproc.py` |
+| `simulated/{dist,csth,dts200}/` | Runners of `simproc2/`, `simproc2/collect2.py`, `simproc2/stats2.py` |
+| `simulated/{evap,ph}/` | Runners of `simproc3/`, `simproc3/collect3.py`, `simproc3/stats3.py` |
+| `simulated/{ferm,hex}/` | Runners of `simproc4/`, `simproc4/collect4.py`, `simproc4/stats4.py` |
+
+The file `tep/update_curve.json` keeps the variant `refit_br` written by `agg_update.py`. The files of `hyd/` are the outputs `metrics_f0_final_3splits.json` and `metrics_f100t_final_3splits.json` of `hyd/hyd_final_merge.py`.
+
 ## Tables
 
 | Item | Files and fields |
