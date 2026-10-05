@@ -55,7 +55,7 @@ ORDER = ['TEP-R MF1', 'FERM MF1', 'HEX MF1', 'TEP-C SF1', 'HYD SF1', 'CSTR SF1',
 
 ranks = {m: [] for m in METHODS}
 for c in ORDER:
-    vals = sorted(((cols[c][m], m) for m in METHODS), key=lambda t: -t[0])
+    vals = sorted(((round(cols[c][m], 3), m) for m in METHODS), key=lambda t: -t[0])   # ranks follow the printed values
     i = 0
     while i < len(vals):
         j = i
@@ -65,7 +65,7 @@ for c in ORDER:
             ranks[vals[k][1]].append((i + j) / 2 + 1)
         i = j + 1
 mean_rank = {m: sum(r) / len(r) for m, r in ranks.items()}
-mean_val = {m: sum(cols[c][m] for c in ORDER) / len(ORDER) for m in METHODS}
+mean_val = {m: sum(round(cols[c][m], 3) for c in ORDER) / len(ORDER) for m in METHODS}
 final = {m: i + 1 for i, m in enumerate(sorted(METHODS, key=lambda m: (mean_rank[m], -mean_val[m])))}
 
 print('%4s  %-14s' % ('Rank', 'Method') + ''.join('%11s' % c for c in ORDER))

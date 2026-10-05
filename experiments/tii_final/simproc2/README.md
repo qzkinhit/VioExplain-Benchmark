@@ -254,32 +254,3 @@ windows: {"n_pair_sets": 45, "n_pair": 16200, "n_triple_sets": 50, "n_triple": 9
 | Extra: VioExplain without composition (f0) | 0.986 | 2.0 | 0.939 | 0.778 | 0.683 | 0.655 | 0.696 |
 
 windows: {"n_pair_sets": 45, "n_pair": 16200, "n_triple_sets": 50, "n_triple": 9000, "n_quad_sets": 40, "n_quad": 14400}, missing: none
-
-## Assessment
-
-Comparison (A). VioExplain has the highest event-set F1 on pairs, triples and four faults on all three data sets. Over
-the strongest baseline the gains are 2.5, 8.4 and 7.3 % on DIST (CC-LGBM), 6.9, 10.3 and 12.1 % on CSTH (CC-LGBM on
-pairs, MinExplain on triples and four faults) and 26.9, 36.8 and 45.5 % on DTS200 (CC-LGBM on pairs, AEC on triples and
-four faults). Its attribution F1 equals the best baseline on DIST (0.789 against 0.788) and exceeds it by 2.3 points on
-CSTH and 12.2 points on DTS200. The single-label methods stay near 0.68, 0.52 and 0.41 on DIST because they name one
-event, and the multi-label methods trained on single faults (BR, CC, ML-CNN) are the strongest baselines on pairs.
-
-Comparison (B). With the same compositions, BR-LGBM and CC-LGBM are better than VioExplain on pairs on all three data
-sets (by 0.9, 0.8 and 2.0 points) and on attribution F1 (by 1.3, 0.3 and 1.9 points). On triples the difference is
-within 0.7 points in either direction. On four faults, which no method sees in composition, VioExplain is ahead by 1.4,
-2.4 and 1.4 points. This repeats the pattern of the composition table on TEP: most of the gain of comparison (A) comes
-from the counterfactual compositions, and the deduction-consistent scorer adds a small margin on sets larger than those
-composed.
-
-Weak points. (1) On single-fault windows VioExplain has a lower event-set F1 than the classifiers (0.956 against up to
-0.982 on DIST, 0.926 against up to 0.960 on CSTH, 0.934 against up to 0.954 on DTS200), because the addition step
-sometimes names a second event. (2) On DIST, 7.0 % of the normal evaluation windows get a named event, above the
-nominal 5 % (XGB 7.1 %, LSTM 7.0 %, MinExplain 7.6 % on the same data). The conformal threshold uses one window from
-each of 88 test-calibration runs, so the realized rate varies with the calibration draw. (3) The functional-constraint
-units are nearly absent (one relation on DIST and CSTH, none on DTS200), so these data sets test the description by
-constraint degrees and the event knowledge, not the relation units. (4) All three are simulators. DIST follows the
-published column A model and its m-files closely, CSTH follows the distributed Simulink model for the tank, valves, loops
-and instrument tables but replaces recorded noise by autoregressive noise and adds supply disturbances, and DTS200 uses
-literature parameter values that were not checked against the manual. The fault blocks and magnitudes of all three are
-designed here. (5) MultiRocket runs with 1000 kernels instead of the aeon default of 10000.
-
