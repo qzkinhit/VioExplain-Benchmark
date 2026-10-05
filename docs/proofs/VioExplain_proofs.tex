@@ -1,0 +1,614 @@
+% Standalone source for the public proof document.
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,amsthm,mathtools}
+\usepackage{xspace}
+\usepackage{cite}
+\usepackage[hidelinks]{hyperref}
+
+\newcommand{\sys}{VioExplain\xspace}
+\newcommand{\aec}{\textup{\textsc{AEC}}\xspace}
+\newcommand{\aecx}{\textup{\textsc{AEC-X}}\xspace}
+\newcommand{\minexp}{\textup{\textsc{MinExplain}}\xspace}
+\newcommand{\V}{\mathcal{V}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\Supp}{\mathrm{Supp}}
+\newcommand{\TV}{\mathrm{TV}}
+
+%% Results restated from the main text carry the main-text number. Lemmas and remarks of the
+%% supplement are numbered S1, S2, ...
+\newenvironment{result}[1]{\par\medskip\noindent\textbf{#1.}\ \itshape\ignorespaces}{\par\medskip}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}
+\renewcommand{\thelemma}{S\arabic{lemma}}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\renewcommand{\theremark}{S\arabic{remark}}
+
+\title{Proofs for\\ ``VioExplain: Single-Event Knowledge Explains Concurrent Industrial Constraint Violations''}
+\author{}
+\date{Revised October 5, 2026}
+
+\begin{document}
+\maketitle
+
+This document states and proves the theoretical results for VioExplain. Theorem and corollary numbers correspond to the main text. Each statement includes the assumptions used in its proof. Theorem~1 concerns an event-prior-penalized profile likelihood, Theorem~4 specifies a staged calibration protocol, and Proposition~S2 strengthens the sufficient margins in Theorem~3. Proposition~S1 concerns changes in functional-constraint degrees.
+
+\section{Notation and the Path of Algorithm 1}
+\label{sec:s-notation}
+
+A window $X$ has a description $\phi(X)\in\mathbb R^D$ and a set $\V(X)$ of violation features. A feature records a constraint key together with its numerical degree interval. The candidate events form a finite, nonempty set $\E$, with $|\E|=K$. For an event $E$, $R(E)=R^*(E)\cup R^+(E)$ is its collection of exact and possible representations; in the optimization model, $R(E)$ also denotes their incident units. The support $\Supp(E)$ and footprint $f_E(u)$ used by the algorithm are fixed learned quantities. The temporal posterior is denoted by $p^t(X)$ and the description-based posterior by $p^s(X)$. The fused posterior is $p(X)\propto(p^s(X))^{1-\lambda}(p^t(X))^\lambda$, normalized over normal operation and the candidate events.
+
+Under a shared noise stream $\xi$, $X^{(H)}(\xi)$ denotes the run with active events $H$, and $X^{(0)}(\xi)$ the fault-free run. A violation feature in $\V(X^{(H)})\setminus\V(X^{(0)})$ is caused. An event $E\in H$ is effective if at least one caused feature disappears when $E$ is removed, or is present in the single-event run of $E$. All comparisons use the same specified violation interface and paired window position.
+
+Put $S_0=\emptyset$ and $r_0=\phi(X)$. If $p_\emptyset(X)\ge\tau_0$, the event output is empty. Otherwise select $E_1\in\arg\max_{E\in\E}p_E(X)$, set $S_1=\{E_1\}$, and put $r_1=r_0-\hat\Delta_{E_1}(r_0)$. At a later step $j$, stop if $|S_j|=K_{\max}$ or no unselected candidate remains. Otherwise select
+\[
+ E_{j+1}\in\arg\max_{E\in\E\setminus S_j}z_E(X,r_j,S_j).
+\]
+If its score is at most $\tau_1$, stop and return $S_j$. If its score is greater than $\tau_1$, add it and deduct its footprint, giving $S_{j+1}=S_j\cup\{E_{j+1}\}$ and $r_{j+1}=r_j-\hat\Delta_{E_{j+1}}(r_j)$. Here $1\le K_{\max}\le K$, and ties use a fixed measurable rule. A violation on unit $u$ is assigned to an event maximizing $f_E(u)$ among $E\in S$ with $u\in\Supp(E)$, or to background if there is no such event. The unknown flag is set when the template deviation $D_{S}(\phi(X))$ exceeds $\tau_u$. The deviation, for example a Mahalanobis distance using fixed template means and a fixed positive-definite covariance, is assumed finite and measurable.
+
+\section{Theorem 1 and Corollary 1}
+\label{sec:s-map}
+
+\subsection{Model and scope}
+
+Let $U$ and $\E$ be finite sets of units and candidate events. For each event, $R^*(E)\subseteq R(E)\subseteq U$ specifies its exact units and all its admissible units. The following assumptions define a family of conditional observation models and an event prior.
+\begin{itemize}
+\item[(M1)] Events have independent prior probabilities $0<\pi_E\le\tfrac12$. Write $w_E=\log((1-\pi_E)/\pi_E)\in[0,\infty)$.
+\item[(M2)] For $H\subseteq\E$, the admissible assignments form $\mathcal A(H)$. An assignment $a:U\to H\cup\{\bot\}$ may assign $u$ to $E$ only if $u\in R(E)$. Background assignment is permitted except on $R^*(H)=\bigcup_{E\in H}R^*(E)$. Thus an exact unit must be assigned to a selected event, but need not be assigned to its exact owner. The assignment is a nuisance parameter over which we maximize; no probability distribution on assignments is assumed.
+\item[(M3)] At the observed vector $x=(x_u)_{u\in U}$, the conditional likelihood is $p(x\mid H,a)=\prod_u p_u(x_u\mid a(u))$, with background density or mass function $p_u^0=p_u(\cdot\mid\bot)$. The relevant density or mass values at $x$ are positive and finite, and all $g_u(E)=\log(p_u(x_u\mid E)/p_u^0(x_u))$, for $u\in R(E)$, are finite real numbers. Put $g_u(\bot)=0$.
+\end{itemize}
+For a possible representation with response probability $q_{Eu}\in(0,1]$, the mixture $p_u(x\mid E)=q_{Eu}p_u^{\mathrm{resp}}(x)+(1-q_{Eu})p_u^0(x)$ gives
+$g_u(E)\ge\log q_{Eu}+\log(p_u^{\mathrm{resp}}(x_u)/p_u^0(x_u))$ whenever the latter is finite. The results below use the actual $g_u(E)$, rather than replacing it by this lower bound.
+
+Define $m_u(H)=\max\{g_u(E):E\in H,\ u\in R(E)\}$, with $\max\emptyset=-\infty$, and
+\[
+v_u(H)=\begin{cases}
+m_u(H),&u\in R^*(H),\\
+\max(0,m_u(H)),&u\notin R^*(H).
+\end{cases}
+\]
+The event-prior-penalized profile log-likelihood ratio is
+\[
+F_{\mathrm{ex}}(H)=\log\frac{\Pr(H)\max_{a\in\mathcal A(H)}p(x\mid H,a)}{\Pr(\emptyset)\prod_u p_u^0(x_u)}.
+\]
+This score is not a joint or marginal posterior ratio for a probabilistic latent assignment. Such a posterior would require an assignment distribution and its normalization. Define its separable surrogate by
+\[
+F(H)=\sum_{u\in U}\max(0,m_u(H))-\sum_{E\in H}\hat w_E,
+\qquad
+\hat w_E=w_E+\sum_{u\in R^*(E)}[-g_u(E)]_+.
+\]
+Here $[t]_+=\max(t,0)$.
+
+\begin{result}{Theorem 1 (Event-prior-penalized profile likelihood)}
+Under (M1)--(M3),
+$F_{\mathrm{ex}}(H)=\sum_u v_u(H)-\sum_{E\in H}w_E$ and $F(H)\le F_{\mathrm{ex}}(H)$ for every $H$. Equality holds if and only if, for every $u\in R^*(H)$, one of the following conditions holds: (i) $m_u(H)\ge0$ and every exact owner of $u$ in $H$ has nonnegative gain; (ii) $m_u(H)<0$, exactly one event in $H$ is an exact owner of $u$, and its gain equals $m_u(H)$.
+
+The coverage term in $F$ is monotone submodular and its penalty is modular. Put
+\[
+G_u=\max_{E:\,u\in R(E)}[g_u(E)]_+,
+\]
+with $G_u=0$ if no event is incident to $u$. Then $C(H)=\sum_uG_u-F(H)$ is the minimum assignment cost plus opening cost of a nonmetric uncapacitated facility location instance with opened event set $H$, event opening costs $\hat w_E$, admissible assignment costs $c(u,E)=G_u-[g_u(E)]_+$, and an always-open background facility with $c(u,\bot)=G_u$ and zero opening cost. When finite rational gains and costs are the optimization input, maximizing $F$ is NP-hard. For every fixed $\epsilon\in(0,1)$, a polynomial-time $(1-\epsilon)\ln|U|$ approximation of its minimum facility cost on all sufficiently large instances would imply $\mathrm{P}=\mathrm{NP}$. A restricted binary special case yields minimum-cost consistent covering, as specified in Step~6 below.
+\end{result}
+
+\begin{proof}
+\emph{Step 1, the profile score.} Independence of the event priors gives $\Pr(H)/\Pr(\emptyset)=\exp(-\sum_{E\in H}w_E)$. For an admissible assignment the log conditional likelihood ratio is $\sum_u g_u(a(u))$. Assignments on different units impose no joint constraint. Therefore maximizing over $a\in\mathcal A(H)$ chooses the best permitted source separately on each unit, giving $v_u(H)$ and the stated expression for $F_{\mathrm{ex}}$. No assignment prior is included in this calculation, and no posterior interpretation is asserted.
+
+\emph{Step 2, the lower bound and exact equality conditions.} Fix $H$. If $u\notin R^*(H)$, both scores have the same unit contribution and there is no exact-owner penalty. For $u\in R^*(H)$, write $A_u=\{E\in H:u\in R^*(E)\}$, $m=m_u(H)$ and $P_u=\sum_{E\in A_u}[-g_u(E)]_+$. The difference between the profile contribution and the surrogate contribution is
+\[
+d_u=m-\max(0,m)+P_u.
+\]
+If $m\ge0$, then $d_u=P_u\ge0$, with equality exactly when every exact owner has nonnegative gain. If $m<0$, all covering-event gains are negative. Set $t=-m>0$. Every exact owner satisfies $-g_u(E)\ge t$, so $P_u\ge |A_u|t\ge t$ and $d_u=P_u-t\ge0$. Equality requires and is implied by $|A_u|=1$ and the unique exact owner's gain being $m$. Other selected events may cover the unit with gains at most $m$. Since all $d_u$ are nonnegative, their sum is zero exactly under the stated unitwise conditions.
+
+\emph{Step 3, submodularity.} Define $a_{uE}=[g_u(E)]_+$ for $u\in R(E)$ and $a_{uE}=0$ otherwise. The coverage term is $\sum_u\max_{E\in H}a_{uE}$, with empty maximum zero. For $A\subseteq B$ and $E\notin B$ its unitwise marginal gains satisfy
+\[
+\left[a_{uE}-\max_{E'\in A}a_{uE'}\right]_+
+\ge
+\left[a_{uE}-\max_{E'\in B}a_{uE'}\right]_+.
+\]
+They are nonnegative, proving monotonicity and submodularity of coverage. Each $\hat w_E$ depends on $E$ and the fixed observation, not on $H$, so the penalty is modular. The full function $F$ need not be monotone.
+
+\emph{Step 4, facility location.} All opening and assignment costs are nonnegative. In this facility instance, background assignment is permitted for every unit, including exact units; the exact-unit penalties have already been incorporated into opening costs. For a fixed opened set $H$, the best assignment cost is
+\[
+\sum_u\min\bigl(\{G_u\}\cup\{G_u-[g_u(E)]_+:E\in H,\ u\in R(E)\}\bigr)
+=\sum_uG_u-\sum_u\max(0,m_u(H)).
+\]
+Adding opening costs gives $C(H)$. These costs need not obey any metric condition.
+
+\emph{Step 5, computational hardness.} Take a set-cover instance with nonempty universe $U$, $n=|U|$, and $m$ subsets $S_1,\ldots,S_m$ whose union is $U$. Set $R^*(E_i)=R(E_i)=S_i$, $w_{E_i}=1$, and $g_u(E_i)=G=mn+1$ on each incidence. These are finite rational optimization inputs. They also have likelihood realizations: use background $\mathcal N(0,1/(2G))$, event response $\mathcal N(1,1/(2G))$, observation $x_u=1$, and event prior $1/(1+e)$. Then
+\[
+F(H)=G\left|\bigcup_{E_i\in H}S_i\right|-|H|,
+\qquad
+C(H)=G\left|U\setminus\bigcup_{E_i\in H}S_i\right|+|H|.
+\]
+A noncover costs at least $G>m$, whereas opening all events costs $m$, so minimum facility cost equals minimum cover cardinality. This proves NP-hardness. For fixed $\epsilon\in(0,1)$ and sufficiently large $n$, put $\rho=(1-\epsilon)\ln n<n$. A $\rho$-approximate solution costs at most $\rho m<G$, hence must cover $U$ and gives a set cover within factor $\rho$. The set-cover inapproximability theorem therefore proves the stated claim~\cite{DinurSteurer14}.
+
+\emph{Step 6, a restricted binary covering case.} This step is a specialization of the surrogate $F$, not an equivalence to a general noisy-OR or joint MAP model. Let $x_u\in\{0,1\}$, $M=\{u:x_u=1\}$, and $R^*(E)=R(E)=S_E$. Choose a common background success probability $b\in(0,1/2)$ and success probability $1-b$ for event $E$ on each unit in $S_E$. With $L=\log((1-b)/b)>0$, every admissible gain is finite and equals $L$ on $M$ and $-L$ outside $M$. Consequently
+\[
+F(H)=L\left|M\cap\bigcup_{E\in H}S_E\right|
+-L\sum_{E\in H}|S_E\setminus M|-\sum_{E\in H}w_E.
+\]
+Call $H$ a consistent cover if $\bigcup_{E\in H}S_E=M$. Suppose at least one consistent cover exists, and choose $b$ so that $L>W=\sum_{E\in\E}w_E$. Equivalently, minimizing $L|M|-F(H)$ minimizes
+\[
+L\left|M\setminus\bigcup_{E\in H}S_E\right|
++L\sum_{E\in H}|S_E\setminus M|+\sum_{E\in H}w_E.
+\]
+A consistent cover has cost at most $W<L$, whereas an inconsistent set has at least one unit in one of the first two terms and hence costs at least $L$. Thus the maximizers of $F$ are exactly the minimum-event-cost consistent covers. If every $w_E>0$, every optimizer is irredundant, because deleting a redundant event preserves consistency and strictly reduces cost. Nonnegative costs alone do not exclude redundant optimizers. This establishes a restricted covering interpretation~\cite{Peng1990Abductive}; it does not identify $\exp F_{\mathrm{ex}}$ with a noisy-OR likelihood.
+\end{proof}
+
+\begin{result}{Corollary 1 (Forced spurious events)}
+Let $\emptyset\ne\V_0\subseteq\V(X)$. Suppose that the key of every $v\in\V_0$ belongs only to representations of inactive events, and put $N_v=\{E:\mathrm{key}(v)\in\mathrm{keys}(R(E))\}$. Every explanation that assigns all violations in $\V_0$ to events contains at least one inactive event. More precisely, if such an explanation exists, its number of inactive events is at least the minimum hitting-set cardinality of the family $\{N_v:v\in\V_0\}$. The bound holds regardless of any nonnegative event costs.
+\end{result}
+
+\begin{proof}
+For any such explanation, $a(v)\in H\cap N_v$ for every $v\in\V_0$. Thus $H\cap\bigcup_{v\in\V_0}N_v$ is a hitting set. All of its members are inactive by assumption. Because $\V_0$ is nonempty, existence of the explanation implies that every $N_v$ is nonempty and that the hitting-set cardinality is at least one. Costs do not change this necessary condition on feasible explanations. If some $N_v$ is empty, no explanation assigning every violation to an event exists.
+\end{proof}
+
+\begin{remark}[Approximation of the facility cost]
+There is a polynomial-time density-greedy algorithm with approximation factor $H(\Delta)=\sum_{i=1}^{\Delta}1/i$, where $\Delta=\max(\{1\}\cup\{|R(E)|:E\in\E\})$. This is an algorithm for the nonnegative facility cost, not a guarantee for Algorithm~1 of the main text.
+
+To prove the claim, create a weighted set-cover column for every nonempty star $(E,T)$, $T\subseteq R(E)$, with covered set $T$ and cost $\hat w_E+\sum_{u\in T}c(u,E)$. Also create a background singleton of cost $G_u$ for each $u$. Every facility solution decomposes into one star for the units assigned to each used event and background singletons, at the same cost after unused opened events are removed. Conversely, a cover by stars gives a facility solution of no greater cost: open each event used by a star once, and assign each unit to one of its covering stars, retaining its indicated facility. The removed duplicate opening costs and unused assignment costs are nonnegative. Hence the two optimum costs coincide.
+
+The weighted set-cover density-greedy bound is $H(\Delta)$~\cite{Chvatal79}, since every column has at most $\Delta$ units. Although the number of stars is exponential, an exact greedy step is polynomial. For a fixed event, deleting already covered units from a proposed star cannot increase its cost per newly covered unit. Sort its remaining admissible units by $c(u,E)$; among stars with exactly $k$ newly covered units, a prefix of length $k$ minimizes cost. Enumerating all nonempty prefixes for every event and all remaining background singletons finds the global minimum-density star~\cite{Hochbaum82}. Each iteration covers a new unit, so there are at most $|U|$ iterations. The argument includes zero-cost stars. If $U$ is empty, the empty event set is optimal with cost zero.
+
+The facility cost also admits a primal-dual approximation with factor $f$ when $f\ge1$, where
+\[
+f=\max\bigl(\{0\}\cup\{|\{E:u\in R(E)\}|:u\in U\}\bigr).
+\]
+If $f=0$, all $G_u$ are zero and assigning everything to the background is optimal with cost zero. Thus the two cases can also be stated as a $\max(1,f)$ approximation guarantee.
+
+Here is a complete algorithm and proof for $f\ge1$. Maintain nonnegative variables $\alpha_u$ and, on each admissible event incidence, $\beta_{uE}=[\alpha_u-c(u,E)]_+$. Initially every $\alpha_u=0$, every unit is active, and the background is open. The constraints maintained throughout are
+\[
+\alpha_u\le G_u,
+\qquad
+\sum_{u\in R(E)}\beta_{uE}\le\hat w_E.
+\]
+At time zero, open all events with $\hat w_E=0$. At any later event time, open every previously unopened event whose second constraint becomes tight. Process units at that time in the following order. First, every active unit or unit currently assigned to the background that satisfies $\alpha_u\ge c(u,E)$ for at least one open event is assigned to any such event. An active unit then freezes; a unit reassigned from the background stays frozen and retains its existing $\alpha_u$ and $\beta_{uE}$. An event-assigned unit is never reassigned. Second, assign and freeze every remaining active unit with $\alpha_u=G_u$ to the background. Apply this same ordering at time zero, so it covers zero opening costs, zero assignment costs and simultaneous ties.
+
+Raise the $\alpha_u$ of all remaining active units at unit speed until the next of the following occurs: an unopened event constraint becomes tight; an active unit reaches $c(u,E)$ for an already open event; or an active unit reaches $G_u$. Process every event and unit tied at that time by the preceding rules. Once a unit freezes, its $\alpha_u$ and all its $\beta_{uE}$ remain fixed, including if it is later reassigned from the background. Stop when no active units remain. Reassigning background units when an event opens is essential to the factor $f$; freezing them permanently to the background would not in general give this guarantee.
+
+All assignment costs are nonnegative, so the constraints hold initially. Opening all tight events preserves equality of their opening constraints, because assignments and freezing do not change current variable values. After an event opens, every unit with a positive contribution to it is frozen, either already or at that instant. Every remaining active unit has $\alpha_u<c(u,E)$ and freezes as soon as equality is reached, unless it freezes earlier for another reason. It therefore never acquires a positive contribution to that open event. The event's opening constraint remains tight, while the event times prevent an unopened constraint or background bound from being violated. After initialization, every processed time opens at least one new event or freezes at least one new unit. There are at most $|\E|+|U|$ such subsequent times; each unit can additionally be reassigned from the background at most once. Each active unit has a finite background bound, so a next time exists whenever active units remain. Thus the algorithm terminates. For rational costs it is polynomial-time: an unopened event's contribution is a sum of fixed contributions from frozen units and positive parts of affine functions of time from active units; sorting their breakpoints finds its next tight time. Scanning these times and the assignment and background thresholds finds the next event time in polynomial time.
+
+Let $O$ be the opened events and $\sigma(u)$ the final assigned source. Event assignment, including reassignment from the background, occurs with $\alpha_u\ge c(u,\sigma(u))$, so
+$\alpha_u=c(u,\sigma(u))+\beta_{u,\sigma(u)}$.
+Final background assignments have $\alpha_u=G_u$. Every opened event has a tight opening constraint. Summing opening and assignment costs therefore gives
+\[
+C_{\mathrm{alg}}
+=\sum_u\alpha_u
++\sum_u\sum_{\substack{E\in O:\ u\in R(E),\ E\ne\sigma(u)}}\beta_{uE}.
+\]
+For a unit assigned to an event, there are at most $f-1$ other admissible events, and each $\beta_{uE}\le\alpha_u$. A unit that remains assigned to the background has zero contribution to every opened event. If it had a positive contribution when such an event opened, the reassignment rule would have moved it to an event; if the event was already open when the unit reached its background bound, the event-first rule would have assigned it to an event at that time or earlier. Its variables cannot change after freezing. Hence
+\[
+C_{\mathrm{alg}}\le f\sum_u\alpha_u.
+\]
+For completeness, weak duality here follows directly from the maintained constraints. On every event incidence $\alpha_u\le c(u,E)+\beta_{uE}$, and on the background $\alpha_u\le G_u$. For any competing feasible facility assignment with event set $H$, summing these inequalities over its assigned units and then using nonnegativity of $\beta$ gives
+\[
+\sum_u\alpha_u
+\le\sum_u c(u,a(u))+
+\sum_{E\in H}\sum_{u:a(u)=E}\beta_{uE}
+\le\sum_u c(u,a(u))+\sum_{E\in H}\hat w_E.
+\]
+Taking the optimum competing assignment proves $\sum_u\alpha_u\le C^*$, and therefore $C_{\mathrm{alg}}\le f C^*$. The minimum assignment cost for the algorithm's opened set is no greater than its explicitly constructed assignment cost, so the same guarantee holds for $C(O)$.
+
+A cost approximation factor does not imply a multiplicative guarantee on $F$. Write $B=\sum_uG_u$, $C^*=\min_H C(H)$ and $F^*=\max_H F(H)=B-C^*$. If $C(H)\le\rho C^*$, then only the additive implication
+$F(H)\ge F^*-(\rho-1)C^*$ follows in general.
+\end{remark}
+
+
+\section{Theorem 2 and Corollaries 2 and 3}
+\label{sec:s-interface}
+
+\begin{result}{Theorem 2 (Interface lower bound on paired runs)}
+Let $P$ and $Q$ be window laws, let $T$ be a measurable interface, and let $f$ be a measurable decision rule that uses the window only through $T(X)$. A randomized rule may additionally use a random variable independent of the window whose law is the same under both hypotheses. For every measurable decision event $\mathcal A$,
+\[
+ P(f\notin\mathcal A)+Q(f\in\mathcal A)
+ \ge 1-\TV(T_\#P,T_\#Q).
+\]
+For every coupling $(X,X')$ with marginals $P$ and $Q$,
+\[
+ \TV(T_\#P,T_\#Q)\le \Pr\bigl(T(X)\ne T(X')\bigr).
+\]
+In particular, paired runs $X^{(h)}(\xi)$ and $X^{(h')}(\xi)$ with the specified marginal window laws give a lower bound of $1-\delta_T(h,h')$ on the sum of the two errors, where
+\[
+ \delta_T(h,h')=\Pr_\xi\bigl(T(X^{(h)}(\xi))
+                  \ne T(X^{(h')}(\xi))\bigr).
+\]
+This is a population probability over the shared noise $\xi$.
+\end{result}
+
+\begin{proof}
+Put $\mu=T_\#P$ and $\nu=T_\#Q$. If the rule uses independent randomization $W$ with law $\lambda$, the event $\{f\in\mathcal A\}$ is a measurable set $A$ in the product of the interface and randomization spaces. Each section $A_w$ satisfies $|\mu(A_w)-\nu(A_w)|\le\TV(\mu,\nu)$. Consequently,
+\[
+ P(f\in\mathcal A)-Q(f\in\mathcal A)
+ =\int[\mu(A_w)-\nu(A_w)]\lambda(dw)
+ \le\TV(\mu,\nu).
+\]
+Rearranging gives the two-point bound~\cite{LeCam1973}; a deterministic rule is the special case of a constant $W$.
+
+For any measurable set $B$ in the interface space and any coupling,
+\begin{align*}
+ \mu(B)-\nu(B)
+ &=\Pr(T(X)\in B)-\Pr(T(X')\in B)\\
+ &\le\Pr(T(X)\in B,\ T(X')\notin B)\\
+ &\le\Pr(T(X)\ne T(X')).
+\end{align*}
+Taking the supremum over $B$ proves the coupling inequality. Applying it to the paired runs proves the last assertion. Under equal priors, minimization over all binary decisions on the interface gives the Bayes error $\tfrac12(1-\TV(\mu,\nu))$, by the variational characterization of total variation.
+\end{proof}
+
+\begin{remark}[Estimating the paired probability]
+The theorem requires no parametric family for the marginal laws. A mismatch fraction from finitely many paired runs estimates $\delta_T$; it is not the population probability itself. A finite-sample confidence statement about the error lower bound must use a valid upper confidence bound for $\delta_T$, with the sampling units and dependence of the paired observations accounted for.
+\end{remark}
+
+\begin{result}{Corollary 2 (Interval knowledge)}
+Let $P_{E_1}$ and $P_{E_2}$ denote the laws of a continuous description vector $\phi$. Fix common intervals $I_u$ for its coordinates, let $B=\prod_u I_u$, and define the common membership interface
+\[
+ T_I(\phi)=(\mathbf 1[\phi_u\in I_u])_u.
+\]
+If $P_{E_i}(B)\ge1-\epsilon$ for $i=1,2$, with $0\le\epsilon\le1$, every decision rule based only on $T_I$ has error at least $\tfrac12(1-\epsilon)$ under equal priors. The same bound holds for any interface constant on $B$. With access to the full description $\phi$, the Bayes error is $\tfrac12(1-\TV(P_{E_1},P_{E_2}))$.
+\end{result}
+
+\begin{proof}
+The interface has a common value $t_0$ throughout $B$, so its laws $\mu_1$ and $\mu_2$ each put mass at least $1-\epsilon$ on $t_0$. If a measurable set $A$ contains $t_0$, both $\mu_i(A)$ lie in $[1-\epsilon,1]$; otherwise both lie in $[0,\epsilon]$. Thus $\TV(\mu_1,\mu_2)\le\epsilon$, and Theorem~2 gives the claimed error bound. Applying the variational characterization directly to the description laws gives the full-description Bayes error. If the probability assumption is available separately for each of $m$ coordinates, with error at most $\epsilon$ per coordinate, the union bound gives the joint error bound $\min\{1,m\epsilon\}$ instead.
+\end{proof}
+
+\begin{remark}[Scope and an example]
+The result concerns the specified common membership interface. Membership in additional intervals need not be constant on $B$, so the result does not apply to such a richer interface without a separate argument. For example, let two description laws assign probabilities $(0.9,0.1)$ and $(0.1,0.9)$ to $\{4,8\}$. Both have the $5\%$ to $95\%$ quantile interval $[4,8]$. Its membership is constant, giving Bayes error $1/2$, whereas the full description has total variation $0.8$ and Bayes error $0.1$.
+\end{remark}
+
+\begin{result}{Corollary 3 (Sub-threshold events)}
+Every window-level rule that depends only on the violation feature set $\V(X)$ satisfies
+\[
+ \Pr_E(E\notin f)+\Pr_\emptyset(E\in f)
+ \ge1-\delta_{\V}(E,\emptyset),
+\]
+where $\delta_{\V}(E,\emptyset)$ is the population probability that the paired event and fault-free windows have different violation feature sets. Equality of these sets includes equality of the degree intervals recorded in their features.
+\end{result}
+
+\begin{proof}
+Apply Theorem~2 with $T=\V(\cdot)$, the event and fault-free window laws, and the decision event $\mathcal A=\{F:E\in F\}$.
+\end{proof}
+
+\begin{remark}[Information retained by a violation interface]
+The distinct interface
+\[
+ T_{\mathrm{key}}(X)=\{\mathrm{key}(v):v\in\V(X)\}
+\]
+discards numerical degree intervals. Theorem~2 also gives an error-sum lower bound of $1-\delta_{\mathrm{key}}(E,\emptyset)$ for a rule based only on this interface, where $\delta_{\mathrm{key}}$ is its paired mismatch probability. Key sets differ precisely when some key is present only in one paired window. However, two windows can have the same violated keys and different degree intervals, so $\delta_{\mathrm{key}}\le\delta_{\V}$ and the inequality may be strict. The key mismatch probability cannot replace $\delta_{\V}$ in Corollary~3 for a rule that also reads interval values. An application to a particular baseline must establish its interface and use the mismatch probability for that interface.
+\end{remark}
+
+\begin{remark}[Several windows of one run]
+For $n$ independent and identically distributed interface observations under each hypothesis, let their one-window laws be $\mu,\nu$ and let $A(\mu,\nu)=\int\sqrt{pq}$ be their Hellinger affinity relative to a common dominating measure. The inequalities $1-\TV(\mu,\nu)\ge\tfrac12 A(\mu,\nu)^2$ and $A(\mu^{\otimes n},\nu^{\otimes n})=A(\mu,\nu)^n$ give a lower bound $\tfrac12 A(\mu,\nu)^{2n}$ on the sum of the two errors. Consecutive windows need not be independent, so this product bound does not apply to them without further assumptions.
+\end{remark}
+
+
+\section{Theorem 3 and Proposition 1}
+\label{sec:s-recovery}
+
+Fix a window $X=X^{(H)}(\xi)$ with a nonempty true set $H\subseteq\E$ and $1\le k=|H|\le K_{\max}$. The candidate set $\E$ is finite, and the thresholds $\tau_0,\tau_1$ in this section are finite. In addition to the stopping rules in Algorithm~1, the algorithm stops if no unselected candidate remains. For a selected set $S\subseteq H$, define the paired reference description
+\[
+ \psi_S=\phi\bigl(X^{(H\setminus S)}(\xi)\bigr).
+\]
+Thus $\psi_\emptyset=\phi(X)$ and $\psi_H=\phi(X^{(0)}(\xi))$. Write $z_E^{X,S}(r)$ for the addition score with the original window $X$ and the selected set $S$ held fixed. Only its residual argument $r$ changes in the following comparison. At a visited prefix $S_j$ with residual $r_j$, let
+\[
+ \omega_{S_j}
+ =\max_{E\in\E\setminus S_j}
+  \bigl|z_E^{X,S_j}(r_j)-z_E^{X,S_j}(\psi_{S_j})\bigr|,
+\]
+with $\omega_{S_j}=0$ if the candidate set is empty. All posterior and addition scores are finite. For maxima of scores over an empty set, use $\max\emptyset=-\infty$. Define
+\[
+ \eta_\emptyset
+ =\max_{E\in H}p_E(X)-\max_{E'\in\E\setminus H}p_{E'}(X).
+\]
+For $\emptyset\ne S\subsetneq H$ and $E\in H\setminus S$, put
+\begin{align*}
+ b_E(S)&=z_E^{X,S}(\psi_S)
+          -\max_{E'\in\E\setminus H}z_{E'}^{X,S}(\psi_S),\\
+ \ell_E(S)&=\min\{b_E(S),\ z_E^{X,S}(\psi_S)-\tau_1\},\\
+ \eta_S&=\max_{E\in H\setminus S}\ell_E(S).
+\end{align*}
+The comparison with false candidates is then automatically satisfied when $H=\E$. When $\E\setminus H$ is nonempty, define the stopping margin
+\[
+ \eta_H=\tau_1-\max_{E\in\E\setminus H}z_E^{X,H}(\psi_H).
+\]
+
+\begin{result}{Theorem 3 (Recovery certificate)}
+Suppose $p_\emptyset(X)<\tau_0$, $\eta_\emptyset>0$, and $\eta_S>2\omega_S$ for every nonempty proper prefix $S\subsetneq H$ visited by \aecx. If $k<K_{\max}$ and $\E\setminus H$ is nonempty, also suppose that $\eta_H>\omega_H$ when the algorithm reaches $H$. Then \aecx returns exactly $H$. Every violation on a unit that belongs to the support of exactly one selected event $E\in H$ is assigned to $E$.
+\end{result}
+
+\begin{proof}
+The condition $p_\emptyset(X)<\tau_0$ passes the initial background test. A true event attains $\max_{E\in H}p_E(X)$, and $\eta_\emptyset>0$ makes its posterior larger than that of every false event. If no false event exists, every candidate is true. In either case, the first selection belongs to $H$ and $S_1\subseteq H$.
+
+Suppose the algorithm has selected $S_j\subsetneq H$ with $1\le j<k$. Let $E^\dagger\in H\setminus S_j$ attain $\eta_{S_j}$. When a false event $E'$ exists, the definitions give
+\begin{align*}
+ z_{E^\dagger}^{X,S_j}(r_j)-z_{E'}^{X,S_j}(r_j)
+ &\ge\eta_{S_j}-2\omega_{S_j}>0.
+\end{align*}
+Irrespective of whether false events exist, they also give
+\[
+ z_{E^\dagger}^{X,S_j}(r_j)
+ \ge\tau_1+\eta_{S_j}-\omega_{S_j}>\tau_1.
+\]
+The highest-scoring unselected candidate therefore belongs to $H\setminus S_j$ and passes the addition threshold. The candidate set is nonempty because $H\setminus S_j$ is nonempty, and the cardinality bound does not stop the algorithm because $j<k\le K_{\max}$. Thus $S_{j+1}\subseteq H$, proving the induction.
+
+After $k$ additions the selected set is $H$. If $k=K_{\max}$, the cardinality bound stops the algorithm. If $H=\E$, the absence of candidates stops it. In the remaining case, for every unselected candidate $E$,
+\[
+ z_E^{X,H}(r_k)
+ \le z_E^{X,H}(\psi_H)+\omega_H
+ \le\tau_1-\eta_H+\omega_H<\tau_1,
+\]
+so the threshold stops it. Each stopping case returns exactly $H$. For a violation on a unit supported by exactly one event of $H$, the assignment rule has that event as its sole candidate and assigns the violation to it.
+\end{proof}
+
+\begin{result}{Proposition S2 (Sharper recovery margins)}
+Retain the setup, initial conditions, and stopping conditions of Theorem~3. For each nonempty proper visited prefix $S\subsetneq H$, define
+\begin{align*}
+ M_S&=\max_{E\in H\setminus S}z_E^{X,S}(\psi_S),\\
+ B_S&=\max_{E'\in\E\setminus H}z_{E'}^{X,S}(\psi_S),\\
+ d_S&=M_S-B_S,\qquad a_S=M_S-\tau_1.
+\end{align*}
+It suffices to replace the intermediate condition of Theorem~3 by
+\[
+ a_S>\omega_S,
+ \qquad d_S>2\omega_S\quad\text{if }\E\setminus H\ne\emptyset.
+\]
+Under these conditions, the event-set recovery and assignment conclusions of Theorem~3 still hold.
+\end{result}
+
+\begin{proof}
+The initial conditions give a true first selection exactly as in Theorem~3. At a visited proper prefix $S\subsetneq H$, let $E^\dagger\in H\setminus S$ attain $M_S$, and let $r$ be the residual at this prefix. The score discrepancy bound gives
+\[
+ z_{E^\dagger}^{X,S}(r)
+ \ge M_S-\omega_S
+ =\tau_1+a_S-\omega_S>\tau_1.
+\]
+When false candidates exist, every such $E'$ also satisfies
+\[
+ z_{E^\dagger}^{X,S}(r)-z_{E'}^{X,S}(r)
+ \ge M_S-B_S-2\omega_S
+ =d_S-2\omega_S>0.
+\]
+Thus the highest-scoring unselected candidate is true and passes the addition threshold. When there are no false candidates, every unselected candidate is true and only the threshold inequality is needed. The induction, stopping cases, and assignment argument of Theorem~3 apply unchanged.
+
+For the original margins, monotonicity of $t\mapsto\min\{t-B_S,t-\tau_1\}$ gives
+\[
+ \eta_S=\min\{M_S-B_S,M_S-\tau_1\}
+        =\min\{d_S,a_S\},
+\]
+using $B_S=-\infty$ when there are no false candidates. Therefore $\eta_S>2\omega_S$ implies the conditions above, while the converse need not hold. For $\omega_S>0$, margins $d_S=3\omega_S$ and $a_S=\tfrac32\omega_S$ satisfy the new conditions but not the intermediate condition of Theorem~3.
+\end{proof}
+
+\begin{remark}[Meaning of the refinement]
+Proposition~S2 separates the discrepancy needed to preserve ordering against a false candidate from the discrepancy needed to cross a fixed threshold. It enlarges the sufficient region of the paired, pathwise certificate. It does not establish an empirical performance improvement or an unconditional recovery guarantee for unseen processes.
+\end{remark}
+
+\begin{remark}[Scope of the certificate]
+This is a sufficient condition along the path actually visited. It certifies the returned event set and the stated assignment behavior. Unique membership in a learned support does not itself establish that the assigned event is a counterfactual cause, nor does the theorem establish that every background violation is left unassigned.
+
+An order-uniform condition is also possible. For each $S\subseteq H$, keep $X$, $S$, and the reference $\psi_S$ fixed, and let $\bar\omega_S$ be the supremum of the same score discrepancy over residuals formed by successively deducting the events of $S$ in every possible order. Conditions $\eta_S>2\bar\omega_S$ for every nonempty proper subset of $H$, together with the initial conditions and the stopping condition $\eta_H>\bar\omega_H$ when needed, imply the pathwise certificate. Checking only the prefixes of one prescribed order does not establish this order-uniform condition. No global Lipschitz property of the learned scores is assumed; in particular, discontinuous tree scores need not satisfy such a property.
+\end{remark}
+
+\begin{result}{Proposition 1 (Interaction bound and single-label rules)}
+(i) If the available training information consists only of fault-free runs, single-event runs, and synthetic sums of their single-event effects, then for any three distinct event labels $A,B,C$ there are two processes with identical available training information such that, in one process, $\{A,B\}$ and $\{C\}$ produce the same window law while both $A$ and $B$ are effective. Under that process every window-based rule $f$, with the same independent randomization under both hypotheses, satisfies
+\[
+ \Pr(f\ne\{A,B\}\mid A,B)+\Pr(f\ne\{C\}\mid C)\ge1.
+\]
+(ii) A rule that outputs one event per window has event-set F1 at most $2/(k+1)$ on a window with $k\ge1$ effective events.
+\end{result}
+
+\begin{proof}
+(i) Use deterministic one-sample windows in $\mathbb R^3$, with fault-free window $0$ and single-event windows $e_1,e_2,e_3$ for $A,B,C$, respectively, where $e_i$ are the coordinate basis vectors. Each coordinate has the normal interval $[-1/2,1/2]$. Define a process $\mathcal P$ by summing the active single-event vectors. Define $\mathcal P'$ to agree with $\mathcal P$ on every event set except $\{A,B\}$, and set $X^{(AB)}=e_3$ under $\mathcal P'$. The two processes agree on normal and single-event windows, and every synthetic sum computed from those windows is identical. The synthetic sum for $A,B$ is $e_1+e_2$ in both training collections; it need not equal the actual joint window under $\mathcal P'$.
+
+Under $\mathcal P'$, the third coordinate is violated in $X^{(AB)}=e_3$ and in $X^{(C)}=e_3$, but not in the normal window. Removing $A$ from $\{A,B\}$ gives $e_2$ and removes this violation; removing $B$ gives $e_1$ and also removes it. Thus both events are effective by the counterfactual definition. The two hypotheses have the same window law. If $p$ is the probability that $f$ outputs $\{A,B\}$ on $e_3$, their error probabilities are $1-p$ and at least $p$, respectively. Their sum is at least one. The interaction in this example is $e_3-e_1-e_2$, whose Euclidean norm divided by $\|e_1+e_2\|_2$ is $\sqrt{3/2}$. The construction shows why unrestricted interactions preclude a uniform recovery guarantee based solely on the stated training information; it does not assert a sharp universal interaction threshold.
+
+(ii) For a true set $T$ with $|T|=k$ and singleton output $\{\ell\}$, event-set F1 is
+\[
+ \frac{2|\{\ell\}\cap T|}{1+k}\le\frac{2}{k+1}.
+\]
+Equality holds exactly when $\ell\in T$.
+\end{proof}
+
+
+\section{Theorem 4}
+\label{sec:s-conformal}
+
+For $0<\alpha<1$ and real scores $z_1,\ldots,z_n$, define the upper conformal threshold
+\[
+ Q_\alpha(z_1,\ldots,z_n)=
+ \begin{cases}
+ z_{(m)},&m=\lceil(1-\alpha)(n+1)\rceil\le n,\\
+ +\infty,&m=n+1,
+ \end{cases}
+\]
+where $z_{(m)}$ is the $m$-th smallest calibration score. In particular, $Q_\alpha(\varnothing)=+\infty$. Every rejection below uses a strict inequality against this threshold.
+
+\begin{lemma}[Exchangeable ranks]
+\label{lem:rank}
+Let $Z_1,\ldots,Z_{n+1}$ be exchangeable real random variables. Then
+\[
+ \Pr\{Z_{n+1}>Q_\alpha(Z_1,\ldots,Z_n)\}\le\alpha.
+\]
+If $m\le n$ and all $n+1$ scores are pairwise distinct almost surely, the probability equals $1-m/(n+1)$ and lies in $(\alpha-1/(n+1),\alpha]$. The same conclusions hold conditionally on a sigma-field relative to which the scores are conditionally exchangeable.
+\end{lemma}
+
+\begin{proof}
+When $m=n+1$, the rejection event is empty. Otherwise put $N_i=\lvert\{j\le n+1:Z_j<Z_i\}\rvert$. The event $Z_{n+1}>Z_{(m)}$ is equivalent to $N_{n+1}\ge m$. Sort all $n+1$ scores, breaking ties arbitrarily. A score at position $q$ has $N_i\le q-1$, so at most $n+1-m$ indices satisfy $N_i\ge m$. Exchangeability therefore gives
+\[
+ \Pr(N_{n+1}\ge m)=\frac{1}{n+1}\mathbb E\bigl\lvert\{i:N_i\ge m\}\bigr\rvert
+ \le\frac{n+1-m}{n+1}\le\alpha.
+\]
+Without ties, exactly $n+1-m$ indices satisfy the inequality. The ceiling definition of $m$ gives the asserted lower bound. Applying the same argument to the conditional law proves the conditional version.
+\end{proof}
+
+\begin{lemma}[Selection by a fixed criterion]
+\label{lem:select}
+Let $W_1,\ldots,W_{N+1}$ be exchangeable random elements, let $\mathcal S$ be a fixed measurable set, and put $J=\{i:W_i\in\mathcal S\}$. Conditional on any event $\{J=J_0\}$ of positive probability, the selected elements $(W_i)_{i\in J_0}$ are exchangeable. Thus, for a fixed measurable real score $g$, the upper conformal threshold of the selected calibration scores satisfies
+\[
+ \Pr\!\left\{g(W_{N+1})>Q_\alpha\bigl((g(W_i))_{i\in J\setminus\{N+1\}}\bigr)
+ \ \middle|\ N+1\in J\right\}\le\alpha
+\]
+whenever the conditioning event has positive probability. The empty selected calibration set uses the threshold $+\infty$. These claims also hold conditionally on upstream information, provided exchangeability holds conditionally and $\mathcal S,g$ are fixed given that information.
+\end{lemma}
+
+\begin{proof}
+Every permutation of the indices in $J_0$ that fixes its complement leaves the event $\{J=J_0\}$ invariant. Exchangeability before conditioning therefore implies exchangeability within $J_0$ after conditioning. Apply Lemma~\ref{lem:rank} to the selected scores for each $J_0$ containing $N+1$, with $n=\lvert J_0\rvert-1$, and average the resulting bounds. This includes $n=0$. The identical argument under the conditional law proves the last assertion.
+\end{proof}
+
+\textbf{Calibration protocol.}
+Let $\mathcal F$ contain all training and tuning information. The addition-score function is trained on a separate subset of training runs not used to fit the scorer, response detectors or footprint operators, and on compositions of that subset. All these training subsets belong to $\mathcal F$. Given $\mathcal F$, the knowledge, footprint operators, scorer, encoder, response detectors, addition-score function, template means and covariance, tie-breaking rules, and fusion weight $\lambda$ are fixed before any threshold-calibration pool is inspected. Use three further calibration pools $C_0,C_1,C_u$, with no run shared between pools or with training, tuning or evaluation. The pools are independent of one another conditional on $\mathcal F$. In each run choose one window using a rule independent of the run's content, before applying any correctness or score-based selection. The corresponding test window uses the same window-selection rule.
+
+The required distributional assumptions are conditional exchangeability at each stage. Given $\mathcal F$, the fault-free windows in $C_0$ and a fault-free test window are exchangeable. Given $\mathcal F,C_0$, the labeled single-event windows in $C_1$ and a single-event test window are exchangeable. Given $\mathcal F,C_0,C_1$, the windows in $C_u$ and a test window from its specified mixture of normal operation and known single events are exchangeable. Independent identically distributed runs from each stated population, conditional on training and tuning information, are a sufficient way to obtain these conditions. Disjoint run identifiers alone do not imply them; in particular, a fixed allocation of class counts is not by itself an exchangeability argument for a pooled mixture.
+
+First set $\tau_0=1-Q_{\alpha_0}((1-p_\emptyset(X_i))_{i\in C_0})$, interpreting $1-(+\infty)=-\infty$, and freeze $\tau_0$. For a labeled single-event window $W=(X,E)$, define
+\[
+ A(W)=\mathbf1\{p_\emptyset(X)<\tau_0,\ \arg\max_{E'\in\mathcal E}p_{E'}(X)=E\}.
+\]
+This criterion includes the normal-operation gate and is fixed given $\mathcal F,C_0$. On the windows in $C_1$ with $A(W_i)=1$, compute
+\[
+ T^*(W_i)=\max_{E'\ne E_i}
+ z_{E'}\bigl(X_i,\phi_i-\hat\Delta_{E_i}(\phi_i),\{E_i\}\bigr),
+ \qquad
+ \tau_1=Q_{\alpha_1}\bigl((T^*(W_i))_{i\in C_1:A(W_i)=1}\bigr).
+\]
+Assume the library contains at least two events for this definition; with only one event no false addition is possible and take $\tau_1=+\infty$. Freeze $\tau_1$ and the resulting output rule $H(X)$. Finally set
+\[
+ \tau_u=Q_{\alpha_u}\bigl((D_{H(X_i)}(\phi(X_i)))_{i\in C_u}\bigr).
+\]
+All scores used here are assumed finite and measurable. The bound $K_{\max}$ is at least one.
+
+\begin{result}{Theorem 4 (Finite-sample control of false naming)}
+For a fixed fusion weight $\lambda$, under the preceding protocol and its conditional exchangeability assumptions, the following bounds hold, averaging over the relevant calibration pool and test window. (a) On a fault-free test window, the probability that \aecx names an event is at most $\alpha_0$. If the $n_0+1$ normal scores have no ties and $m_0=\lceil(1-\alpha_0)(n_0+1)\rceil\le n_0$, this probability is $1-m_0/(n_0+1)$ and is greater than $\alpha_0-1/(n_0+1)$. (b) Conditional on a single-event test window passing the normal-operation gate and selecting its true event first, the probability of adding any false event is at most $\alpha_1$, whenever this conditioning event has positive probability. (c) For a test window from the same specified mixture as $C_u$, the probability of an unknown flag is at most $\alpha_u$. Ties are permitted for all three upper bounds.
+\end{result}
+
+\begin{proof}
+(a) Given $\mathcal F$, the $n_0$ normal calibration scores and the normal test score $Z=1-p_\emptyset(X)$ are exchangeable. Naming occurs exactly when $Z>Q_{\alpha_0}$, including the case $\tau_0=-\infty$, in which it never occurs. Lemma~\ref{lem:rank} gives the conditional upper bound, and its equality statement gives the claimed formula when ties are absent and $m_0\le n_0$. Averaging over $\mathcal F$ gives the marginal statements.
+
+(b) Given $\mathcal F,C_0$, both $A$ and $T^*$ are fixed functions of a labeled single-event window. Lemma~\ref{lem:select} therefore gives, for almost every upstream realization on which the test selection event has positive probability,
+\[
+ \Pr\{T^*(W_{\rm test})>\tau_1\mid\mathcal F,C_0,A(W_{\rm test})=1\}\le\alpha_1.
+\]
+If the first selected event is the true one and a second selection is allowed, every remaining candidate is false, so a false second event is added exactly when $T^*>\tau_1$. Otherwise the procedure stops immediately with the true singleton and cannot add a false event at a later step. When $K_{\max}=1$, or the library contains only one event, the false-addition event is empty. Hence the desired event is always contained in the score-exceedance event in the nontrivial case. Averaging the conditional bound over upstream information given $A(W_{\rm test})=1$ proves (b).
+
+(c) Given $\mathcal F,C_0,C_1$, the entire output rule $H$, including both selection thresholds, is fixed before $C_u$ is inspected. Thus $X\mapsto D_{H(X)}(\phi(X))$ is a fixed measurable score under this conditioning. The assumed conditional exchangeability of the known-mixture calibration and test windows makes their scores exchangeable. The flag uses $D_{H(X)}(\phi(X))>\tau_u$, so Lemma~\ref{lem:rank} gives the conditional upper bound; averaging gives (c).
+\end{proof}
+
+\begin{remark}[Scope, fluctuation and implementation]
+Part (c) controls the stated mixture marginally, not each output set or each event class. Conditional control within an output group would require an appropriate groupwise calibration construction and sufficient selected calibration data. Known concurrent-event windows have no guarantee from (c) unless their distribution also satisfies its exchangeability hypothesis. Their false-flag rate must otherwise be evaluated empirically.
+
+For the Beta fluctuation statement, impose the stronger assumption that, conditional on $\mathcal F$, the normal calibration and test scores are independent and identically distributed with continuous distribution function $F_{\mathcal F}$, and $m_0\le n_0$. The conditional test naming probability
+\[
+ q(C_0)=\Pr(\text{naming}\mid\mathcal F,C_0)
+       =1-F_{\mathcal F}(Z_{(m_0)})
+\]
+then has distribution $\mathrm{Beta}(n_0+1-m_0,m_0)$ over random draws of $C_0$, conditional on $\mathcal F$: the transformed calibration scores are independent uniform variables, whose $m_0$-th order statistic is $\mathrm{Beta}(m_0,n_0+1-m_0)$~\cite{Vovk2005Algorithmic,Lei2018Distribution}. Once $C_0$ is fixed, $q(C_0)$ is a number. Mere exchangeability does not imply this Beta law. When $m_0=n_0+1$, $q(C_0)=0$ under the infinite-threshold convention.
+
+The protocol above is sufficient for this theorem, not a claim that every released experiment follows it. Selecting the fusion weight on a threshold-calibration pool, or reusing the pools that determine $H$ to calibrate the unknown score, is not justified by this proof. The repository's proof README records the implementation scope; disjointness from evaluation data alone does not supply the missing conditional exchangeability.
+\end{remark}
+
+
+\section{Functional Constraints}
+\label{sec:s-functional}
+
+\begin{result}{Proposition S1 (Functional constraints)}
+Suppose the normal variables satisfy $x_j=\beta_0+\beta^\top x_P+e$, have finite variances, and obey $\operatorname{Cov}(e,x_P)=0$. Let $\sigma_j^2=\operatorname{Var}(x_j)>0$, $\sigma_e^2=\operatorname{Var}(e)>0$, and $R^2=1-\sigma_e^2/\sigma_j^2\in[0,1)$. Fix the learned coefficients and interval midpoints, and use range half-widths $c\sigma_j$ and $c\sigma_i$ and functional half-width $c\sigma_e$, with the same constant $c>0$ and $\sigma_i^2=\operatorname{Var}(x_i)>0$ for a partner under consideration. For a paired perturbation $(\Delta_j,\Delta_P)$ of the variables, the changes in range and functional degrees are
+\[
+ \Delta F_j=\frac{\Delta_j}{c\sigma_j},\qquad
+ \Delta F_i=\frac{\Delta_i}{c\sigma_i},\qquad
+ \Delta F_{\mathrm{fun}}=
+ \frac{\Delta_j-\beta^\top\Delta_P}{c\sigma_j\sqrt{1-R^2}}.
+\]
+If only the target changes, then $|\Delta F_{\mathrm{fun}}|=|\Delta F_j|/\sqrt{1-R^2}$. If only partner $x_i$ changes while $x_j$ and the other partners are held fixed, then
+\[
+ |\Delta F_{\mathrm{fun}}|
+ =\frac{|\beta_i|\sigma_i}{\sigma_j\sqrt{1-R^2}}
+   |\Delta F_i|.
+\]
+For a relation with just one predictor, this coefficient becomes $|r|/\sqrt{1-r^2}$, where $r=\operatorname{Corr}(x_i,x_j)$ and $r^2=R^2$; it exceeds one exactly when $R^2>1/2$. A perturbation along the relation, $\Delta_j=\beta^\top\Delta_P$, leaves the functional degree unchanged.
+\end{result}
+
+\begin{proof}
+The fixed functional quantity is the residual $x_j-\beta_0-\beta^\top x_P$. Under the paired perturbation its change is $\Delta_j-\beta^\top\Delta_P$. Subtracting the original degree from the perturbed degree cancels the fixed interval midpoint. Dividing by the half-width $c\sigma_e=c\sigma_j\sqrt{1-R^2}$ gives the displayed formula. The same calculation for a range constraint gives $\Delta F_j$ and $\Delta F_i$.
+
+With $\Delta_P=0$, the functional change is $\Delta F_j/\sqrt{1-R^2}$. With $\Delta_j=0$ and only the $i$th partner changing, its magnitude is $|\beta_i\Delta_i|/(c\sigma_e)$, giving the general coefficient. When $x_i$ is the only predictor, the orthogonality assumption implies
+\[
+ \operatorname{Cov}(x_i,x_j)=\beta_i\sigma_i^2,
+ \qquad \beta_i=r\frac{\sigma_j}{\sigma_i}.
+\]
+It also gives $\sigma_j^2=\beta_i^2\sigma_i^2+\sigma_e^2$, so $r^2=R^2$. Substitution yields $|r|/\sqrt{1-r^2}$. Since $0\le r^2<1$, this quantity exceeds one exactly when $r^2>1-r^2$, or $R^2>1/2$. Finally, $\Delta_j=\beta^\top\Delta_P$ makes the residual change zero, so the functional degree is unchanged.
+\end{proof}
+
+\begin{remark}[Changes and observed degrees]
+These identities describe paired changes in degrees. An unchanged functional degree can be nonzero and can already violate its interval because of the original residual. In a relation with several predictors, the total $R^2$ alone does not determine the coefficient for moving one partner. If range and functional half-widths use different proportionality constants, the corresponding degree-change coefficient must also include the ratio of those constants.
+\end{remark}
+
+% Generated by IEEEtran.bst, version: 1.14 (2015/08/26)
+\begin{thebibliography}{1}
+\providecommand{\url}[1]{#1}
+\csname url@samestyle\endcsname
+\providecommand{\newblock}{\relax}
+\providecommand{\bibinfo}[2]{#2}
+\providecommand{\BIBentrySTDinterwordspacing}{\spaceskip=0pt\relax}
+\providecommand{\BIBentryALTinterwordstretchfactor}{4}
+\providecommand{\BIBentryALTinterwordspacing}{\spaceskip=\fontdimen2\font plus
+\BIBentryALTinterwordstretchfactor\fontdimen3\font minus
+  \fontdimen4\font\relax}
+\providecommand{\BIBforeignlanguage}[2]{{%
+\expandafter\ifx\csname l@#1\endcsname\relax
+\typeout{** WARNING: IEEEtran.bst: No hyphenation pattern has been}%
+\typeout{** loaded for the language `#1'. Using the pattern for}%
+\typeout{** the default language instead.}%
+\else
+\language=\csname l@#1\endcsname
+\fi
+#2}}
+\providecommand{\BIBdecl}{\relax}
+\BIBdecl
+
+\bibitem{DinurSteurer14}
+\BIBentryALTinterwordspacing
+I.~Dinur and D.~Steurer, ``Analytical approach to parallel repetition,'' in
+  \emph{Proceedings of the 46th {ACM} Symposium on Theory of Computing
+  ({STOC})}, 2014, pp. 624--633. [Online]. Available:
+  \url{https://doi.org/10.1145/2591796.2591884}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Peng1990Abductive}
+\BIBentryALTinterwordspacing
+Y.~Peng and J.~A. Reggia, \emph{Abductive Inference Models for Diagnostic
+  Problem-Solving}.\hskip 1em plus 0.5em minus 0.4em\relax New York: Springer,
+  1990. [Online]. Available: \url{https://doi.org/10.1007/978-1-4419-8682-5}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Chvatal79}
+\BIBentryALTinterwordspacing
+V.~Chv{\'a}tal, ``A greedy heuristic for the set-covering problem,''
+  \emph{Mathematics of Operations Research}, vol.~4, no.~3, pp. 233--235, 1979.
+  [Online]. Available: \url{https://doi.org/10.1287/moor.4.3.233}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Hochbaum82}
+D.~S. Hochbaum, ``Heuristics for the fixed cost median problem,''
+  \emph{Mathematical Programming}, vol.~22, no.~1, pp. 148--162, 1982.
+
+\bibitem{LeCam1973}
+L.~Le~Cam, ``Convergence of estimates under dimensionality restrictions,''
+  \emph{The Annals of Statistics}, vol.~1, no.~1, pp. 38--53, 1973.
+
+\bibitem{Vovk2005Algorithmic}
+\BIBentryALTinterwordspacing
+V.~Vovk, A.~Gammerman, and G.~Shafer, \emph{Algorithmic Learning in a Random
+  World}.\hskip 1em plus 0.5em minus 0.4em\relax New York: Springer, 2005.
+  [Online]. Available: \url{https://doi.org/10.1007/b106715}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Lei2018Distribution}
+\BIBentryALTinterwordspacing
+J.~Lei, M.~G'Sell, A.~Rinaldo, R.~J. Tibshirani, and L.~Wasserman,
+  ``Distribution-free predictive inference for regression,'' \emph{Journal of
+  the American Statistical Association}, vol. 113, no. 523, pp. 1094--1111,
+  2018. [Online]. Available:
+  \url{https://doi.org/10.1080/01621459.2017.1307116}
+\BIBentrySTDinterwordspacing
+
+\end{thebibliography}
+
+\end{document}
