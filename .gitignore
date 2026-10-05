@@ -4,13 +4,13 @@ __pycache__/
 .pytest_cache/
 .venv*/
 *.egg-info/
-build/
-dist/
+/build/
+/dist/
 .env
 .env.*
 *.pem
 *.key
-data/
+/data/
 models/
 checkpoints/
 *.log

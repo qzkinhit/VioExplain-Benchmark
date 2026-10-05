@@ -1,0 +1,124 @@
+{
+ "process": "dist",
+ "results_dir": "dist",
+ "sample_period": "1 min",
+ "window": 64,
+ "variables": [
+  "F",
+  "zF",
+  "L",
+  "V",
+  "D",
+  "B",
+  "MD",
+  "MB",
+  "xD",
+  "xB",
+  "T4",
+  "T8",
+  "T12",
+  "T16",
+  "T26",
+  "T30",
+  "T34",
+  "T38",
+  "uL",
+  "uV"
+ ],
+ "n_variables": 20,
+ "faults": {
+  "1": "feed composition step (disturbance)",
+  "2": "feed flow variability (disturbance)",
+  "3": "feed flow step (disturbance)",
+  "4": "feed liquid fraction drop, partly vaporized feed (disturbance)",
+  "5": "reflux valve stiction (actuator)",
+  "6": "boilup valve gain loss (actuator)",
+  "7": "top composition analyzer bias (sensor, in loop)",
+  "8": "bottom composition analyzer drift (sensor, in loop)",
+  "9": "stage-8 temperature sensor drift (sensor, out of loop)",
+  "10": "tray efficiency loss in the rectifying section (process)"
+ },
+ "n_fault_types": 10,
+ "fit_runs_per_class": 300,
+ "cal_runs_per_class": 100,
+ "test_runs_per_class": 500,
+ "train_samples": 512,
+ "train_onset": 64,
+ "test_samples": 960,
+ "test_onset": 160,
+ "pair_sets": 45,
+ "pair_seeds": 30,
+ "triple_sets": 50,
+ "triple_seeds": 15,
+ "composed_triple_sets": 71,
+ "trips": {
+  "training_arrays": {
+   "runs_per_class": 400,
+   "samples": 512,
+   "onset": 64,
+   "tripped_runs_per_class": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "testing_arrays": {
+   "runs_per_class": 500,
+   "samples": 960,
+   "onset": 160,
+   "tripped_runs_per_class": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "test_pairs": {
+   "sets": 56,
+   "seeds": 30,
+   "samples": 960,
+   "onset": 160,
+   "share_of_tripped_runs_by_number_of_faults": {
+    "0": 0.0,
+    "1": 0.0,
+    "2": 0.0
+   }
+  },
+  "test_triples": {
+   "sets": 105,
+   "seeds": 15,
+   "samples": 960,
+   "onset": 160,
+   "share_of_tripped_runs_by_number_of_faults": {
+    "0": 0.0,
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0
+   }
+  }
+ },
+ "n_pair_sets": 45,
+ "n_pair": 16200,
+ "n_triple_sets": 50,
+ "n_triple": 9000,
+ "n_quad_sets": 40,
+ "n_quad": 14400,
+ "functional_relations": 1,
+ "single_eval_windows": 54384,
+ "single_tcal_windows": 11616
+}
