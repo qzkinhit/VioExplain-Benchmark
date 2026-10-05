@@ -79,6 +79,6 @@ paired single-fault runs of test_pairs. Window length 64 samples. `gen_all3.sh` 
 
 ## Run order
 
-`gen_all3.sh` (cpu1 and hit), `launch_cpu3.sh` (cpu1), `launch_gpu3.sh` (hit, `V3_DEV`), `relay3.sh early|late`
+`gen_all3.sh` (cpu1 and hit), `launch_cpu3.sh` (cpu1; after the first minutes its lane loops were replaced by `launch_cpu3_split.sh`, which runs the same commands with the same threads for one data set per call, so that EVAP and PH ran in parallel), `launch_gpu3.sh` (hit, `V3_DEV`), `relay3.sh early|late`
 (workstation), `collect3.py` (cpu1). Results: `results/simproc_v1/{evap,ph}/metrics_main.json`,
-`metrics_samecomp.json`, `metrics_extra.json`, `dataset_stats.json`, `dataset_truth_stats.json`.
+`metrics_samecomp.json`, `metrics_extra.json`, `dataset_stats.json`, `dataset_truth_stats.json` (written by `stats3.py`). All runs finished on 2026-10-05 between 21:53 and 22:22; no method is missing.
