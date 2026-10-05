@@ -1,0 +1,15 @@
+{
+ "f1_caused_mean": 54.04095238095238,
+ "f1_all_mean": 54.46380952380952,
+ "f1_sensors_mean": 28.144285714285715,
+ "normal_mean": 0.6080952380952381,
+ "normal_share": 0.21571428571428572,
+ "normal_share_eval": 0.24231391585760517,
+ "sub_share": 0.09594120819848975,
+ "n_single_eval": 103824,
+ "n_pair": 38336,
+ "n_triple": 3741,
+ "n_quad": 7282,
+ "n_tcal": 22176,
+ "relations": 13
+}

@@ -1,0 +1,18 @@
+{
+ "Ours_label_macroF1": 0.9229502879605471,
+ "OursB_label_macroF1": 0.9777079558916633,
+ "VioExplain-nostep-B": {
+  "single_macroF1_gated": 0.9721735288204476,
+  "single_eff": 0.8593542918785638,
+  "single_eff_nonempty": 0.9885216389428964,
+  "normal_named": 0.0438915857605178,
+  "pair_eff": 0.8459059990857779,
+  "pair_attrF1": 0.838029117105544,
+  "triple_eff": 0.7707004747902905,
+  "triple_attrF1": 0.6831657440361566,
+  "quad_eff": 0.6675923019578608,
+  "quad_attrF1": 0.5904879031802412,
+  "pair_eff_seen": 0.972111010009099,
+  "pair_eff_unseen": 0.8295595869461514
+ }
+}

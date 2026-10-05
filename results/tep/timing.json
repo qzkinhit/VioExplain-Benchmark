@@ -1,0 +1,239 @@
+{
+ "mode": "f0",
+ "n_windows": {
+  "TEV": 2000,
+  "pairs": 2000
+ },
+ "n_stream": 200,
+ "notes": {
+  "cpu": "process CPU time (time.process_time) under threadpoolctl limit 1 and n_jobs=1; the host was shared with other jobs, so wall time is inflated",
+  "input": "raw 64x52 window; window statistics Fn included for every method that uses them",
+  "cnn": "FCN (64,128,64 filters, kernels 8,5,3, untrained weights, same cost as trained), batch 256 in batched mode",
+  "minirocket": "aeon MiniRocketClassifier fitted on 300 windows per class, inference cost independent of training size",
+  "vioexplain_t": "explain_t with the deep diagnoser posterior given, the CNN forward pass is the separate row",
+  "params": {
+   "PCA-RBC": [
+    "64",
+    "tuned value from log_base.txt"
+   ],
+   "AEC": [
+    "(0.9, 0.2, 0.5, 1.5)",
+    "grid middle (tuned value not yet logged)"
+   ],
+   "MinExplain": [
+    "8",
+    "grid middle (tuned value not yet logged)"
+   ]
+  }
+ },
+ "methods": {
+  "VioExplain": {
+   "TEV": {
+    "batch_cpu_ms_per_window": 5.07205173300008,
+    "batch_wall_ms_per_window": 5.073338892310858,
+    "stream_cpu_ms_mean": 53.37382939500003,
+    "stream_cpu_ms_median": 60.67963350005812,
+    "stream_cpu_ms_p95": 77.29441100000255
+   },
+   "pairs": {
+    "batch_cpu_ms_per_window": 5.866457969500061,
+    "batch_wall_ms_per_window": 5.867866253480315,
+    "stream_cpu_ms_mean": 64.20769982497859,
+    "stream_cpu_ms_median": 69.83507999984795,
+    "stream_cpu_ms_p95": 86.90057280014116
+   }
+  },
+  "VioExplain-T (excl. CNN forward)": {
+   "TEV": {
+    "batch_cpu_ms_per_window": 3.257135678499708,
+    "batch_wall_ms_per_window": 3.2573329340666533,
+    "stream_cpu_ms_mean": 46.251964289999705,
+    "stream_cpu_ms_median": 46.27142400067896,
+    "stream_cpu_ms_p95": 70.10286210024788
+   },
+   "pairs": {
+    "batch_cpu_ms_per_window": 5.716145237999626,
+    "batch_wall_ms_per_window": 5.7174579333513975,
+    "stream_cpu_ms_mean": 73.24118814497069,
+    "stream_cpu_ms_median": 79.64815449986418,
+    "stream_cpu_ms_p95": 96.24050500074189
+   }
+  },
+  "1D-CNN forward (CPU torch)": {
+   "TEV": {
+    "batch_cpu_ms_per_window": 0.30103982050013656,
+    "batch_wall_ms_per_window": 0.3010675981640816,
+    "stream_cpu_ms_mean": 0.6839209299732829,
+    "stream_cpu_ms_median": 0.6814835005570785,
+    "stream_cpu_ms_p95": 0.7327306505430897
+   },
+   "pairs": {
+    "batch_cpu_ms_per_window": 0.28340207949986507,
+    "batch_wall_ms_per_window": 0.28341271728277206,
+    "stream_cpu_ms_mean": 0.6995103800136349,
+    "stream_cpu_ms_median": 0.6998965000093449,
+    "stream_cpu_ms_p95": 0.7372272003976832
+   }
+  },
+  "RF-top1": {
+   "TEV": {
+    "batch_cpu_ms_per_window": 0.3057607400000961,
+    "batch_wall_ms_per_window": 0.305794732645154,
+    "stream_cpu_ms_mean": 31.90667886498886,
+    "stream_cpu_ms_median": 31.744813999921462,
+    "stream_cpu_ms_p95": 33.831369200379406
+   },
+   "pairs": {
+    "batch_cpu_ms_per_window": 0.2623508705000859,
+    "batch_wall_ms_per_window": 0.2623682748526335,
+    "stream_cpu_ms_mean": 32.17420811005013,
+    "stream_cpu_ms_median": 30.975280000347993,
+    "stream_cpu_ms_p95": 35.78402819994153
+   }
+  },
+  "XGB-top1": {
+   "TEV": {
+    "batch_cpu_ms_per_window": 0.2931599964999805,
+    "batch_wall_ms_per_window": 0.29317217506468296,
+    "stream_cpu_ms_mean": 6.957299660020908,
+    "stream_cpu_ms_median": 6.991569000092568,
+    "stream_cpu_ms_p95": 8.421740699441216
+   },
+   "pairs": {
+    "batch_cpu_ms_per_window": 0.26441317550006715,
+    "batch_wall_ms_per_window": 0.26444830372929573,
+    "stream_cpu_ms_mean": 8.459143009986292,
+    "stream_cpu_ms_median": 8.354647500254941,
+    "stream_cpu_ms_p95": 10.476577499366613
+   }
+  },
+  "MC-LGBM-top1": {
+   "TEV": {
+    "batch_cpu_ms_per_window": 1.2167367739998554,
+    "batch_wall_ms_per_window": 1.2172932866960764,
+    "stream_cpu_ms_mean": 3.055286569983764,
+    "stream_cpu_ms_median": 3.101466500083916,
+    "stream_cpu_ms_p95": 3.683637099857151
+   },
+   "pairs": {
+    "batch_cpu_ms_per_window": 1.0935363574999428,
+    "batch_wall_ms_per_window": 1.0936057344079018,
+    "stream_cpu_ms_mean": 2.609761729972888,
+    "stream_cpu_ms_median": 2.569303000200307,
+    "stream_cpu_ms_p95": 3.3750536994830322
+   }
+  },
+  "BR-LGBM": {
+   "TEV": {
+    "batch_cpu_ms_per_window": 0.5062445124999613,
+    "batch_wall_ms_per_window": 0.5063040591776371,
+    "stream_cpu_ms_mean": 15.597598159988593,
+    "stream_cpu_ms_median": 15.885459999935847,
+    "stream_cpu_ms_p95": 17.033127400009107
+   },
+   "pairs": {
+    "batch_cpu_ms_per_window": 0.4611292405002132,
+    "batch_wall_ms_per_window": 0.46115698479115963,
+    "stream_cpu_ms_mean": 16.105061404982735,
+    "stream_cpu_ms_median": 15.314339500037022,
+    "stream_cpu_ms_p95": 19.185448450207332
+   }
+  },
+  "CC-LGBM": {
+   "TEV": {
+    "batch_cpu_ms_per_window": 1.0081106600000567,
+    "batch_wall_ms_per_window": 1.0081611219793558,
+    "stream_cpu_ms_mean": 51.20370080999692,
+    "stream_cpu_ms_median": 51.37528700015537,
+    "stream_cpu_ms_p95": 54.48642265055241
+   },
+   "pairs": {
+    "batch_cpu_ms_per_window": 0.9721848095000496,
+    "batch_wall_ms_per_window": 0.9722217973321676,
+    "stream_cpu_ms_mean": 53.374346290020185,
+    "stream_cpu_ms_median": 53.471961000013835,
+    "stream_cpu_ms_p95": 57.378255299727236
+   }
+  },
+  "FDA": {
+   "TEV": {
+    "batch_cpu_ms_per_window": 0.12349477799989472,
+    "batch_wall_ms_per_window": 0.12351799942553043,
+    "stream_cpu_ms_mean": 0.6357506849781203,
+    "stream_cpu_ms_median": 0.6295680000221182,
+    "stream_cpu_ms_p95": 0.6638459499299643
+   },
+   "pairs": {
+    "batch_cpu_ms_per_window": 0.12290792449994115,
+    "batch_wall_ms_per_window": 0.1229105293750763,
+    "stream_cpu_ms_mean": 0.6336922100126685,
+    "stream_cpu_ms_median": 0.6300420000115992,
+    "stream_cpu_ms_p95": 0.65678935015967
+   }
+  },
+  "PCA-RBC": {
+   "TEV": {
+    "batch_cpu_ms_per_window": 9.501244639500328,
+    "batch_wall_ms_per_window": 9.554732494056225,
+    "stream_cpu_ms_mean": 14.449490694992164,
+    "stream_cpu_ms_median": 12.415414500082989,
+    "stream_cpu_ms_p95": 65.00910459972143
+   },
+   "pairs": {
+    "batch_cpu_ms_per_window": 10.519698990499819,
+    "batch_wall_ms_per_window": 10.548233654350042,
+    "stream_cpu_ms_mean": 14.774887524959013,
+    "stream_cpu_ms_median": 11.80530000010549,
+    "stream_cpu_ms_p95": 33.13321564992292
+   }
+  },
+  "AEC": {
+   "TEV": {
+    "batch_cpu_ms_per_window": 0.1512155294999502,
+    "batch_wall_ms_per_window": 0.15123221836984158,
+    "stream_cpu_ms_mean": 0.34305061494706024,
+    "stream_cpu_ms_median": 0.34054799971272587,
+    "stream_cpu_ms_p95": 0.3793568006585701
+   },
+   "pairs": {
+    "batch_cpu_ms_per_window": 0.16182927299996663,
+    "batch_wall_ms_per_window": 0.1619615349918604,
+    "stream_cpu_ms_mean": 0.36278476502957346,
+    "stream_cpu_ms_median": 0.3553260003172909,
+    "stream_cpu_ms_p95": 0.41705199992065894
+   }
+  },
+  "MinExplain": {
+   "TEV": {
+    "batch_cpu_ms_per_window": 0.1835480525001003,
+    "batch_wall_ms_per_window": 0.18355181068181992,
+    "stream_cpu_ms_mean": 0.39395783001964446,
+    "stream_cpu_ms_median": 0.38385700008802814,
+    "stream_cpu_ms_p95": 0.496602100383825
+   },
+   "pairs": {
+    "batch_cpu_ms_per_window": 0.20186588299975483,
+    "batch_wall_ms_per_window": 0.2019605804234743,
+    "stream_cpu_ms_mean": 0.3340660599542389,
+    "stream_cpu_ms_median": 0.31792799973118235,
+    "stream_cpu_ms_p95": 0.3944508996937656
+   }
+  },
+  "MiniRocket": {
+   "TEV": {
+    "batch_cpu_ms_per_window": 1.4223815109999123,
+    "batch_wall_ms_per_window": 1.4230297356843948,
+    "stream_cpu_ms_mean": 3.6745833850227427,
+    "stream_cpu_ms_median": 3.6283419999563193,
+    "stream_cpu_ms_p95": 4.136724100362699
+   },
+   "pairs": {
+    "batch_cpu_ms_per_window": 1.6145943884998815,
+    "batch_wall_ms_per_window": 1.616625539958477,
+    "stream_cpu_ms_mean": 3.4804507899843884,
+    "stream_cpu_ms_median": 3.4505624998928397,
+    "stream_cpu_ms_p95": 3.8114814500659118
+   }
+  }
+ }
+}

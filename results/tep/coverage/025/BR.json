@@ -1,0 +1,16 @@
+{
+ "BR-LGBM": {
+  "single_macroF1_gated": 0.830765939657771,
+  "single_eff": 0.9538032311090563,
+  "single_eff_nonempty": 0.9711320739620587,
+  "normal_named": 0.0,
+  "pair_eff": 0.8359940178074567,
+  "pair_attrF1": 0.8124765128346442,
+  "triple_eff": 0.7497015058362292,
+  "triple_attrF1": 0.6559062576387191,
+  "quad_eff": 0.6927570918507474,
+  "quad_attrF1": 0.6253062834835333,
+  "pair_eff_seen": 0.8994816851553364,
+  "pair_eff_unseen": 0.8118979932107429
+ }
+}

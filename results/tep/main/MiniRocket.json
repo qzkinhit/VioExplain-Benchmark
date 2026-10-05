@@ -1,0 +1,16 @@
+{
+ "MiniRocket_label_macroF1": 0.8544224780959297,
+ "MiniRocket": {
+  "single_macroF1_gated": 0.8199150768143088,
+  "single_eff": 0.9485475419941439,
+  "single_eff_nonempty": 0.9647872110607043,
+  "normal_named": 0.038632686084142394,
+  "pair_eff": 0.7246365470228158,
+  "pair_attrF1": 0.8439015866940685,
+  "triple_eff": 0.5570257506905462,
+  "triple_attrF1": 0.7210204248700421,
+  "quad_eff": 0.4059187036528427,
+  "quad_attrF1": 0.6564454040070394,
+  "pair_eff_unseen": 0.7246365470228158
+ }
+}

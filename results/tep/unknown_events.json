@@ -1,0 +1,1218 @@
+{
+ "protocol": "TEP-U, final pipeline (final_fuse5 full, V3_FUNC=1, f100t) with h held out of every component",
+ "held_done": [
+  1,
+  2,
+  6,
+  7,
+  8,
+  12,
+  13,
+  14,
+  17,
+  18
+ ],
+ "held_missing": [],
+ "mean": {
+  "Ours": {
+   "auroc_all": 0.9498028524498711,
+   "auroc_single": 0.9469891305320617,
+   "recall_U2": 0.9490639886578377,
+   "recall_U1": 0.7653923948220064,
+   "falseflag_K2": 0.5295,
+   "falseflag_K1": 0.05347776315189355,
+   "misassign": 0.9407123046026994,
+   "misassign_only": 0.9354651537639267,
+   "misassign_gated": 0.00805465870339,
+   "misassign_only_gated": 0.006113123360456874
+  },
+  "MDS": {
+   "auroc_all": 0.9407120995812079,
+   "auroc_single": 0.9412632917859275,
+   "recall_U2": 0.9467623416111831,
+   "recall_U1": 0.7374595469255663,
+   "falseflag_K2": 0.6302000000000001,
+   "falseflag_K1": 0.05382626072879086,
+   "misassign": 0.5712569420257021,
+   "misassign_only": 0.5262543625759762,
+   "misassign_gated": 0.005909384044978955,
+   "misassign_only_gated": 0.004253426892128879
+  },
+  "MSP": {
+   "auroc_all": 0.7964913408426514,
+   "auroc_single": 0.8414601771844504,
+   "recall_U2": 0.03762962309435257,
+   "recall_U1": 0.08543689320388351,
+   "falseflag_K2": 0.028699999999999996,
+   "falseflag_K1": 0.04850444385342578,
+   "misassign": 0.6581456556124532,
+   "misassign_only": 0.6071708385488723,
+   "misassign_gated": 0.6336092836183362,
+   "misassign_only_gated": 0.5813420218413771
+  },
+  "Energy": {
+   "auroc_all": 0.7838342774358795,
+   "auroc_single": 0.8278273095666495,
+   "recall_U2": 0.05603444713427104,
+   "recall_U1": 0.18343446601941746,
+   "falseflag_K2": 0.012166666666666666,
+   "falseflag_K1": 0.04903080975296424,
+   "misassign": 0.6581456556124532,
+   "misassign_only": 0.6071708385488723,
+   "misassign_gated": 0.6221722754416847,
+   "misassign_only_gated": 0.5672140166847461
+  }
+ },
+ "per_held": {
+  "1": {
+   "held": 1,
+   "n": {
+    "K1": 24760,
+    "U1": 4944,
+    "K2": 3000,
+    "U2": 4062,
+    "cal": 1760,
+    "sim_single": 4451,
+    "sim_cal_runs": 400
+   },
+   "fusion_weight": 0.5,
+   "tau0_fused": 0.2632577419281006,
+   "tau_c": 0.003217831243045488,
+   "thresholds": {
+    "Ours": 588.9883902566705,
+    "MDS": 581.3107319777978,
+    "MSP": -0.5441936180345756,
+    "Energy": 0.3836781621942551
+   },
+   "methods": {
+    "Ours": {
+     "auroc_all": 0.9716095929642805,
+     "auroc_single": 0.9684350264154,
+     "recall_U2": 1.0,
+     "recall_U1": 0.9953478964401294,
+     "falseflag_K2": 0.508,
+     "falseflag_K1": 0.05767366720516963,
+     "auroc_pairs": 0.9939551944854752,
+     "recall_U2_simthr": 0.9992614475627769,
+     "falseflag_K2_simthr": 0.114,
+     "flag_simNormal_riethThr": 0.0,
+     "flag_simKnownSingle_riethThr": 0.25575872714319636,
+     "misassign": 0.9676150517896945,
+     "misassign_only": 0.9701938206265198,
+     "misassign_gated": 0.0,
+     "misassign_only_gated": 0.0
+    },
+    "MDS": {
+     "auroc_all": 0.9599106759438631,
+     "auroc_single": 0.9634053417663944,
+     "recall_U2": 1.0,
+     "recall_U1": 0.9969660194174758,
+     "falseflag_K2": 0.607,
+     "falseflag_K1": 0.057108239095315025,
+     "auroc_pairs": 0.980523879862137,
+     "recall_U2_simthr": 0.999015263417036,
+     "falseflag_K2_simthr": 0.19966666666666666,
+     "flag_simNormal_riethThr": 0.0,
+     "flag_simKnownSingle_riethThr": 0.24768463547850866,
+     "misassign": 0.3808705913203094,
+     "misassign_only": 0.26724538692604777,
+     "misassign_gated": 0.0,
+     "misassign_only_gated": 0.0
+    },
+    "MSP": {
+     "auroc_all": 0.78101751410043,
+     "auroc_single": 0.8253251031912836,
+     "recall_U2": 0.027572624322993598,
+     "recall_U1": 0.09283980582524272,
+     "falseflag_K2": 0.025333333333333333,
+     "falseflag_K1": 0.05391760904684976,
+     "auroc_pairs": 0.5514206466436894,
+     "recall_U2_simthr": 0.03569670113244707,
+     "falseflag_K2_simthr": 0.047,
+     "flag_simNormal_riethThr": 0.29583333333333334,
+     "flag_simKnownSingle_riethThr": 0.03087152695321776,
+     "misassign": 0.5373410253048381,
+     "misassign_only": 0.4557556143613217,
+     "misassign_gated": 0.5214960010489053,
+     "misassign_only_gated": 0.4391092118437992
+    },
+    "Energy": {
+     "auroc_all": 0.7434661674477663,
+     "auroc_single": 0.8150644161294708,
+     "recall_U2": 0.019202363367799114,
+     "recall_U1": 0.054207119741100325,
+     "falseflag_K2": 0.012666666666666666,
+     "falseflag_K1": 0.051615508885298866,
+     "auroc_pairs": 0.7119193336615789,
+     "recall_U2_simthr": 0.019202363367799114,
+     "falseflag_K2_simthr": 0.012666666666666666,
+     "flag_simNormal_riethThr": 0.4708333333333333,
+     "flag_simKnownSingle_riethThr": 0.03728330562811684,
+     "misassign": 0.5373410253048381,
+     "misassign_only": 0.4557556143613217,
+     "misassign_gated": 0.5106267208601023,
+     "misassign_only_gated": 0.42422400228865687
+    }
+   },
+   "thresholds_sim": {
+    "Ours": 840.9614007914981,
+    "MDS": 833.4413682538551,
+    "MSP": -0.58035191151219,
+    "Energy": 0.38109918929094644
+   },
+   "sanity": {
+    "ours_K1_label_macroF1": 0.9539863366368119,
+    "ours_K1_setF1": 0.849744211093161,
+    "ours_K2_setF1": 0.9094666666666666,
+    "gbm_K1_acc": 0.9180936995153474
+   },
+   "h_violations_U2": {
+    "total": 152540,
+    "h_only": 111856
+   },
+   "timing_s": {
+    "br": 522,
+    "scorer": 1076,
+    "decision": 1146,
+    "baseline": 1478,
+    "scored": 1678,
+    "total": 1679
+   }
+  },
+  "2": {
+   "held": 2,
+   "n": {
+    "K1": 24655,
+    "U1": 4944,
+    "K2": 3000,
+    "U2": 4211,
+    "cal": 1760,
+    "sim_single": 4451,
+    "sim_cal_runs": 400
+   },
+   "fusion_weight": 0.5,
+   "tau0_fused": 0.253686785697937,
+   "tau_c": 0.0034300132009896676,
+   "thresholds": {
+    "Ours": 595.6145887524535,
+    "MDS": 586.6712369178422,
+    "MSP": -0.5451584986467676,
+    "Energy": 0.3752247538001231
+   },
+   "methods": {
+    "Ours": {
+     "auroc_all": 0.9931922362818536,
+     "auroc_single": 0.9909351805728109,
+     "recall_U2": 1.0,
+     "recall_U1": 1.0,
+     "falseflag_K2": 0.4856666666666667,
+     "falseflag_K1": 0.05747312918272156,
+     "auroc_pairs": 0.9988673315918626,
+     "recall_U2_simthr": 1.0,
+     "falseflag_K2_simthr": 0.12166666666666667,
+     "flag_simNormal_riethThr": 0.0,
+     "flag_simKnownSingle_riethThr": 0.2393730705295654,
+     "misassign": 0.9063717182529064,
+     "misassign_only": 0.8938672566371682,
+     "misassign_gated": 0.0,
+     "misassign_only_gated": 0.0
+    },
+    "MDS": {
+     "auroc_all": 0.991460478800734,
+     "auroc_single": 0.9892372097403717,
+     "recall_U2": 1.0,
+     "recall_U1": 1.0,
+     "falseflag_K2": 0.586,
+     "falseflag_K1": 0.057432569458527684,
+     "auroc_pairs": 0.998199715032059,
+     "recall_U2_simthr": 1.0,
+     "falseflag_K2_simthr": 0.19733333333333333,
+     "flag_simNormal_riethThr": 0.0,
+     "flag_simKnownSingle_riethThr": 0.23866065067679887,
+     "misassign": 0.3304120952635804,
+     "misassign_only": 0.2534070796460177,
+     "misassign_gated": 0.0,
+     "misassign_only_gated": 0.0
+    },
+    "MSP": {
+     "auroc_all": 0.820641758911911,
+     "auroc_single": 0.8705886213565979,
+     "recall_U2": 0.03775825219662788,
+     "recall_U1": 0.09870550161812297,
+     "falseflag_K2": 0.04466666666666667,
+     "falseflag_K1": 0.052768201176232,
+     "auroc_pairs": 0.5966866935803056,
+     "recall_U2_simthr": 0.08145333649964379,
+     "falseflag_K2_simthr": 0.105,
+     "flag_simNormal_riethThr": 0.2,
+     "flag_simKnownSingle_riethThr": 0.02635953455236286,
+     "misassign": 0.43529420509618527,
+     "misassign_only": 0.3549646017699115,
+     "misassign_gated": 0.42006362798442004,
+     "misassign_only_gated": 0.3381769911504425
+    },
+    "Energy": {
+     "auroc_all": 0.8532346860617099,
+     "auroc_single": 0.9262348155352931,
+     "recall_U2": 0.12443600094989314,
+     "recall_U1": 0.46116504854368934,
+     "falseflag_K2": 0.013333333333333334,
+     "falseflag_K1": 0.052687081727844254,
+     "auroc_pairs": 0.8260307132114304,
+     "recall_U2_simthr": 0.14557112324863453,
+     "falseflag_K2_simthr": 0.01633333333333333,
+     "flag_simNormal_riethThr": 0.1875,
+     "flag_simKnownSingle_riethThr": 0.018760389456186178,
+     "misassign": 0.43529420509618527,
+     "misassign_only": 0.3549646017699115,
+     "misassign_gated": 0.41396842386941396,
+     "misassign_only_gated": 0.33086725663716815
+    }
+   },
+   "thresholds_sim": {
+    "Ours": 849.823516341196,
+    "MDS": 843.0536037552265,
+    "MSP": -0.6656268745410396,
+    "Energy": 0.08749322162718692
+   },
+   "sanity": {
+    "ours_K1_label_macroF1": 0.9530219318454884,
+    "ours_K1_setF1": 0.8530588791996213,
+    "ours_K2_setF1": 0.9096555555555556,
+    "gbm_K1_acc": 0.9179882376799837
+   },
+   "h_violations_U2": {
+    "total": 134532,
+    "h_only": 113000
+   },
+   "timing_s": {
+    "br": 722,
+    "scorer": 1617,
+    "decision": 1705,
+    "baseline": 2099,
+    "scored": 2336,
+    "total": 2337
+   }
+  },
+  "6": {
+   "held": 6,
+   "n": {
+    "K1": 24705,
+    "U1": 4944,
+    "K2": 3000,
+    "U2": 338,
+    "cal": 1760,
+    "sim_single": 4671,
+    "sim_cal_runs": 400
+   },
+   "fusion_weight": 0.5,
+   "tau0_fused": 0.29355841875076294,
+   "tau_c": 0.0006635896473964555,
+   "thresholds": {
+    "Ours": 533.5385439951783,
+    "MDS": 516.9262153724892,
+    "MSP": -0.5246111144627089,
+    "Energy": 0.45890483037221463
+   },
+   "methods": {
+    "Ours": {
+     "auroc_all": 1.0,
+     "auroc_single": 1.0,
+     "recall_U2": 1.0,
+     "recall_U1": 1.0,
+     "falseflag_K2": 1.0,
+     "falseflag_K1": 0.053066180935033395,
+     "auroc_pairs": 1.0,
+     "recall_U2_simthr": 1.0,
+     "falseflag_K2_simthr": 0.11333333333333333,
+     "flag_simNormal_riethThr": 1.0,
+     "flag_simKnownSingle_riethThr": 1.0,
+     "misassign": 0.9963603980330662,
+     "misassign_only": 0.9974989951319727,
+     "misassign_gated": 0.0,
+     "misassign_only_gated": 0.0
+    },
+    "MDS": {
+     "auroc_all": 1.0,
+     "auroc_single": 1.0,
+     "recall_U2": 1.0,
+     "recall_U1": 1.0,
+     "falseflag_K2": 1.0,
+     "falseflag_K1": 0.054887674559805706,
+     "auroc_pairs": 1.0,
+     "recall_U2_simthr": 1.0,
+     "falseflag_K2_simthr": 0.196,
+     "flag_simNormal_riethThr": 1.0,
+     "flag_simKnownSingle_riethThr": 1.0,
+     "misassign": 0.8795059433925737,
+     "misassign_only": 0.8628913402706444,
+     "misassign_gated": 0.0,
+     "misassign_only_gated": 0.0
+    },
+    "MSP": {
+     "auroc_all": 0.8297853780919641,
+     "auroc_single": 0.8421364332128829,
+     "recall_U2": 0.05621301775147929,
+     "recall_U1": 0.009708737864077669,
+     "falseflag_K2": 0.018,
+     "falseflag_K1": 0.043311070633475,
+     "auroc_pairs": 0.7592189349112426,
+     "recall_U2_simthr": 0.08579881656804733,
+     "falseflag_K2_simthr": 0.036333333333333336,
+     "flag_simNormal_riethThr": 0.14583333333333334,
+     "flag_simKnownSingle_riethThr": 0.02234258632362898,
+     "misassign": 0.7195957718666511,
+     "misassign_only": 0.688848197936671,
+     "misassign_gated": 0.6701901111240175,
+     "misassign_only_gated": 0.6462417935777768
+    },
+    "Energy": {
+     "auroc_all": 0.7870595507750185,
+     "auroc_single": 0.7722616273319669,
+     "recall_U2": 0.0621301775147929,
+     "recall_U1": 0.0,
+     "falseflag_K2": 0.014333333333333333,
+     "falseflag_K1": 0.04399919044727788,
+     "auroc_pairs": 0.9323185404339251,
+     "recall_U2_simthr": 0.06804733727810651,
+     "falseflag_K2_simthr": 0.016666666666666666,
+     "flag_simNormal_riethThr": 0.20416666666666666,
+     "flag_simKnownSingle_riethThr": 0.012863913337846988,
+     "misassign": 0.7195957718666511,
+     "misassign_only": 0.688848197936671,
+     "misassign_gated": 0.6625237154915399,
+     "misassign_only_gated": 0.6515564289223349
+    }
+   },
+   "thresholds_sim": {
+    "Ours": 1000.148384315005,
+    "MDS": 1000.148384315005,
+    "MSP": -0.5595248944419744,
+    "Energy": 0.15704333029498363
+   },
+   "sanity": {
+    "ours_K1_label_macroF1": 0.9585241633607751,
+    "ours_K1_setF1": 0.8540524860014841,
+    "ours_K2_setF1": 0.9248555555555555,
+    "gbm_K1_acc": 0.9181946974296701
+   },
+   "h_violations_U2": {
+    "total": 25827,
+    "h_only": 22391
+   },
+   "timing_s": {
+    "br": 924,
+    "scorer": 1775,
+    "decision": 1882,
+    "baseline": 2240,
+    "scored": 2521,
+    "total": 2521
+   }
+  },
+  "7": {
+   "held": 7,
+   "n": {
+    "K1": 24677,
+    "U1": 4944,
+    "K2": 3000,
+    "U2": 4080,
+    "cal": 1760,
+    "sim_single": 4451,
+    "sim_cal_runs": 400
+   },
+   "fusion_weight": 0.75,
+   "tau0_fused": 0.3191283345222473,
+   "tau_c": 0.003184803886480456,
+   "thresholds": {
+    "Ours": 619.5714788399036,
+    "MDS": 612.6752909709337,
+    "MSP": -0.5368290548087274,
+    "Energy": 0.4217514867345886
+   },
+   "methods": {
+    "Ours": {
+     "auroc_all": 0.7781230276848662,
+     "auroc_single": 0.7387200314142868,
+     "recall_U2": 0.549264705882353,
+     "recall_U1": 0.005865695792880259,
+     "falseflag_K2": 0.419,
+     "falseflag_K1": 0.053734246464319,
+     "auroc_pairs": 0.6535396241830065,
+     "recall_U2_simthr": 0.18137254901960784,
+     "falseflag_K2_simthr": 0.13666666666666666,
+     "flag_simNormal_riethThr": 0.0,
+     "flag_simKnownSingle_riethThr": 0.19639040607931607,
+     "misassign": 0.8475017996640627,
+     "misassign_only": 0.8397912084800317,
+     "misassign_gated": 0.07141333617724692,
+     "misassign_only_gated": 0.05404793143482816
+    },
+    "MDS": {
+     "auroc_all": 0.7689955408221026,
+     "auroc_single": 0.7331568197683652,
+     "recall_U2": 0.5247549019607843,
+     "recall_U1": 0.0,
+     "falseflag_K2": 0.535,
+     "falseflag_K1": 0.05365319933541354,
+     "auroc_pairs": 0.5468626633986929,
+     "recall_U2_simthr": 0.17598039215686276,
+     "falseflag_K2_simthr": 0.229,
+     "flag_simNormal_riethThr": 0.0,
+     "flag_simKnownSingle_riethThr": 0.20090239848017097,
+     "misassign": 0.5719798970858773,
+     "misassign_only": 0.4848456245339475,
+     "misassign_gated": 0.05263684112299038,
+     "misassign_only_gated": 0.03415987842519091
+    },
+    "MSP": {
+     "auroc_all": 0.7615766650343616,
+     "auroc_single": 0.9041851301337552,
+     "recall_U2": 0.03529411764705882,
+     "recall_U1": 0.2473705501618123,
+     "falseflag_K2": 0.029333333333333333,
+     "falseflag_K1": 0.04960084289014062,
+     "auroc_pairs": 0.433171568627451,
+     "recall_U2_simthr": 0.05122549019607843,
+     "falseflag_K2_simthr": 0.052333333333333336,
+     "flag_simNormal_riethThr": 0.25416666666666665,
+     "flag_simKnownSingle_riethThr": 0.029921633816195677,
+     "misassign": 0.6647425813848081,
+     "misassign_only": 0.6114703189450931,
+     "misassign_gated": 0.6494054443170608,
+     "misassign_only_gated": 0.5916105830493756
+    },
+    "Energy": {
+     "auroc_all": 0.7692988513390411,
+     "auroc_single": 0.9088626428865473,
+     "recall_U2": 0.04191176470588235,
+     "recall_U1": 0.3988673139158576,
+     "falseflag_K2": 0.016666666666666666,
+     "falseflag_K1": 0.047696235360862343,
+     "auroc_pairs": 0.6414303104575163,
+     "recall_U2_simthr": 0.062254901960784315,
+     "falseflag_K2_simthr": 0.018666666666666668,
+     "flag_simNormal_riethThr": 0.25,
+     "flag_simKnownSingle_riethThr": 0.019710282593208263,
+     "misassign": 0.6647425813848081,
+     "misassign_only": 0.6114703189450931,
+     "misassign_gated": 0.6500119977604181,
+     "misassign_only_gated": 0.5918559980366801
+    }
+   },
+   "thresholds_sim": {
+    "Ours": 831.2540497490126,
+    "MDS": 831.2540497488808,
+    "MSP": -0.5845701247025112,
+    "Energy": 0.09861380189358282
+   },
+   "sanity": {
+    "ours_K1_label_macroF1": 0.9575439295745924,
+    "ours_K1_setF1": 0.8497791465737327,
+    "ours_K2_setF1": 0.9055222222222222,
+    "gbm_K1_acc": 0.9178587348543178
+   },
+   "h_violations_U2": {
+    "total": 150028,
+    "h_only": 105943
+   },
+   "timing_s": {
+    "br": 638,
+    "scorer": 1302,
+    "decision": 1386,
+    "baseline": 1794,
+    "scored": 1964,
+    "total": 1965
+   }
+  },
+  "8": {
+   "held": 8,
+   "n": {
+    "K1": 24712,
+    "U1": 4944,
+    "K2": 3000,
+    "U2": 4012,
+    "cal": 1760,
+    "sim_single": 4451,
+    "sim_cal_runs": 400
+   },
+   "fusion_weight": 0.75,
+   "tau0_fused": 0.342960000038147,
+   "tau_c": 0.0020858051508681895,
+   "thresholds": {
+    "Ours": 620.8046711165167,
+    "MDS": 609.8244028802261,
+    "MSP": -0.5317913289226472,
+    "Energy": 0.44002250926627673
+   },
+   "methods": {
+    "Ours": {
+     "auroc_all": 0.952708135687998,
+     "auroc_single": 0.9574588662688673,
+     "recall_U2": 0.9905284147557328,
+     "recall_U1": 0.7036812297734628,
+     "falseflag_K2": 0.391,
+     "falseflag_K1": 0.05386047264486889,
+     "auroc_pairs": 0.9637190096377535,
+     "recall_U2_simthr": 0.909272183449651,
+     "falseflag_K2_simthr": 0.11333333333333333,
+     "flag_simNormal_riethThr": 0.0,
+     "flag_simKnownSingle_riethThr": 0.1811921158869627,
+     "misassign": 0.9747848336822517,
+     "misassign_only": 0.9766081871345029,
+     "misassign_gated": 0.00047452896022330776,
+     "misassign_only_gated": 0.0004246284501061571
+    },
+    "MDS": {
+     "auroc_all": 0.934262978771247,
+     "auroc_single": 0.9459101535776286,
+     "recall_U2": 0.9895314057826521,
+     "recall_U1": 0.6219660194174758,
+     "falseflag_K2": 0.5323333333333333,
+     "falseflag_K1": 0.05406280349627711,
+     "auroc_pairs": 0.9035841641741443,
+     "recall_U2_simthr": 0.882851445663011,
+     "falseflag_K2_simthr": 0.21833333333333332,
+     "flag_simNormal_riethThr": 0.0,
+     "flag_simKnownSingle_riethThr": 0.19425314652101638,
+     "misassign": 0.30956966736450336,
+     "misassign_only": 0.23035348456065854,
+     "misassign_gated": 8.684190121733736e-05,
+     "misassign_only_gated": 7.449621931686967e-06
+    },
+    "MSP": {
+     "auroc_all": 0.7625764805252675,
+     "auroc_single": 0.7818595216898674,
+     "recall_U2": 0.019690927218344964,
+     "recall_U1": 0.008090614886731391,
+     "falseflag_K2": 0.029666666666666668,
+     "falseflag_K1": 0.04738588539980576,
+     "auroc_pairs": 0.5913599202392821,
+     "recall_U2_simthr": 0.03290129611166501,
+     "falseflag_K2_simthr": 0.059666666666666666,
+     "flag_simNormal_riethThr": 0.2625,
+     "flag_simKnownSingle_riethThr": 0.02659700783661838,
+     "misassign": 0.72025742420718,
+     "misassign_only": 0.6933102395053451,
+     "misassign_gated": 0.7030968442273396,
+     "misassign_only_gated": 0.6766938577867173
+    },
+    "Energy": {
+     "auroc_all": 0.7803021364327215,
+     "auroc_single": 0.7799811514733878,
+     "recall_U2": 0.01321036889332004,
+     "recall_U1": 0.02568770226537217,
+     "falseflag_K2": 0.008333333333333333,
+     "falseflag_K1": 0.04617190029135643,
+     "auroc_pairs": 0.871781405782652,
+     "recall_U2_simthr": 0.013459621136590228,
+     "falseflag_K2_simthr": 0.008666666666666666,
+     "flag_simNormal_riethThr": 0.37083333333333335,
+     "flag_simKnownSingle_riethThr": 0.025884587983851817,
+     "misassign": 0.72025742420718,
+     "misassign_only": 0.6933102395053451,
+     "misassign_gated": 0.7118523687679306,
+     "misassign_only_gated": 0.6845755577904421
+    }
+   },
+   "thresholds_sim": {
+    "Ours": 839.7769842912446,
+    "MDS": 832.1150247605465,
+    "MSP": -0.5809619897982032,
+    "Energy": 0.408085226321271
+   },
+   "sanity": {
+    "ours_K1_label_macroF1": 0.9579454829021097,
+    "ours_K1_setF1": 0.8544364411352109,
+    "ours_K2_setF1": 0.9131666666666667,
+    "gbm_K1_acc": 0.9183392683716413
+   },
+   "h_violations_U2": {
+    "total": 322425,
+    "h_only": 268470
+   },
+   "timing_s": {
+    "br": 725,
+    "scorer": 1761,
+    "decision": 1888,
+    "baseline": 2452,
+    "scored": 2780,
+    "total": 2782
+   }
+  },
+  "12": {
+   "held": 12,
+   "n": {
+    "K1": 24702,
+    "U1": 4944,
+    "K2": 3000,
+    "U2": 3779,
+    "cal": 1760,
+    "sim_single": 4453,
+    "sim_cal_runs": 400
+   },
+   "fusion_weight": 0.5,
+   "tau0_fused": 0.31644272804260254,
+   "tau_c": 0.004055308781462454,
+   "thresholds": {
+    "Ours": 621.9384165074154,
+    "MDS": 583.5407272010028,
+    "MSP": -0.53321338130484,
+    "Energy": 0.42746775849117724
+   },
+   "methods": {
+    "Ours": {
+     "auroc_all": 0.907927737793842,
+     "auroc_single": 0.9267263679499766,
+     "recall_U2": 0.9986768986504366,
+     "recall_U1": 0.28822815533980584,
+     "falseflag_K2": 0.4,
+     "falseflag_K1": 0.053032143146303945,
+     "auroc_pairs": 0.9144931639763605,
+     "recall_U2_simthr": 0.7097115639057952,
+     "falseflag_K2_simthr": 0.111,
+     "flag_simNormal_riethThr": 0.0,
+     "flag_simKnownSingle_riethThr": 0.17588416805126988,
+     "misassign": 0.9636375890452706,
+     "misassign_only": 0.9623119101615546,
+     "misassign_gated": 0.0003018235416501836,
+     "misassign_only_gated": 0.00034890045049205227
+    },
+    "MDS": {
+     "auroc_all": 0.8899197584207011,
+     "auroc_single": 0.912653628992215,
+     "recall_U2": 1.0,
+     "recall_U1": 0.25465210355987056,
+     "falseflag_K2": 0.606,
+     "falseflag_K1": 0.056716055380131164,
+     "auroc_pairs": 0.8292817323807005,
+     "recall_U2_simthr": 0.6507012437152686,
+     "falseflag_K2_simthr": 0.197,
+     "flag_simNormal_riethThr": 0.0,
+     "flag_simKnownSingle_riethThr": 0.2371231901258011,
+     "misassign": 0.4110983153557855,
+     "misassign_only": 0.3560494891344874,
+     "misassign_gated": 0.0,
+     "misassign_only_gated": 0.0
+    },
+    "MSP": {
+     "auroc_all": 0.8201515419263797,
+     "auroc_single": 0.8374705535288077,
+     "recall_U2": 0.0418100026462027,
+     "recall_U1": 0.032362459546925564,
+     "falseflag_K2": 0.028666666666666667,
+     "falseflag_K1": 0.04720265565541252,
+     "auroc_pairs": 0.6789082649730969,
+     "recall_U2_simthr": 0.07118285260650965,
+     "falseflag_K2_simthr": 0.06133333333333333,
+     "flag_simNormal_riethThr": 0.2833333333333333,
+     "flag_simKnownSingle_riethThr": 0.025872300023736056,
+     "misassign": 0.7234886112893726,
+     "misassign_only": 0.6964395051086552,
+     "misassign_gated": 0.6883891706885387,
+     "misassign_only_gated": 0.6638857248406859
+    },
+    "Energy": {
+     "auroc_all": 0.8455718756424985,
+     "auroc_single": 0.8462029855423576,
+     "recall_U2": 0.04895474993384493,
+     "recall_U1": 0.06836569579288027,
+     "falseflag_K2": 0.011666666666666667,
+     "falseflag_K1": 0.04679783013521172,
+     "auroc_pairs": 0.9263878451089353,
+     "recall_U2_simthr": 0.048160889124106904,
+     "falseflag_K2_simthr": 0.011666666666666667,
+     "flag_simNormal_riethThr": 0.5583333333333333,
+     "flag_simKnownSingle_riethThr": 0.04177545691906005,
+     "misassign": 0.7234886112893726,
+     "misassign_only": 0.6964395051086552,
+     "misassign_gated": 0.6799937877096282,
+     "misassign_only_gated": 0.6538326030368021
+    }
+   },
+   "thresholds_sim": {
+    "Ours": 872.9720868711753,
+    "MDS": 868.831741842262,
+    "MSP": -0.5878387808370809,
+    "Energy": 0.4484846325475986
+   },
+   "sanity": {
+    "ours_K1_label_macroF1": 0.9604416968284643,
+    "ours_K1_setF1": 0.8523601327827707,
+    "ours_K2_setF1": 0.920888888888889,
+    "gbm_K1_acc": 0.9196421342401425
+   },
+   "h_violations_U2": {
+    "total": 341259,
+    "h_only": 292347
+   },
+   "timing_s": {
+    "br": 3258,
+    "scorer": 4038,
+    "decision": 4120,
+    "baseline": 4437,
+    "scored": 4651,
+    "total": 4652
+   }
+  },
+  "13": {
+   "held": 13,
+   "n": {
+    "K1": 24771,
+    "U1": 4944,
+    "K2": 3000,
+    "U2": 3874,
+    "cal": 1760,
+    "sim_single": 4457,
+    "sim_cal_runs": 400
+   },
+   "fusion_weight": 0.75,
+   "tau0_fused": 0.4012911319732666,
+   "tau_c": 0.004801978287584605,
+   "thresholds": {
+    "Ours": 623.7701239152485,
+    "MDS": 613.1875671448784,
+    "MSP": -0.5405764492136479,
+    "Energy": 0.3814649474704068
+   },
+   "methods": {
+    "Ours": {
+     "auroc_all": 0.9598880539189961,
+     "auroc_single": 0.9568944492718346,
+     "recall_U2": 0.9692823954568921,
+     "recall_U1": 0.8286812297734628,
+     "falseflag_K2": 0.399,
+     "falseflag_K1": 0.05231924427758266,
+     "auroc_pairs": 0.9568390122182068,
+     "recall_U2_simthr": 0.8928755807950439,
+     "falseflag_K2_simthr": 0.10366666666666667,
+     "flag_simNormal_riethThr": 0.0,
+     "flag_simKnownSingle_riethThr": 0.17382025136352858,
+     "misassign": 0.8830274865580738,
+     "misassign_only": 0.8763306620417439,
+     "misassign_gated": 0.0003362464115211978,
+     "misassign_only_gated": 6.354285030799594e-05
+    },
+    "MDS": {
+     "auroc_all": 0.9496940474160658,
+     "auroc_single": 0.9502078929727698,
+     "recall_U2": 0.9695405265875064,
+     "recall_U1": 0.7849919093851133,
+     "falseflag_K2": 0.546,
+     "falseflag_K1": 0.052561463001089985,
+     "auroc_pairs": 0.927179056960936,
+     "recall_U2_simthr": 0.8791946308724832,
+     "falseflag_K2_simthr": 0.20566666666666666,
+     "flag_simNormal_riethThr": 0.0,
+     "flag_simKnownSingle_riethThr": 0.18781124021816456,
+     "misassign": 0.4798236292407493,
+     "misassign_only": 0.42749760779857665,
+     "misassign_gated": 0.0002886643721549906,
+     "misassign_only_gated": 6.354285030799594e-05
+    },
+    "MSP": {
+     "auroc_all": 0.8002196813636498,
+     "auroc_single": 0.8249270273635301,
+     "recall_U2": 0.046205472379969026,
+     "recall_U1": 0.07524271844660194,
+     "falseflag_K2": 0.035666666666666666,
+     "falseflag_K1": 0.049775947680755724,
+     "auroc_pairs": 0.6304679917398038,
+     "recall_U2_simthr": 0.08699019101703666,
+     "falseflag_K2_simthr": 0.08533333333333333,
+     "flag_simNormal_riethThr": 0.175,
+     "flag_simKnownSingle_riethThr": 0.02323926962295471,
+     "misassign": 0.6677282748338593,
+     "misassign_only": 0.6360377668799713,
+     "misassign_gated": 0.6365303176894161,
+     "misassign_only_gated": 0.6038551821063334
+    },
+    "Energy": {
+     "auroc_all": 0.8165756127870114,
+     "auroc_single": 0.8323169602490854,
+     "recall_U2": 0.09499225606608157,
+     "recall_U1": 0.21986245954692557,
+     "falseflag_K2": 0.014333333333333333,
+     "falseflag_K1": 0.04731339065843123,
+     "auroc_pairs": 0.8700863878850456,
+     "recall_U2_simthr": 0.11667527103768714,
+     "falseflag_K2_simthr": 0.018,
+     "flag_simNormal_riethThr": 0.2875,
+     "flag_simKnownSingle_riethThr": 0.01968223855821674,
+     "misassign": 0.6677282748338593,
+     "misassign_only": 0.6360377668799713,
+     "misassign_gated": 0.600275975828324,
+     "misassign_only_gated": 0.5655575324442318
+    }
+   },
+   "thresholds_sim": {
+    "Ours": 859.9059143209689,
+    "MDS": 849.7210853467695,
+    "MSP": -0.6407418578836687,
+    "Energy": 0.025758830030162827
+   },
+   "sanity": {
+    "ours_K1_label_macroF1": 0.9596375713597419,
+    "ours_K1_setF1": 0.8524820690861625,
+    "ours_K2_setF1": 0.9126555555555554,
+    "gbm_K1_acc": 0.9204715191150943
+   },
+   "h_violations_U2": {
+    "total": 315245,
+    "h_only": 267536
+   },
+   "timing_s": {
+    "br": 3476,
+    "scorer": 4497,
+    "decision": 4619,
+    "baseline": 4916,
+    "scored": 5100,
+    "total": 5101
+   }
+  },
+  "14": {
+   "held": 14,
+   "n": {
+    "K1": 24777,
+    "U1": 4944,
+    "K2": 3000,
+    "U2": 4211,
+    "cal": 1760,
+    "sim_single": 4451,
+    "sim_cal_runs": 400
+   },
+   "fusion_weight": 0.5,
+   "tau0_fused": 0.2787209153175354,
+   "tau_c": 0.003698316867216662,
+   "thresholds": {
+    "Ours": 628.3115739923239,
+    "MDS": 628.3115739923238,
+    "MSP": -0.5398592193967819,
+    "Energy": 0.4194183321597774
+   },
+   "methods": {
+    "Ours": {
+     "auroc_all": 0.9647058150397191,
+     "auroc_single": 0.9660245032943042,
+     "recall_U2": 0.9895511754927571,
+     "recall_U1": 0.8871359223300971,
+     "falseflag_K2": 0.378,
+     "falseflag_K1": 0.05117649432941841,
+     "auroc_pairs": 0.9605312277368796,
+     "recall_U2_simthr": 0.89289954880076,
+     "falseflag_K2_simthr": 0.105,
+     "flag_simNormal_riethThr": 0.0,
+     "flag_simKnownSingle_riethThr": 0.17834243647589645,
+     "misassign": 0.9224336444067386,
+     "misassign_only": 0.8967085318319619,
+     "misassign_gated": 0.007696036844018907,
+     "misassign_only_gated": 0.005954958856647899
+    },
+    "MDS": {
+     "auroc_all": 0.9448369235933365,
+     "auroc_single": 0.9542988669286019,
+     "recall_U2": 0.9909760151982901,
+     "recall_U1": 0.7785194174757282,
+     "falseflag_K2": 0.465,
+     "falseflag_K1": 0.050288574080800744,
+     "auroc_pairs": 0.9371484999604209,
+     "recall_U2_simthr": 0.9085727855616244,
+     "falseflag_K2_simthr": 0.18766666666666668,
+     "flag_simNormal_riethThr": 0.0,
+     "flag_simKnownSingle_riethThr": 0.17478033721206365,
+     "misassign": 0.6839171009574597,
+     "misassign_only": 0.643676916414032,
+     "misassign_gated": 0.005756877954187371,
+     "misassign_only_gated": 0.00801212646167172
+    },
+    "MSP": {
+     "auroc_all": 0.8070857612631395,
+     "auroc_single": 0.8850885089170154,
+     "recall_U2": 0.04963191640940394,
+     "recall_U1": 0.2285598705501618,
+     "falseflag_K2": 0.03,
+     "falseflag_K1": 0.04960245388868709,
+     "auroc_pairs": 0.538434655267949,
+     "recall_U2_simthr": 0.06055568748515792,
+     "falseflag_K2_simthr": 0.047,
+     "flag_simNormal_riethThr": 0.16666666666666666,
+     "flag_simKnownSingle_riethThr": 0.029446687247684636,
+     "misassign": 0.6661010786571324,
+     "misassign_only": 0.5581420528367259,
+     "misassign_gated": 0.631256817355472,
+     "misassign_only_gated": 0.5079038544824599
+    },
+    "Energy": {
+     "auroc_all": 0.8160985733160332,
+     "auroc_single": 0.936650023386602,
+     "recall_U2": 0.13797197815245785,
+     "recall_U1": 0.573826860841424,
+     "falseflag_K2": 0.005666666666666667,
+     "falseflag_K1": 0.04931993380958147,
+     "auroc_pairs": 0.7238860128235574,
+     "recall_U2_simthr": 0.15507005461885537,
+     "falseflag_K2_simthr": 0.009333333333333334,
+     "flag_simNormal_riethThr": 0.22916666666666666,
+     "flag_simKnownSingle_riethThr": 0.016623129897886488,
+     "misassign": 0.6661010786571324,
+     "misassign_only": 0.5581420528367259,
+     "misassign_gated": 0.555084232214277,
+     "misassign_only_gated": 0.40331312256388047
+    }
+   },
+   "thresholds_sim": {
+    "Ours": 837.8600235568854,
+    "MDS": 832.8558170045346,
+    "MSP": -0.5840708942665691,
+    "Energy": 0.11916457423610538
+   },
+   "sanity": {
+    "ours_K1_label_macroF1": 0.9519499914595227,
+    "ours_K1_setF1": 0.8596574780374272,
+    "ours_K2_setF1": 0.9245111111111111,
+    "gbm_K1_acc": 0.9187149372401824
+   },
+   "h_violations_U2": {
+    "total": 16502,
+    "h_only": 9236
+   },
+   "timing_s": {
+    "br": 3408,
+    "scorer": 4470,
+    "decision": 4598,
+    "baseline": 4951,
+    "scored": 5256,
+    "total": 5256
+   }
+  },
+  "17": {
+   "held": 17,
+   "n": {
+    "K1": 24756,
+    "U1": 4944,
+    "K2": 3000,
+    "U2": 4211,
+    "cal": 1760,
+    "sim_single": 4451,
+    "sim_cal_runs": 400
+   },
+   "fusion_weight": 0.75,
+   "tau0_fused": 0.3881077766418457,
+   "tau_c": 0.002943258757041706,
+   "thresholds": {
+    "Ours": 639.5465013630222,
+    "MDS": 636.0490306799011,
+    "MSP": -0.527984993611063,
+    "Energy": 0.3929948475204943
+   },
+   "methods": {
+    "Ours": {
+     "auroc_all": 0.9957686094057216,
+     "auroc_single": 0.993069539122548,
+     "recall_U2": 0.999525053431489,
+     "recall_U1": 0.9872572815533981,
+     "falseflag_K2": 0.3463333333333333,
+     "falseflag_K1": 0.0506543868153175,
+     "auroc_pairs": 0.9992703237552442,
+     "recall_U2_simthr": 0.9971503205889337,
+     "falseflag_K2_simthr": 0.111,
+     "flag_simNormal_riethThr": 0.0,
+     "flag_simKnownSingle_riethThr": 0.15198290192353361,
+     "misassign": 0.9804999072528288,
+     "misassign_only": 0.9769895465872682,
+     "misassign_gated": 0.0003246150992394732,
+     "misassign_only_gated": 0.00029127156218647853
+    },
+    "MDS": {
+     "auroc_all": 0.9953345585691776,
+     "auroc_single": 0.9928333340850064,
+     "recall_U2": 0.999525053431489,
+     "recall_U1": 0.9840210355987055,
+     "falseflag_K2": 0.4573333333333333,
+     "falseflag_K1": 0.05033123283244466,
+     "auroc_pairs": 0.9978289400775746,
+     "recall_U2_simthr": 0.994538114462123,
+     "falseflag_K2_simthr": 0.21233333333333335,
+     "flag_simNormal_riethThr": 0.0,
+     "flag_simKnownSingle_riethThr": 0.15008311564948942,
+     "misassign": 0.7996429233908365,
+     "misassign_only": 0.8834913751254085,
+     "misassign_gated": 0.0003246150992394732,
+     "misassign_only_gated": 0.00029127156218647853
+    },
+    "MSP": {
+     "auroc_all": 0.8252965551644593,
+     "auroc_single": 0.8495368763533382,
+     "recall_U2": 0.03633341249109475,
+     "recall_U1": 0.03782362459546926,
+     "falseflag_K2": 0.021333333333333333,
+     "falseflag_K1": 0.04617062530295686,
+     "auroc_pairs": 0.6633241510330088,
+     "recall_U2_simthr": 0.0793160769413441,
+     "falseflag_K2_simthr": 0.08866666666666667,
+     "flag_simNormal_riethThr": 0.14583333333333334,
+     "flag_simKnownSingle_riethThr": 0.020422702445974827,
+     "misassign": 0.5752643294379521,
+     "misassign_only": 0.513317583093304,
+     "misassign_gated": 0.5605639028009646,
+     "misassign_only_gated": 0.49797728081814946
+    },
+    "Energy": {
+     "auroc_all": 0.7207859761616187,
+     "auroc_single": 0.7625482557659192,
+     "recall_U2": 0.0,
+     "recall_U1": 0.0020226537216828477,
+     "falseflag_K2": 0.012666666666666666,
+     "falseflag_K1": 0.051704637259654226,
+     "auroc_pairs": 0.7278899707116283,
+     "recall_U2_simthr": 0.0,
+     "falseflag_K2_simthr": 0.014666666666666666,
+     "flag_simNormal_riethThr": 0.3375,
+     "flag_simKnownSingle_riethThr": 0.02635953455236286,
+     "misassign": 0.5752643294379521,
+     "misassign_only": 0.513317583093304,
+     "misassign_gated": 0.5752643294379521,
+     "misassign_only_gated": 0.513317583093304
+    }
+   },
+   "thresholds_sim": {
+    "Ours": 854.1716162403013,
+    "MDS": 838.9186186785349,
+    "MSP": -0.6275439259879061,
+    "Energy": 0.2431934770153743
+   },
+   "sanity": {
+    "ours_K1_label_macroF1": 0.9551814573062172,
+    "ours_K1_setF1": 0.8548163408197339,
+    "ours_K2_setF1": 0.9140222222222222,
+    "gbm_K1_acc": 0.9201001777346905
+   },
+   "h_violations_U2": {
+    "total": 43128,
+    "h_only": 30899
+   },
+   "timing_s": {
+    "br": 3343,
+    "scorer": 4095,
+    "decision": 4167,
+    "baseline": 4466,
+    "scored": 4679,
+    "total": 4680
+   }
+  },
+  "18": {
+   "held": 18,
+   "n": {
+    "K1": 24697,
+    "U1": 4944,
+    "K2": 3000,
+    "U2": 1939,
+    "cal": 1760,
+    "sim_single": 4572,
+    "sim_cal_runs": 400
+   },
+   "fusion_weight": 0.75,
+   "tau0_fused": 0.3567047119140625,
+   "tau_c": 0.003208660243089053,
+   "thresholds": {
+    "Ours": 582.8639923719752,
+    "MDS": 581.266691430239,
+    "MSP": -0.5310815339391701,
+    "Energy": 0.3304016224504337
+   },
+   "methods": {
+    "Ours": {
+     "auroc_all": 0.9741053157214333,
+     "auroc_single": 0.9716273410105888,
+     "recall_U2": 0.9938112429087158,
+     "recall_U1": 0.9577265372168284,
+     "falseflag_K2": 0.968,
+     "falseflag_K1": 0.05178766651820059,
+     "auroc_pairs": 0.9405059308922125,
+     "recall_U2_simthr": 0.9040742650850954,
+     "falseflag_K2_simthr": 0.125,
+     "flag_simNormal_riethThr": 0.6208333333333333,
+     "flag_simKnownSingle_riethThr": 0.8850415512465374,
+     "misassign": 0.9648906173421,
+     "misassign_only": 0.9643514190065446,
+     "misassign_gated": 0.0,
+     "misassign_only_gated": 0.0
+    },
+    "MDS": {
+     "auroc_all": 0.9727060334748524,
+     "auroc_single": 0.970929670027923,
+     "recall_U2": 0.9932955131511089,
+     "recall_U1": 0.9534789644012945,
+     "falseflag_K2": 0.9673333333333334,
+     "falseflag_K1": 0.05122079604810301,
+     "auroc_pairs": 0.9225415162454874,
+     "recall_U2_simthr": 0.8865394533264569,
+     "falseflag_K2_simthr": 0.23533333333333334,
+     "flag_simNormal_riethThr": 0.6708333333333333,
+     "flag_simKnownSingle_riethThr": 0.8903508771929824,
+     "misassign": 0.8657492568853471,
+     "misassign_only": 0.8530853213499412,
+     "misassign_gated": 0.0,
+     "misassign_only_gated": 0.0
+    },
+    "MSP": {
+     "auroc_all": 0.7565620720449517,
+     "auroc_single": 0.7934839960974257,
+     "recall_U2": 0.025786487880350695,
+     "recall_U1": 0.02366504854368932,
+     "falseflag_K2": 0.024333333333333332,
+     "falseflag_K1": 0.0453091468599425,
+     "auroc_pairs": 0.5320598246518824,
+     "recall_U2_simthr": 0.038164002062919034,
+     "falseflag_K2_simthr": 0.053,
+     "flag_simNormal_riethThr": 0.31666666666666665,
+     "flag_simKnownSingle_riethThr": 0.029316712834718376,
+     "misassign": 0.8716432540465536,
+     "misassign_only": 0.8634225050517236,
+     "misassign_gated": 0.8551005989472277,
+     "misassign_only_gated": 0.8479657387580299
+    },
+    "Energy": {
+     "auroc_all": 0.7059493443953759,
+     "auroc_single": 0.6981502173658659,
+     "recall_U2": 0.017534811758638472,
+     "recall_U1": 0.03033980582524272,
+     "falseflag_K2": 0.012,
+     "falseflag_K1": 0.053002388954123986,
+     "auroc_pairs": 0.7650711707065498,
+     "recall_U2_simthr": 0.011346054667354307,
+     "falseflag_K2_simthr": 0.010666666666666666,
+     "flag_simNormal_riethThr": 0.65,
+     "flag_simKnownSingle_riethThr": 0.0443213296398892,
+     "misassign": 0.8716432540465536,
+     "misassign_only": 0.8634225050517236,
+     "misassign_gated": 0.862121202477261,
+     "misassign_only_gated": 0.8530400820339596
+    }
+   },
+   "thresholds_sim": {
+    "Ours": 983.4034882332755,
+    "MDS": 972.4947231459738,
+    "MSP": -0.5756485547143793,
+    "Energy": 0.5734170912526277
+   },
+   "sanity": {
+    "ours_K1_label_macroF1": 0.9539824774291447,
+    "ours_K1_setF1": 0.8607928088431793,
+    "ours_K2_setF1": 0.9168111111111111,
+    "gbm_K1_acc": 0.92193383811799
+   },
+   "h_violations_U2": {
+    "total": 157109,
+    "h_only": 132628
+   },
+   "timing_s": {
+    "br": 3245,
+    "scorer": 4019,
+    "decision": 4098,
+    "baseline": 4397,
+    "scored": 4589,
+    "total": 4590
+   }
+  }
+ }
+}

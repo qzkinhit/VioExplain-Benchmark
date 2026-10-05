@@ -1,0 +1,15 @@
+{
+ "ResNet_label_macroF1": 0.9745847578753475,
+ "ResNet": {
+  "single_macroF1_gated": 0.9731898312606513,
+  "single_eff": 0.8602057327785483,
+  "single_eff_nonempty": 0.9955473944456447,
+  "normal_named": 0.08394012944983818,
+  "pair_eff": 0.7083246382860322,
+  "pair_attrF1": 0.837520384703736,
+  "triple_eff": 0.5561347233360064,
+  "triple_attrF1": 0.7226161867834309,
+  "quad_eff": 0.40216973358967323,
+  "quad_attrF1": 0.6326669378326498
+ }
+}

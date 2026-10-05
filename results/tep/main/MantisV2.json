@@ -1,0 +1,16 @@
+{
+ "MantisV2_label_macroF1": 0.9004498119286227,
+ "MantisV2": {
+  "single_macroF1_gated": 0.8744865566299125,
+  "single_eff": 0.9232547387887193,
+  "single_eff_nonempty": 0.9820335565636926,
+  "normal_named": 0.06715210355987054,
+  "pair_eff": 0.7212889538119087,
+  "pair_attrF1": 0.8640492168693346,
+  "triple_eff": 0.5463779738037958,
+  "triple_attrF1": 0.7455921605908808,
+  "quad_eff": 0.4027190332326285,
+  "quad_attrF1": 0.6994634475525247,
+  "pair_eff_unseen": 0.7212889538119087
+ }
+}

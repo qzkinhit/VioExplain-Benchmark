@@ -1,0 +1,15 @@
+{
+ "MinExplain": {
+  "single_macroF1_gated": 0.6824954930035767,
+  "single_eff": 0.8005917064776287,
+  "single_eff_nonempty": 0.7775933526959667,
+  "normal_named": 0.019215210355987056,
+  "pair_eff": 0.6300916954845377,
+  "pair_attrF1": 0.3840726586130367,
+  "triple_eff": 0.5477272437978132,
+  "triple_attrF1": 0.3399197043660751,
+  "quad_eff": 0.47042293892747067,
+  "quad_attrF1": 0.349562897545566,
+  "pair_eff_unseen": 0.6300916954845377
+ }
+}

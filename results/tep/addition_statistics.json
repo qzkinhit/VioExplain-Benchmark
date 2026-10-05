@@ -1,0 +1,6 @@
+{
+ "windows": 29111,
+ "first_true": 0.9991068668201024,
+ "second_true_given_first": 0.501323706377858,
+ "second_false_given_first": 0.15502836513666837
+}

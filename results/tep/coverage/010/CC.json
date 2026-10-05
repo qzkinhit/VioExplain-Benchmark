@@ -1,0 +1,16 @@
+{
+ "CC-LGBM": {
+  "single_macroF1_gated": 0.8468122743274183,
+  "single_eff": 0.9429675861714696,
+  "single_eff_nonempty": 0.9716481441476039,
+  "normal_named": 0.0,
+  "pair_eff": 0.806274346132443,
+  "pair_attrF1": 0.7894056244397968,
+  "triple_eff": 0.7190501648400606,
+  "triple_attrF1": 0.641371138991188,
+  "quad_eff": 0.597088057964191,
+  "quad_attrF1": 0.5603859836278758,
+  "pair_eff_seen": 0.9396420988777675,
+  "pair_eff_unseen": 0.7890001964250637
+ }
+}
