@@ -66,7 +66,7 @@ V3_MODE=f100t V3_FUNC=1 V3_NOSTEP=1 V3_ABL=full V3_TMODEL=/path/to/resnet_model.
 
 消融实验在最后一条命令中设置 `V3_ABL`（`noTemp`、`noOp`）或 `V3_NOTWIN=1`、`V3_FUNC=0`。覆盖率实验把 `V3_MODE` 设为 `f10t`、`f25t`、`f50t` 或 `f75t`，ML-CNN 用 `gpu_save3.py` 训练。`final_update_base.py` 与 `agg_update_base.py` 运行知识更新实验中的基线。`stats_extra.py` 与 `finding4.py` 计算正文引用的统计量。
 
-未知事件得分、VioExplain 的知识更新曲线、恢复证书与计时同样在 `experiments/tii_final/` 下运行。
+未知事件得分、VioExplain 的知识更新曲线、恢复条件与计时同样在 `experiments/tii_final/` 下运行。
 
 ```bash
 # 未知事件，先训练不含留出错误类型的时序诊断器，再对每个留出错误类型运行一次
@@ -77,7 +77,7 @@ python collect_unknown.py
 NJ=1 python final_update.py 0
 V3_BRREFIT=1 NJ=1 python final_update.py 1
 python agg_update.py
-# 恢复证书
+# 恢复条件
 V3_MODE=f100t V3_ABL=full V3_FUNC=1 V3_NOTWIN=0 V3_NOSTEP=1 V3_TFEAT=0 V3_RES=final_v4/cert_work/nj8 \
   V3_TMODEL=/path/to/resnet_model.pt V3_TNAME=B NJ=8 OMP_NUM_THREADS=3 CERT_CACHE=/path/to/cert_cache \
   python final_cert5.py /path/to/resnet_probs_v2.npz

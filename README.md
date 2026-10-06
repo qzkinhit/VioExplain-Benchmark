@@ -66,7 +66,7 @@ V3_MODE=f100t V3_FUNC=1 V3_NOSTEP=1 V3_ABL=full V3_TMODEL=/path/to/resnet_model.
 
 The ablations set `V3_ABL` (`noTemp`, `noOp`) or `V3_NOTWIN=1` and `V3_FUNC=0` in the last command. The coverage study sets `V3_MODE` to `f10t`, `f25t`, `f50t` or `f75t`, with `gpu_save3.py` for ML-CNN. `final_update_base.py` and `agg_update_base.py` run the baselines of the knowledge-update experiment. `stats_extra.py` and `finding4.py` compute the statistics quoted in the text.
 
-The unknown-event scores, the knowledge-update curve of VioExplain, the recovery certificate and the timing also run in `experiments/tii_final/`.
+The unknown-event scores, the knowledge-update curve of VioExplain, the recovery condition and the timing also run in `experiments/tii_final/`.
 
 ```bash
 # unknown events, temporal diagnosers without the held-out error type, then one run per held-out error type
@@ -77,7 +77,7 @@ python collect_unknown.py
 NJ=1 python final_update.py 0
 V3_BRREFIT=1 NJ=1 python final_update.py 1
 python agg_update.py
-# recovery certificate
+# recovery condition
 V3_MODE=f100t V3_ABL=full V3_FUNC=1 V3_NOTWIN=0 V3_NOSTEP=1 V3_TFEAT=0 V3_RES=final_v4/cert_work/nj8 \
   V3_TMODEL=/path/to/resnet_model.pt V3_TNAME=B NJ=8 OMP_NUM_THREADS=3 CERT_CACHE=/path/to/cert_cache \
   python final_cert5.py /path/to/resnet_probs_v2.npz

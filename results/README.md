@@ -12,7 +12,7 @@ This directory holds the result files behind the tables, figures and quoted numb
 | `tep/ablation/` | VioExplain without the temporal posterior, without the learned operator, without paired runs, without functional constraint units |
 | `tep/unknown_events.json` | Unknown score of VioExplain, MDS, MSP and Energy, the held-out TEP error types |
 | `tep/update_curve.json`, `tep/update_baselines.json` | Knowledge update on held-out faults, VioExplain and the baselines |
-| `tep/certificate.json` | Recovery certificate on two-fault and three-fault windows |
+| `tep/recovery_condition.json` | Recovery condition on two-fault and three-fault windows |
 | `tep/timing.json` | CPU time per window |
 | `tep/dataset_statistics.json`, `tep/addition_statistics.json` | Window counts and violation statistics quoted in the text |
 | `hyd/single_fault_knowledge.json` | HYD, every baseline, mean and standard deviation over three splits |
@@ -37,7 +37,7 @@ The scripts are in `experiments/tii_final/`. Each row names the scripts that wro
 | `tep/unknown_events.json` | `gpu_unknown.py`, `final_unknown_v3.py` with `common_u.py`, `collect_unknown.py` |
 | `tep/update_curve.json` | `final_update.py` with `V3_BRREFIT=1`, `agg_update.py` |
 | `tep/update_baselines.json` | `final_update_base.py`, `fold_part2.py`, `agg_update_base.py` |
-| `tep/certificate.json` | `final_cert5.py`, `cert5_finalize.py` |
+| `tep/recovery_condition.json` | `final_cert5.py`, `cert5_finalize.py` |
 | `tep/timing.json` | `final_timing.py` with `final_fuse.py` |
 | `hyd/single_fault_knowledge.json` | `hyd/hyd_run.py` (RF, XGB, LGBM, FDA, PCA-RBC, BR, CC, AEC, MinExplain), `hyd/hyd_deep.py` (1D-CNN, LSTM, ResNet, InceptionTime, MiniRocket, MultiRocket, QUANT, ML-CNN), `hyd/hyd_rescore.py` (ML-CNN), `hyd/hyd_mantis.py` and `hyd/hyd_mantis_embed.py` (MantisV2), `hyd/hyd_final_merge.py` |
 | `hyd/with_compositions.json` | `hyd/hyd_tnet.py` and `hyd/hyd_final.py` (VioExplain), `hyd/hyd_run.py` (BR, CC), `hyd/hyd_deep.py` and `hyd/hyd_rescore.py` (ML-CNN), `hyd/hyd_final_merge.py` |
@@ -94,7 +94,7 @@ The motivation figure shows one paired run of TEP-R and one two-fault window of 
 | Gains on HYD | `multi_setF1` of `hyd/with_compositions.json` (VioExplain) against `hyd/single_fault_knowledge.json`, and against BR, CC, ML-CNN inside `hyd/with_compositions.json` |
 | Gains on the simulated processes | Columns of the main table |
 | Ablation losses on four faults | `quad_eff` of `tep/main/VioExplain.json` minus `tep/ablation/*.json` |
-| Share of windows that satisfy the certificate, share of recovered windows that it covers, shares by interaction strength | `tep/certificate.json`: `pair_cert_share`, `pair_recovered_cert_share`, `pair_cert_share_low_interaction`, `pair_cert_share_high_interaction` |
+| Share of windows that satisfy the recovery condition, share of recovered windows that it covers, shares by interaction strength | `tep/recovery_condition.json`: `pair_cert_share`, `pair_recovered_cert_share`, `pair_cert_share_low_interaction`, `pair_cert_share_high_interaction` |
 | Time per window | `tep/timing.json`: `methods` |
 
 ## Method names in the files

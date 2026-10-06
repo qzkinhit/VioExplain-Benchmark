@@ -1,4 +1,4 @@
-"""Recovery certificate of Theorem 3 measured with the FINAL pipeline (final_fuse5.py, tag B) on TEP-C pairs and triples.
+"""Recovery condition of Theorem 3 measured with the FINAL pipeline (final_fuse5.py, tag B) on TEP-C pairs and triples.
 
 Usage:
   V3_MODE=f100t V3_ABL=full V3_FUNC=1 V3_NOTWIN=0 V3_NOSTEP=1 V3_TFEAT=0 V3_RES=final_v4/cert_work/<tag> \
@@ -13,7 +13,7 @@ Algorithm traced (explain_t of final_fuse5.py):
   step 0: p = mix(PS(window), PT(window), A); output {} if p_0 >= TAU0F, else first event = argmax_{e>=1} p_e, deduct it
   later : z = DEC(cand_matrix(window, residual, S, BRW)); candidate = argmax over unselected events; add iff z > TAU_C
           (strict); deduct; at most 5 events
-Certificate (Theorem 3 as stated; H = effective set from eff_truth, windows with empty H are skipped):
+Condition (Theorem 3 as stated; H = effective set from eff_truth, windows with empty H are skipped):
   p_0 < TAU0F;  eta_0 = max_{e in H} p_e - max_{e notin H} p_e > 0;
   every visited prefix S strictly inside H: psi_S = Fn(paired run in which only H minus S act),
       z_ref = DEC(cand_matrix(window, psi_S, S, BRW)), z_act the same on the actual residual,

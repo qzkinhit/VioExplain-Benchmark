@@ -32,7 +32,7 @@
 \begin{document}
 \maketitle
 
-This document states and proves the theoretical results for VioExplain. Theorem numbers correspond to the main text. Each statement includes the assumptions used in its proof. Theorem~1 concerns an event-prior-penalized profile likelihood, Theorem~2 an error lower bound for rules that read a window through a fixed interface, Theorem~3 a recovery certificate, and Theorem~4 a staged calibration protocol. Lemmas and remarks of this document are numbered S1, S2 and so on.
+This document states and proves the theoretical results for VioExplain. Theorem numbers correspond to the main text. Each statement includes the assumptions used in its proof. Theorem~1 concerns an event-prior-penalized profile likelihood, Theorem~2 an error lower bound for rules that read a window through a fixed interface, Theorem~3 a recovery condition, and Theorem~4 a staged calibration protocol. Lemmas and remarks of this document are numbered S1, S2 and so on.
 
 \section{Notation and the Path of Algorithm 1}
 \label{sec:s-notation}
@@ -219,7 +219,7 @@ The comparison with false candidates is then automatically satisfied when $H=\E$
  \eta_H=\tau_1-\max_{E\in\E\setminus H}z_E^{X,H}(\psi_H).
 \]
 
-\begin{result}{Theorem 3 (Recovery certificate)}
+\begin{result}{Theorem 3 (Recovery condition)}
 Suppose $p_\emptyset(X)<\tau_0$, $\eta_\emptyset>0$, and $\eta_S>2\omega_S$ for every nonempty proper prefix $S\subsetneq H$ visited by \aecx. If $k<K_{\max}$ and $\E\setminus H$ is nonempty, also suppose that $\eta_H>\omega_H$ when the algorithm reaches $H$. Then \aecx returns exactly $H$.
 \end{result}
 
@@ -249,11 +249,11 @@ so the threshold stops it. Each stopping case returns exactly $H$.
 
 \begin{remark}[Order-uniform condition]
 
-The certificate is a condition along the path that the algorithm visits, and an order-uniform condition is also possible. For each $S\subseteq H$, keep $X$, $S$, and the reference $\psi_S$ fixed, and let $\bar\omega_S$ be the supremum of the same score discrepancy over residuals formed by successively deducting the events of $S$ in every possible order. Conditions $\eta_S>2\bar\omega_S$ for every nonempty proper subset of $H$, together with the initial conditions and the stopping condition $\eta_H>\bar\omega_H$ when needed, imply the pathwise certificate. No global Lipschitz property of the learned scores is assumed.
+The recovery condition is stated along the path that the algorithm visits, and an order-uniform condition is also possible. For each $S\subseteq H$, keep $X$, $S$, and the reference $\psi_S$ fixed, and let $\bar\omega_S$ be the supremum of the same score discrepancy over residuals formed by successively deducting the events of $S$ in every possible order. Conditions $\eta_S>2\bar\omega_S$ for every nonempty proper subset of $H$, together with the initial conditions and the stopping condition $\eta_H>\bar\omega_H$ when needed, imply the pathwise condition. No global Lipschitz property of the learned scores is assumed.
 \end{remark}
 
 \begin{remark}[Interaction of events]
-The certificate bounds the interaction of events through $\omega_S$, and single-event information alone cannot replace such a bound. Use deterministic one-sample windows in $\mathbb R^3$, with fault-free window $0$ and single-event windows $e_1,e_2,e_3$ for three events $A,B,C$, where $e_i$ are the coordinate basis vectors and each coordinate has the normal interval $[-1/2,1/2]$. One process sums the active single-event vectors. A second process agrees with it on every event set except $\{A,B\}$, for which the window is $e_3$. The two processes have the same fault-free runs, single-event runs and sums of single-event effects. In the second process the windows of $\{A,B\}$ and of $\{C\}$ coincide while both $A$ and $B$ are effective, so no rule based on the window separates the two event sets.
+The recovery condition bounds the interaction of events through $\omega_S$, and single-event information alone cannot replace such a bound. Use deterministic one-sample windows in $\mathbb R^3$, with fault-free window $0$ and single-event windows $e_1,e_2,e_3$ for three events $A,B,C$, where $e_i$ are the coordinate basis vectors and each coordinate has the normal interval $[-1/2,1/2]$. One process sums the active single-event vectors. A second process agrees with it on every event set except $\{A,B\}$, for which the window is $e_3$. The two processes have the same fault-free runs, single-event runs and sums of single-event effects. In the second process the windows of $\{A,B\}$ and of $\{C\}$ coincide while both $A$ and $B$ are effective, so no rule based on the window separates the two event sets.
 \end{remark}
 
 \section{Theorem 4}

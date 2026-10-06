@@ -14,7 +14,7 @@ These scripts ran the experiments on the Tennessee Eastman process, and the `sim
 | `final_update.py`, `agg_update.py` | Knowledge-update curve of VioExplain on held-out error types and its aggregation |
 | `final_update_base.py`, `fold_part2.py`, `agg_update_base.py` | Baselines of the knowledge-update experiment and their aggregation |
 | `gpu_unknown.py`, `common_u.py`, `final_unknown_v3.py`, `collect_unknown.py` | Unknown-event scores of VioExplain, MDS, MSP and Energy with one error type held out of every component |
-| `final_cert5.py`, `cert5_finalize.py` | Recovery certificate on two-fault and three-fault windows |
+| `final_cert5.py`, `cert5_finalize.py` | Recovery condition on two-fault and three-fault windows |
 | `final_timing.py`, `final_fuse.py` | CPU time per window. `final_timing.py` executes the model-building part of `final_fuse.py`, the runner with the temporal posterior in the first selection |
 | `smoke_v3.py` | Loader of the frozen MantisV2 encoder imported by `gpu_run.py` and the `gpu_simproc.py` runners |
 | `stats_extra.py`, `finding4.py` | Statistics quoted in the text |
