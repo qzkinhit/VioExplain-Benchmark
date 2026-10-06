@@ -191,6 +191,8 @@ Supp = {h: np.where((np.abs(Z['tr'][h][ok_tr[h]] - Z['tr'][0][ok_tr[h]]) > 3).an
 SUPPSET = {h: set(Supp[h].tolist()) for h in range(1, C)}
 CHS = {h: np.isin(np.arange(M), Supp[h]) for h in range(1, C)}
 FOOT = {h: np.abs(Z['tr'][h][ok_tr[h]] - Z['tr'][0][ok_tr[h]]).mean(axis=(0, 2)) for h in range(1, C)}
+# mean paired change of each event per sensor and per statistic (mean, std, slope), used by the assignment step
+DBAR = {h: (Z['tr'][h][ok_tr[h]] - Z['tr'][0][ok_tr[h]])[:, :M, :3].mean(0) for h in range(1, C)}
 
 # ---------------- counterfactual composition ----------------
 pairs_all = list(itertools.combinations(range(1, C), 2))
@@ -357,10 +359,16 @@ def attribution(sets, V, causes):
     evs = list(causes.keys())
     for i, S in enumerate(sets):
         keys = np.where(V[i])[0]
+        S = [h for h in S if h in DBAR]
         for k in keys:
-            j = k // 6; cand = [h for h in S if j in SUPPSET.get(h, set())]
-            if cand:
-                h = max(cand, key=lambda h_: FOOT[h_][j]); npred += 1; tp += int(h in causes and causes[h][i, k])
+            # statistic s (mean, std, slope) of sensor j, violated upwards (sg = 1) or downwards (sg = -1)
+            j = k // 6; s = (k % 6) // 2; sg = 1.0 if k % 2 == 0 else -1.0; h = None
+            if S and sg * sum(DBAR[h_][j, s] for h_ in S) > 3:      # the composed mean footprints cross the threshold
+                h = max(S, key=lambda h_: sg * DBAR[h_][j, s])
+            else:
+                cand = [h_ for h_ in S if j in SUPPSET.get(h_, set())]
+                if cand: h = max(cand, key=lambda h_: FOOT[h_][j])
+            if h is not None: npred += 1; tp += int(h in causes and causes[h][i, k])
         anyc = np.zeros(V.shape[1], bool)
         for e in evs: anyc |= causes[e][i]
         ntrue += int(anyc.sum())

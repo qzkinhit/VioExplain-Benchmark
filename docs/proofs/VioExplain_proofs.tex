@@ -220,7 +220,7 @@ The comparison with false candidates is then automatically satisfied when $H=\E$
 \]
 
 \begin{result}{Theorem 3 (Recovery certificate)}
-Suppose $p_\emptyset(X)<\tau_0$, $\eta_\emptyset>0$, and $\eta_S>2\omega_S$ for every nonempty proper prefix $S\subsetneq H$ visited by \aecx. If $k<K_{\max}$ and $\E\setminus H$ is nonempty, also suppose that $\eta_H>\omega_H$ when the algorithm reaches $H$. Then \aecx returns exactly $H$. Every violation on a unit that belongs to the support of exactly one selected event $E\in H$ is assigned to $E$.
+Suppose $p_\emptyset(X)<\tau_0$, $\eta_\emptyset>0$, and $\eta_S>2\omega_S$ for every nonempty proper prefix $S\subsetneq H$ visited by \aecx. If $k<K_{\max}$ and $\E\setminus H$ is nonempty, also suppose that $\eta_H>\omega_H$ when the algorithm reaches $H$. Then \aecx returns exactly $H$.
 \end{result}
 
 \begin{proof}
@@ -244,7 +244,7 @@ After $k$ additions the selected set is $H$. If $k=K_{\max}$, the cardinality bo
  \le z_E^{X,H}(\psi_H)+\omega_H
  \le\tau_1-\eta_H+\omega_H<\tau_1,
 \]
-so the threshold stops it. Each stopping case returns exactly $H$. For a violation on a unit supported by exactly one event of $H$, the assignment rule has that event as its sole candidate and assigns the violation to it.
+so the threshold stops it. Each stopping case returns exactly $H$.
 \end{proof}
 
 \begin{remark}[Order-uniform condition]
