@@ -70,7 +70,7 @@ The unknown-event scores, the knowledge-update curve of VioExplain, the recovery
 
 ```bash
 # unknown events, temporal diagnosers without the held-out error type, then one run per held-out error type
-python gpu_unknown.py cuda:0 <held-out fault ids>
+python gpu_unknown.py cuda:0 <comma-separated held-out fault ids>
 V3_HELD=1 V3_MODE=f100t V3_FUNC=1 V3_TFEAT=0 V3_RES=final_v3/unknown/h1 python final_unknown_v3.py
 python collect_unknown.py
 # knowledge update of VioExplain, reference (0) and one run per held-out error type

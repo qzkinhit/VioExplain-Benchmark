@@ -2,7 +2,7 @@
 (update_curve.json, variant refit_br, reference ref.json) into results/final_v1/update_baselines.json.
 
 mean -> method -> {n, alone, with_known, mean, full}: averages over the held-out faults; a value at n
-is reported only when all held-out faults have it (else null, and per_fault shows what exists).
+is reported only when every held-out fault has it (else null, and per_fault shows what exists).
 """
 import json, glob, re, os
 import numpy as np

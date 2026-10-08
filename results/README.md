@@ -10,7 +10,7 @@ This directory holds the result files behind the tables, figures and quoted numb
 | `tep/same_compositions/{BR,CC,ML-CNN}.json` | TEP-C, multi-label methods fitted with the compositions of VioExplain |
 | `tep/coverage/{010,025,050,075}/` | TEP-C, 10, 25, 50 and 75 percent of the fault pairs composed, for VioExplain, BR, CC and ML-CNN |
 | `tep/ablation/` | VioExplain without the temporal posterior, without the learned operator, without paired runs, without functional constraint units |
-| `tep/unknown_events.json` | Unknown score of VioExplain, MDS, MSP and Energy, the held-out TEP error types |
+| `tep/unknown_events.json` | Unknown score of VioExplain, MDS, MSP and Energy on the held-out TEP error types |
 | `tep/update_curve.json`, `tep/update_baselines.json` | Knowledge update on held-out faults, VioExplain and the baselines |
 | `tep/recovery_condition.json` | Recovery condition on two-fault and three-fault windows |
 | `tep/timing.json` | CPU time per window |

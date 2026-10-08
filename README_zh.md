@@ -70,7 +70,7 @@ V3_MODE=f100t V3_FUNC=1 V3_NOSTEP=1 V3_ABL=full V3_TMODEL=/path/to/resnet_model.
 
 ```bash
 # 未知事件，先训练不含留出错误类型的时序诊断器，再对每个留出错误类型运行一次
-python gpu_unknown.py cuda:0 <held-out fault ids>
+python gpu_unknown.py cuda:0 <逗号分隔的留出故障编号>
 V3_HELD=1 V3_MODE=f100t V3_FUNC=1 V3_TFEAT=0 V3_RES=final_v3/unknown/h1 python final_unknown_v3.py
 python collect_unknown.py
 # VioExplain 的知识更新，参考运行（0）与每个留出错误类型各一次
