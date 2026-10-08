@@ -27,7 +27,7 @@
 
 \title{Proofs for\\ ``VioExplain: Single-Event Knowledge Explains Concurrent Violations in Industrial Time Series''}
 \author{}
-\date{Revised October 6, 2026}
+\date{Revised October 8, 2026}
 
 \begin{document}
 \maketitle
@@ -82,7 +82,7 @@ Here $[t]_+=\max(t,0)$.
 
 \begin{result}{Theorem 1 (Event-prior-penalized profile likelihood)}
 Under (M1)--(M3),
-$F_{\mathrm{ex}}(H)=\sum_u v_u(H)-\sum_{E\in H}w_E$ and $F(H)\le F_{\mathrm{ex}}(H)$ for every $H$. Equality holds if and only if, for every $u\in R^*(H)$, one of the following conditions holds: (i) $m_u(H)\ge0$ and every exact owner of $u$ in $H$ has nonnegative gain; (ii) $m_u(H)<0$, exactly one event in $H$ is an exact owner of $u$, and its gain equals $m_u(H)$.
+$F_{\mathrm{ex}}(H)=\sum_u v_u(H)-\sum_{E\in H}w_E$ and $F(H)\le F_{\mathrm{ex}}(H)$ for every $H$. It is pointwise greatest among lower bounds with the same coverage term and additive event penalties. Equality holds if and only if, for every $u\in R^*(H)$, one of the following conditions holds: (i) $m_u(H)\ge0$ and every exact owner of $u$ in $H$ has nonnegative gain; (ii) $m_u(H)<0$, exactly one event in $H$ is an exact owner of $u$, and its gain equals $m_u(H)$.
 
 The coverage term in $F$ is monotone submodular and its penalty is modular. Put
 \[
@@ -94,11 +94,13 @@ with $G_u=0$ if no event is incident to $u$. Then $C(H)=\sum_uG_u-F(H)$ is the m
 \begin{proof}
 \emph{Step 1, the profile score.} Independence of the event priors gives $\Pr(H)/\Pr(\emptyset)=\exp(-\sum_{E\in H}w_E)$. For an admissible assignment the log conditional likelihood ratio is $\sum_u g_u(a(u))$. Assignments on different units impose no joint constraint. Therefore maximizing over $a\in\mathcal A(H)$ chooses the best permitted source separately on each unit, giving $v_u(H)$ and the stated expression for $F_{\mathrm{ex}}$. No assignment prior is included in this calculation, and no posterior interpretation is asserted.
 
-\emph{Step 2, the lower bound and exact equality conditions.} Fix $H$. If $u\notin R^*(H)$, both scores have the same unit contribution and there is no exact-owner penalty. For $u\in R^*(H)$, write $A_u=\{E\in H:u\in R^*(E)\}$, $m=m_u(H)$ and $P_u=\sum_{E\in A_u}[-g_u(E)]_+$. The difference between the profile contribution and the surrogate contribution is
+\emph{Step 2, lower bound, equality, and optimal penalties.} Fix $H$. Units outside $R^*(H)$ contribute equally. For $u\in R^*(H)$, put $A_u=\{E\in H:u\in R^*(E)\}$, $m=m_u(H)$ and $P_u=\sum_{E\in A_u}[-g_u(E)]_+$. Their contribution to $F_{\mathrm{ex}}-F$ is
 \[
-d_u=m-\max(0,m)+P_u.
+d_u=P_u-[-m]_+.
 \]
-If $m\ge0$, then $d_u=P_u\ge0$, with equality exactly when every exact owner has nonnegative gain. If $m<0$, all covering-event gains are negative. Set $t=-m>0$. Every exact owner satisfies $-g_u(E)\ge t$, so $P_u\ge |A_u|t\ge t$ and $d_u=P_u-t\ge0$. Equality requires and is implied by $|A_u|=1$ and the unique exact owner's gain being $m$. Other selected events may cover the unit with gains at most $m$. Since all $d_u$ are nonnegative, their sum is zero exactly under the stated unitwise conditions.
+If $m\ge0$, then $d_u=P_u\ge0$, with equality exactly when every exact owner has nonnegative gain. If $m<0$, put $t=-m>0$. Then $P_u\ge |A_u|t\ge t$, and $d_u=0$ exactly when $|A_u|=1$ and its owner's gain equals $m$. Thus all contributions are nonnegative, with the stated equality conditions.
+
+In particular, $F(\{E\})=F_{\mathrm{ex}}(\{E\})$. Write $B$ for the coverage term. If $B(H)-\sum_{E\in H}b_E\le F_{\mathrm{ex}}(H)$ for every $H$, taking $H=\{E\}$ yields $b_E\ge B(\{E\})-F_{\mathrm{ex}}(\{E\})=\hat w_E$. Hence this lower bound cannot exceed $F$, proving pointwise optimality among additive event penalties.
 
 \emph{Step 3, submodularity.} Define $a_{uE}=[g_u(E)]_+$ for $u\in R(E)$ and $a_{uE}=0$ otherwise. The coverage term is $\sum_u\max_{E\in H}a_{uE}$, with empty maximum zero. For $A\subseteq B$ and $E\notin B$ its unitwise marginal gains satisfy
 \[
@@ -186,7 +188,7 @@ where $\delta_{\mathrm{key}}(E,\emptyset)$ is the population probability that th
 \end{remark}
 
 \begin{remark}[Several windows of one run]
-For $n$ independent and identically distributed interface observations under each hypothesis, let their one-window laws be $\mu,\nu$ and let $A(\mu,\nu)=\int\sqrt{pq}$ be their Hellinger affinity relative to a common dominating measure. The inequalities $1-\TV(\mu,\nu)\ge\tfrac12 A(\mu,\nu)^2$ and $A(\mu^{\otimes n},\nu^{\otimes n})=A(\mu,\nu)^n$ give a lower bound $\tfrac12 A(\mu,\nu)^{2n}$ on the sum of the two errors.
+For $n$ independent and identically distributed interface observations under each hypothesis, let their one-window laws be $\mu,\nu$ and let $A(\mu,\nu)=\int\sqrt{pq}$ be their Hellinger affinity relative to a common dominating measure. Cauchy--Schwarz gives $\TV(\mu,\nu)\le\sqrt{1-A(\mu,\nu)^2}$. Since $A(\mu^{\otimes n},\nu^{\otimes n})=A(\mu,\nu)^n$, the sum of the two errors is at least $1-\sqrt{1-A(\mu,\nu)^{2n}}$.
 \end{remark}
 
 \section{Theorem 3}
